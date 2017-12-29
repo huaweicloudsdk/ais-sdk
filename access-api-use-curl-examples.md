@@ -2,7 +2,7 @@
 
 ## 1.获取Token
 ### 1.1创建 data.json文件，文件内容如下， 其中，需要修改USERNAME, PASSWORD.
-```javascript
+```json
 {
     "auth": {
         "identity": {
@@ -36,6 +36,7 @@ curl -X POST https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens --header 'cont
 ... ...
 ## 3.访问英文海关单据识别服务
 ### 3.1 英文海关单据识别服务
+
 **图片的base编码方式**
 1. 创建data.json文件，内容如下, 其中image的内容为图片的base64编码
 ```json
@@ -50,9 +51,11 @@ curl -X POST https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/action/ocr_form --he
 
 **OBS URL方式**
 1. 创建data.json文件，内容如下, 其中url为华为公有云OBS服务上用户临时读授权的URL, 或者公开读的URL
+```json
 {
     "url":"http://obs.abc/a.png"
 }
+```
 使用如下命令访问
 ```bash
 curl -X POST https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/action/ocr_form --header 'content-type: application/json' --header 'x-auth-token: xxxxxxx' -d "@data.json"
