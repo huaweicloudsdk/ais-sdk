@@ -48,6 +48,12 @@ curl -X POST https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens --header 'cont
 curl -X POST https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/action/ocr_form --header 'content-type: application/json' --header 'x-auth-token: xxxxxxx' -d "@data.json"
 ```
 
-
-
-
+**OBS URL方式**
+1. 创建data.json文件，内容如下, 其中url为华为公有云OBS服务上用户临时读授权的URL, 或者公开读的URL
+{
+    "url":"http://obs.abc/a.png"
+}
+使用如下命令访问
+```bash
+curl -X POST https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/action/ocr_form --header 'content-type: application/json' --header 'x-auth-token: xxxxxxx' -d "@data.json"
+```
