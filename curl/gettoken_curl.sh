@@ -3,13 +3,8 @@
 USER_NAME=$1
 PASSWORD=$2
 DOMAIN_NAME=$3
-#
-# Here, you should substitude the **username** **password** **domainname**
-#
-curl -X POST https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens \
-    --header 'content-type: application/json' \
-    -D headers \
-    -d '
+
+>data.json cat <<EOF
 {
     "auth": {
         "identity": {
@@ -33,9 +28,17 @@ curl -X POST https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens \
             }
         }
     }
-}'
+}
+EOF
+#
+# Here, you should substitude the **username** **password** **domainname**
+#
+curl -X POST https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens \
+    --header 'content-type: application/json' \
+    -D headers \
+    -d "@data.json"
 
 TOKEN=$(grep Token headers | cut -f2 -d: | tr -d ' ')
 echo $TOKEN
-rm -f headers
+rm -f headers data.json
 
