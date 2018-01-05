@@ -23,3 +23,10 @@
 + 内容检测 http://support.huaweicloud.com/moderation_gls/index.html
 + 图像处理 http://support.huaweicloud.com/deblur_gls/index.html
 + 智能物流 http://support.huaweicloud.com/ils_gls/index.html
+
+## 目录结构说明
++ curl 提供使用curl工具访问服务示例的代码说明
++ python 提供使用python访问服务的SDK以及示例代码
++ java 提供使用java访问服务的SDK以及示例代码
++ tools 提供一些访问服务常用的工具，包括工具代码，在线工具链接
+
