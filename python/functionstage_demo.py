@@ -1,42 +1,13 @@
+# -*- coding:utf-8 -*-
+
 import urllib2
 import json
+import ssl
+from urllib2 import HTTPError, URLError
 
-def get_token(username, password, domain):
-    auth_data = {
-        "auth": {
-            "identity": {
-
-                "password": {
-                    "user": {
-                        "name": username,
-                        "password": password,
-                        "domain": {
-                            "name": domain
-                        }
-                    }
-                },
-                "methods": [
-                    "password"
-                ]
-            },
-            "scope": {
-                "project": {
-                    "name": "cn-north-1"
-                }
-            }
-        }
-    }
-
-    _url = 'https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens'
-
-    req = urllib2.Request( url = _url)
-    req.add_header('Content-Type', 'application/json')
-    req.add_data(json.dumps(auth_data))
-    r = urllib2.urlopen(req)
-    X_TOKEN = r.headers['X-Subject-Token']
-    return X_TOKEN
-
-##### access image tagging ####
+#
+# access image tagging
+#
 def image_tagging(token, url):
     _url = 'https://ais.cn-north-1.myhwclouds.com/v1.0/image/tagging'
 
@@ -52,18 +23,42 @@ def image_tagging(token, url):
     kreq.add_header('Content-Type', 'application/json')
     kreq.add_header('X-Auth-Token', token )
     kreq.add_data(json.dumps(_data))
+    
+    resp = None
+    status_code = None
+    try:
+        # 
+        # Here we use the unvertified-ssl-context, Because in FunctionStage
+        # the client CA-validation have some problem, so we must do this.
+        #
+        _context = ssl._create_unverified_context()
+        r = urllib2.urlopen(kreq, context=_context)
+        
+    #
+    # We use HTTPError and URLError，because urllib2 can't process the 4XX & 
+    # 500 error in the single urlopen function.
+    #
+    # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests, 
+    # there is no this problem. 
+    #
+    except HTTPError, e:
+        resp = e.read()
+        status_code = e.code
+    except URLError, e:
+        resp = e.read()
+        status_code = e.code
+    else:
+        status_code = r.code
+        resp = r.read()        
+    return resp 
 
-    r = urllib2.urlopen(kreq)
-
-    return r.read()
-
-if __name__ == '__main__':
-    username = '****'
-    password = '****'
-    domain = '****'
-
-    _token = get_token(username, password, domain)
-    print _token
+#
+# Here is the default main-funciton of functionStage
+#
+def handler (event, context):
+    
+    # we use the context-Token
+    _token = context.getToken() 
     file_url = "http://obs-hqq.obs.myhwclouds.com/tagging-normal"
     ret = image_tagging(_token, file_url)
-    print ret
+    return ret
