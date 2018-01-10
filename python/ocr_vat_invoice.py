@@ -6,7 +6,7 @@ import ssl
 from urllib2 import HTTPError, URLError
 
 #
-# access ocr idcard
+# access ocr vat invoice
 #
 def ocr_vat_invoice(token, url):
     _url = 'https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/vat-invoice'
