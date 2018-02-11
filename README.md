@@ -9,6 +9,8 @@
 + 内容检测 Moderation
 + 图像处理 Deblur
 + 智能物流 iLogistics 
++ 语音合成 ASR
++ 语音识别 TTS
 
 ## 各子服务的主页链接
 + 文字识别 http://www.huaweicloud.com/product/ocr.html
@@ -16,6 +18,8 @@
 + 内容检测 http://www.huaweicloud.com/product/moderation.html
 + 图像处理 http://www.huaweicloud.com/product/deblur.html
 + 智能物流 http://www.huaweicloud.com/product/ils.html
++ 语音合成 http://www.huaweicloud.com/product/asr.html
++ 语音识别 
 
 ## 各子服务的API参考
 + 文字识别 http://support.huaweicloud.com/ocr_gls/index.html
@@ -23,6 +27,8 @@
 + 内容检测 http://support.huaweicloud.com/moderation_gls/index.html
 + 图像处理 http://support.huaweicloud.com/deblur_gls/index.html
 + 智能物流 http://support.huaweicloud.com/ils_gls/index.html
++ 语音合成 
++ 语音识别 
 
 ## 目录结构说明
 + curl 提供使用curl工具访问服务示例的代码说明
