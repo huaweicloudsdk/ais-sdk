@@ -9,7 +9,7 @@ from urllib2 import HTTPError, URLError
 # access moderation, image anti-porn
 #
 def image_antiporn(token, url):
-    _url = 'https://ais.cn-north-1.myhwclouds.com/v1.0/moderation/image/anti-porn'
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/anti-porn'
 
     _data = {
       "image":"",

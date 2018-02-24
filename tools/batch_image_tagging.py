@@ -65,7 +65,7 @@ def tagging(filename, token, proxy_dict=None):
                "threshold": "60",
                "language": "zh"
                }
-    url = "https://ais.cn-north-1.myhwclouds.com/v1.0/image/tagging"
+    url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/tagging"
     _headers = {'Content-Type': 'application/json',
                 'X-Auth-Token': token}
  
@@ -92,7 +92,7 @@ def get_token(user_name, password, proxy_dict=None):
     process get token for following processing
     :return:
     """
-    _urltoken = "https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens"
+    _urltoken = "https://iam.cn-north-1.myhuaweicloud.com/v3/auth/tokens"
     _headers = {'Content-Type': 'application/json'}
     _paramstoken = {
         "auth": {

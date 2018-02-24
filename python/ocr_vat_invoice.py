@@ -9,7 +9,7 @@ from urllib2 import HTTPError, URLError
 # access ocr vat invoice
 #
 def ocr_vat_invoice(token, url):
-    _url = 'https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/vat-invoice'
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/vat-invoice'
 
     _data = {
       "image":"",

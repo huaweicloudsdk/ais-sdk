@@ -18,8 +18,8 @@
 + 内容检测 http://www.huaweicloud.com/product/moderation.html
 + 图像处理 http://www.huaweicloud.com/product/deblur.html
 + 智能物流 http://www.huaweicloud.com/product/ils.html
-+ 语音合成 http://www.huaweicloud.com/product/asr.html
-+ 语音识别 
++ 语音合成 http://www.huaweicloud.com/product/tts.html
++ 语音识别 http://www.huaweicloud.com/product/asr.html
 
 ## 各子服务的API参考
 + 文字识别 http://support.huaweicloud.com/ocr_gls/index.html

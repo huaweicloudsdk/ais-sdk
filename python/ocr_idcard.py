@@ -10,7 +10,7 @@ from urllib2 import HTTPError, URLError
 # access ocr idcard
 #
 def ocr_idcard(token, url):
-    _url = 'https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/id-card '
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/id-card '
 
     _data = {
       "image":"",

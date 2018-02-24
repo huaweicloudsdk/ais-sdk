@@ -5,10 +5,10 @@
 #
 TOKEN=''
 
-curl -X POST https://ais.cn-north-1.myhwclouds.com/v1.0/moderation/image/anti-porn \
+curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/anti-porn \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" -d '
  {
       "image":"",
-      "url":"http://obs-hqq.obs.myhwclouds.com/tagging-normal"
+      "url":"http://obs-hqq.obs.myhuaweicloud.com/tagging-normal"
 }'

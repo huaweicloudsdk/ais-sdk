@@ -27,7 +27,7 @@ def get_token(username, password, domain):
         }
     }
 
-    _url = 'https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens'
+    _url = 'https://iam.cn-north-1.myhuaweicloud.com/v3/auth/tokens'
 
     req = urllib2.Request( url = _url)
     req.add_header('Content-Type', 'application/json')

@@ -9,7 +9,7 @@ from urllib2 import HTTPError, URLError
 # access moderation, image anti-porn
 #
 def asr_sentence(token, url):
-    _url = 'https://ais.cn-north-1.myhwclouds.com/v1.0/voice/asr/sentence'
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/sentence'
 
     _data = {
       "url":url, 

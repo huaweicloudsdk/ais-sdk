@@ -9,7 +9,7 @@ from urllib2 import HTTPError, URLError
 # access image tagging
 #
 def image_tagging(token, url):
-    _url = 'https://ais.cn-north-1.myhwclouds.com/v1.0/image/tagging'
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/tagging'
 
     _data = {
       "image":"",
