@@ -30,7 +30,7 @@
 ```
 使用如下命令取得Token, 该Token在Header中：
 ```bash
-curl -X POST https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens --header 'content-type: application/json'  -d "@data.json"
+curl -X POST https://iam.cn-north-1.myhuaweicloud.com/v3/auth/tokens --header 'content-type: application/json'  -d "@data.json"
 ```
 ## 2.开通人工智能服务
 ... ...
@@ -46,7 +46,7 @@ curl -X POST https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens --header 'cont
 ```
 使用如下命令访问
 ```bash
-curl -X POST https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/action/ocr_form --header 'content-type: application/json' --header 'x-auth-token: xxxxxxx' -d "@data.json"
+curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/action/ocr_form --header 'content-type: application/json' --header 'x-auth-token: xxxxxxx' -d "@data.json"
 ```
 
 **OBS URL方式**
@@ -58,5 +58,5 @@ curl -X POST https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/action/ocr_form --he
 ```
 使用如下命令访问
 ```bash
-curl -X POST https://ais.cn-north-1.myhwclouds.com/v1.0/ocr/action/ocr_form --header 'content-type: application/json' --header 'x-auth-token: xxxxxxx' -d "@data.json"
+curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/action/ocr_form --header 'content-type: application/json' --header 'x-auth-token: xxxxxxx' -d "@data.json"
 ```
