@@ -15,7 +15,7 @@ public class ClientContextUtils {
 			/*  图像处理服务的服务端点, 该服务端口信息可以从如下地址查询
 			 *  http://developer.huaweicloud.com/dev/endpoint
 			 * */
-			 "https://ais.cn-north-1.myhwclouds.com",
+			 "https://ais.cn-north-1.myhuaweicloud.com",
 			 "cn-north-1",  /* 图像处理服务的区域信息, 可以在上面的地址中查询 */
 			 "***",    /* 请输入你的AK信息 */
 			 "***"     /* 对应AK的的SK信息 */

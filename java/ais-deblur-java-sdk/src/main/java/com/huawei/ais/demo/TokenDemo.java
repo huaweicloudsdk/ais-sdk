@@ -86,7 +86,7 @@ public class TokenDemo {
 	private static String getToken(String username, String password, String projectName)
 			throws URISyntaxException, UnsupportedOperationException, IOException {
 		String requestBody = requestBody(username, password, username, projectName);
-		String url ="https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens"; 
+		String url ="https://iam.cn-north-1.myhuaweicloud.com/v3/auth/tokens"; 
 
 		Header[] headers = new Header[] { new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString()) };
 		StringEntity stringEntity = new StringEntity(requestBody,
@@ -105,7 +105,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestDarkEnhanceBase64(String token, String formFile) throws IOException {
-		String url = "https://ais.cn-north-1.myhwclouds.com/v1.0/vision/dark-enhance";
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/vision/dark-enhance";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
