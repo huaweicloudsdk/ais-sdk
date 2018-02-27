@@ -33,9 +33,8 @@
 1. src 为示例代码目录
 2. data 为示例用数据目录
 3. lib 为SDK所在目录，以及示例代码所依赖的基它jar包的路径
-4. lib\ais-client-sdk-1.0.1.jar 为图像识别的SDK(历史原因，保持名字为ais)
-5. ReadMe.md 为图像识别 SDK使用说明
-6. VERSION 为图像识别 SDK的版本说明文件
+4. ReadMe.md 为图像识别 SDK使用说明
+5. VERSION 为图像识别 SDK的版本说明文件
 
 ####5.图像识别 SDK使用说明
 可参见[使用说明视频](http://www.huaweicloud.com/product/image.html#section-4 "视频专区")使用说明视频进一步的了解。
