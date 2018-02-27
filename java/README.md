@@ -1,6 +1,11 @@
-# AIS java SDK & demo
+# AIS 服务 java SDK & demo 介绍
 
-**计划支持**
-+ AK/SK访问服务的基本SDK, AK/SK的基本SDK将会给出统一的SDK, 不区别各类子服务
-+ 使用Token方式访问服务的代码示例，给出各个子服务的代码示例
+**项目说明**
++ **ais-java-client** AK/SK访问服务的基本SDK, 不区别各类子服务, 作为各个服务SDK的依赖库，各个服务使用前，需要下载和构建该lib.
++ **ais-moderation-java-sdk** 内容检测相关的SDK工具及对应的样例代码
++ **ais-image-java-sdk** 图像识别相关的SDK工具及对应的样例代码
++ **ais-deblur-java-sdk** 图像处理相关的SDK工具及对应的样例代码
++ **ais-asr-java-sdk** 语音识别相关的SDK工具及对应的样例代码
+
+
 
