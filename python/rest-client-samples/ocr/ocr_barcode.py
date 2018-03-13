@@ -57,7 +57,7 @@ if __name__ == '__main__':
     user_name = '******'
     password = '******'
     account_name = '******'
-    demo_data_url = 'https://obs-hqq.obs.myhwclouds.com/barcode.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/barcode.jpg'
     token = get_token(user_name, password, account_name)
 
     # call interface use the url
