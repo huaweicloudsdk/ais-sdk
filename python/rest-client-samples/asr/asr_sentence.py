@@ -3,18 +3,21 @@
 import urllib2
 import json
 import ssl
+from gettoken import get_token
+from utils import encode_to_base64
 from urllib2 import HTTPError, URLError
 
 #
 # access moderation, image anti-porn
 #
-def asr_sentence(token, url):
+def asr_sentence(token, data, url, encode_type='wav', sample_rate='8k'):
     _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/sentence'
 
     _data = {
-      "url":url, 
-      "encode_type": "wav",
-      "sample_rate": "8k"
+      "url":url,
+      "data": data,
+      "encode_type": encode_type,
+      "sample_rate": sample_rate
     }
 
     kreq = urllib2.Request( url = _url)
@@ -48,4 +51,19 @@ def asr_sentence(token, url):
     else:
         status_code = r.code
         resp = r.read()        
-    return resp 
+    return resp
+
+if __name__ == '__main__':
+    user_name = '******'
+    password = '******'
+    account_name = '******'  # the same as user_name in commonly use
+    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/asr-sentence.wav'
+    token = get_token(user_name, password, account_name)
+
+    # call interface use the url
+    result = asr_sentence(token, '', demo_data_url, 'wav', '16k')
+    print result
+
+    # call interface use the file
+    result = asr_sentence(token, encode_to_base64('data/asr-sentence.wav'), '', 'wav', '16k')
+    print result

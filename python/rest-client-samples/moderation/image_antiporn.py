@@ -3,23 +3,19 @@
 import urllib2
 import json
 import ssl
-from utils import decode_to_wave_file
 from gettoken import get_token
+from utils import encode_to_base64
 from urllib2 import HTTPError, URLError
 
 #
-# access ocr vat invoice
+# access moderation, image anti-porn
 #
-def tts(token, text, voice_name = 'xiaoyan', volume='0', sample_rate = '16k', speech_speed = '0', pitch_rate = '0' ):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/tts'
+def image_antiporn(token, image_str=None, url=None ):
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/anti-porn'
 
     _data = {
-        "text": text,
-        "voice_name": voice_name,
-        "volume": volume,
-        "sample_rate": sample_rate,
-        "speech_speed": speech_speed,
-        "pitch_rate": pitch_rate
+      "image":image_str,
+      "url":url
     }
 
     kreq = urllib2.Request( url = _url)
@@ -53,21 +49,19 @@ def tts(token, text, voice_name = 'xiaoyan', volume='0', sample_rate = '16k', sp
     else:
         status_code = r.code
         resp = r.read()        
-    return resp
+    return resp 
 
 if __name__ == '__main__':
-    user_name = '*****'
+    user_name = '******'
     password = '******'
-    account_name = '*****'  # the same as user_name in commonly use
-
+    account_name = '******'  # the same as user_name in commonly use
+    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
     token = get_token(user_name, password, account_name)
 
-    # call interface use the default config
-    result = tts(token, '语音合成为你的业务增加交互的能力.')
-    result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result']['data'], 'data/tts_use_default_config.wav')
+    # call interface use the url
+    result = image_antiporn(token, '', demo_data_url )
+    print result
 
-    # call interface use the specific config
-    result = tts(token, '这里是语音合成的测试。', 'xiaoyu', '0', '16k')
-    result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result']['data'], 'data/tts_use_specific_config.wav')
+    # call interface use the file
+    result = image_antiporn(token, encode_to_base64('data/tagging-normal.jpg'))
+    print result
