@@ -3,7 +3,7 @@
 华为云的AIS服务SDK主要提供AIS服务的SDK, 及使用服务的示例Demo，也包含如何配置华为云的OBS服务，函数服务来使用AIS服务的示例。
 欢迎各位用户及专业提供有价值的建议，我们将不断丰富与改进SDK，和使用的样例代码。
 
-## AIS包含的服务(截止2018.2.8)
+## AIS包含的服务(截止2018.3.15)
 + 文字识别 OCR
 + 图像识别 Image
 + 内容检测 Moderation
@@ -27,8 +27,8 @@
 + 内容检测 http://support.huaweicloud.com/moderation_gls/index.html
 + 图像处理 http://support.huaweicloud.com/deblur_gls/index.html
 + 智能物流 http://support.huaweicloud.com/ils_gls/index.html
-+ 语音合成 
-+ 语音识别 
++ 语音合成 https://support.huaweicloud.com/asr_gls/index.html
++ 语音识别 https://support.huaweicloud.com/tts_gls/index.html
 
 ## 目录结构说明
 + curl 提供使用curl工具访问服务示例的代码说明
