@@ -136,11 +136,11 @@ public class TtsTokenDemo {
         json.put("text", "This is a test sample.");
         // 合成的声音人员标识。
         json.put("voice_name", "xiaoyu");
-        // 语音的采样率，当前支持8k和16k，分别代表8KHz和16KHz
+        // 语音的采样率，当前支持16k，分别代表16KHz
         json.put("sample_rate", "16k");
         // 音量：-500～500， 默认为0
         json.put("speech_speed", "0");
-        // 语音的格式，当前支持wav格式
+        // 语调：-20～20，默认为0
         json.put("pitch_rate", "0");
         // 音量：-500～500，默认为0
         json.put("volume", "0");
