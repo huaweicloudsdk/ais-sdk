@@ -138,11 +138,11 @@ public class TtsTokenDemo {
         json.put("voice_name", "xiaoyu");
         // 语音的采样率，当前支持8k和16k，分别代表8KHz和16KHz
         json.put("sample_rate", "16k");
-        // 音量：-500到500， 默认为0
+        // 音量：-500～500， 默认为0
         json.put("speech_speed", "0");
         // 语音的格式，当前支持wav格式
         json.put("pitch_rate", "0");
-        // 音量：-500到500，默认为0
+        // 音量：-500～500，默认为0
         json.put("volume", "0");
 
         return json.toJSONString();
