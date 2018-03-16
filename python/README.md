@@ -1,11 +1,11 @@
-# AIS python SDK & Samples
+# AIS 服务 python SDK & Samples
 
 > 说明：
 > 当前仅提供使用Token方式访问SDK以及相关的Samples。
 
-**计划支持**：
-+ 仅使用python基本库的使用方式，用于一些特殊的不方便安装第三方库的方式
-+ 使用requests库的使用方式，用于更简单的代码示例
-+ 说明一些特殊支持的问题
+**目录说明**：
++ rest-client-samples 仅使用python标准库的一些代码标例；
++ sdk-by-requests 使用requests库作为http client的SDK，处于开发中，可以暂时使用：rest-client-samples
++ sdk 仅使用python标准库的SDK, 处于开发中，可以暂时使用：rest-client-samples
 
 
