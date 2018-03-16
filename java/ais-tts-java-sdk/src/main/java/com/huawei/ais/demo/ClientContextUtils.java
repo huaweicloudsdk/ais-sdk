@@ -17,8 +17,8 @@ public class ClientContextUtils {
 			 * */
 			"https://ais.cn-north-1.myhuaweicloud.com",
 			"cn-north-1",  /* 图像处理服务的区域信息, 可以在上面的地址中查询 */
-			 "****",    /* 请输入你的AK信息 */
-			 "**********"     /* 对应AK的的SK信息 */
+			 "****",	/* 请输入你的AK信息 */
+			 "**********"	 /* 对应AK的的SK信息 */
 			 );
 	
 	public static AuthInfo getAuthInfo() {
@@ -31,9 +31,9 @@ public class ClientContextUtils {
 	public static ProxyHostInfo getProxyHost() {
 		
 		return new ProxyHostInfo("proxy.***.com", /* 代理主机信息 */
-				8080,        /* 代理主机的端口 */
+				8080,		/* 代理主机的端口 */
 				"***", /* 代理的用户名 */
-				"***"        /* 代理用户对应的密码 */
+				"***"		/* 代理用户对应的密码 */
 				);  
 	}
 }
