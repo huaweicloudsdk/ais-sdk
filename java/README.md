@@ -7,5 +7,6 @@
 + **ais-deblur-java-sdk** 图像处理相关的SDK工具及对应的样例代码
 + **ais-asr-java-sdk** 语音识别相关的SDK工具及对应的样例代码
 + **ais-tts-java-sdk** 语音合成相关的SDK工具及对应的样例代码
++ **ais-ocr-java-sdk** 文字识别相关的SDK工具及对应的样例代码
 
 
