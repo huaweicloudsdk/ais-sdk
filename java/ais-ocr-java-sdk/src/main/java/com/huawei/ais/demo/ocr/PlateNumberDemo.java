@@ -41,7 +41,9 @@ public class PlateNumberDemo {
 			// 2.构建访问车牌识别的使用示例函数服务需要的参数
 			//
 			String uri = "/v1.0/ocr/plate-number";
+
 			byte[] fileData = FileUtils.readFileToByteArray(new File("data/plate-number-demo.jpg"));
+
 			String fileBase64Str = Base64.encodeBase64String(fileData);
 			
 			JSONObject json = new JSONObject();

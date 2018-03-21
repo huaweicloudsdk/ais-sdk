@@ -38,6 +38,7 @@ public class QRCodeDemo {
 			// 2.构建访问二维码识别的使用示例函数服务需要的参数
 			//
 			String uri = "/v1.0/ocr/qr-code";
+
 			byte[] fileData = FileUtils.readFileToByteArray(new File("data/qr-code-demo.jpg"));
 			String fileBase64Str = Base64.encodeBase64String(fileData);
 			

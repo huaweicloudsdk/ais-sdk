@@ -39,6 +39,7 @@ public class BarcodeDemo {
 			//
 			String uri = "/v1.0/ocr/barcode";
 			byte[] fileData = FileUtils.readFileToByteArray(new File("data/barcode-demo.jpg"));
+
 			String fileBase64Str = Base64.encodeBase64String(fileData);
 			
 			JSONObject json = new JSONObject();
