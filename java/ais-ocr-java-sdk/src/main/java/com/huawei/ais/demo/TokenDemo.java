@@ -406,14 +406,103 @@ public class TokenDemo {
 			e.printStackTrace();
 		}
 	}
+	
+
+    /**
+	 * 一维码识别，使用Base64编码后的文件方式，使用Token认证方式访问服务
+	 * @param token token认证串
+	 * @param formFile 文件路径
+	 * @throws IOException
+	 */
+	public static void requestOcrBarcodeBase64(String token, String formFile) {
+
+		// 1.构建一维码识别识别服务所需要的参数
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/barcode";
+		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token), new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString()) };
+		try {
+			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
+			String fileBase64Str = Base64.encodeBase64String(fileData);
+			JSONObject json = new JSONObject();
+			json.put("image", fileBase64Str);
+			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
+
+			// 2.传入一维码识别识别服务对应的参数, 使用POST方法调用服务并解析输出识别结果
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			System.out.println(response);
+			String content = IOUtils.toString(response.getEntity().getContent());
+			System.out.println(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * 二维码识别，使用Base64编码后的文件方式，使用Token认证方式访问服务
+	 * @param token token认证串
+	 * @param formFile 文件路径
+	 * @throws IOException
+	 */
+	public static void requestOcrQRCodeBase64(String token, String formFile) {
+
+		// 1.构建二维码识别识别服务所需要的参数
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/qr-code";
+		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token), new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString()) };
+		try {
+			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
+			String fileBase64Str = Base64.encodeBase64String(fileData);
+			JSONObject json = new JSONObject();
+			json.put("image", fileBase64Str);
+			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
+
+			// 2.传入二维码识别识别服务对应的参数, 使用POST方法调用服务并解析输出识别结果
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			System.out.println(response);
+			String content = IOUtils.toString(response.getEntity().getContent());
+			System.out.println(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * 车牌识别，使用Base64编码后的文件方式，使用Token认证方式访问服务
+	 * @param token token认证串
+	 * @param formFile 文件路径
+	 * @throws IOException
+	 */
+	public static void requestOcrPlateNumberBase64(String token, String formFile) {
+
+		// 1.构建车牌识别识别服务所需要的参数
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/plate-number";
+		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token), new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString()) };
+		try {
+			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
+			String fileBase64Str = Base64.encodeBase64String(fileData);
+			JSONObject json = new JSONObject();
+			json.put("image", fileBase64Str);
+			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
+
+			// 2.传入车牌识别识别服务对应的参数, 使用POST方法调用服务并解析输出识别结果
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			System.out.println(response);
+			String content = IOUtils.toString(response.getEntity().getContent());
+			System.out.println(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 
 	/**
 	 * 调用主入口函数
 	 */
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
 
-	    String username = "zhangshan";    // 此处，请输入用户名
-		String password = "*******";	  // 此处，请输入对应用户名的密码
+	    String username = "zhangsan";    // 此处，请输入用户名
+		String password = "***";	  // 此处，请输入对应用户名的密码
 		String regionName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/endpoint.html
         String token = getToken(username, password, regionName);
 		System.out.println(token);
@@ -444,6 +533,15 @@ public class TokenDemo {
 
 		// 运行机动车购车发票识别服务，请调用方法requestOcrMvsInvoiceBase64
 		//requestOcrMvsInvoiceBase64(token, "data/mvs-invoice-demo.jpg");
+		
+		// 运行一维码识别服务，请调用方法requestOcrBarcodeBase64
+        //requestOcrBarcodeBase64(token, "data/barcode-demo.jpg");
+        
+        // 运行二维码识别服务，请调用方法requestOcrQRCodeBase64
+		//requestOcrQRCodeBase64(token, "data/qr-code-demo.jpg");
+		
+		// 运行车牌识别服务，请调用方法requestOcrQRCodeBase64
+		//requestOcrPlateNumberBase64(token, "data/plate-number-demo.jpg");
 	}
 
 }
