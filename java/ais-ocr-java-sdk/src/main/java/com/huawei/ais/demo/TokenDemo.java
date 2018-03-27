@@ -500,11 +500,11 @@ public class TokenDemo {
 	 * 调用主入口函数
 	 */
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
-
-	    String username = "zhangsan";    // 此处，请输入用户名
+		
+		String username = "zhangsan";    // 此处，请输入用户名
 		String password = "***";	  // 此处，请输入对应用户名的密码
 		String regionName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/endpoint.html
-        String token = getToken(username, password, regionName);
+		String token = getToken(username, password, regionName);
 		System.out.println(token);
 		
 		// 运行增值税发票识别服务，请调用方法requestOcrVatInvoiceBase64
@@ -527,7 +527,7 @@ public class TokenDemo {
 		// 运行手写体识别服务，请调用方法requestOcrHandwritingBase64
 		//requestOcrHandwritingBase64(token, "data/handwriting-demo.jpg");
 		
-	    // 运行银行卡识别服务，请调用方法requestOcrBankCardBase64
+		// 运行银行卡识别服务，请调用方法requestOcrBankCardBase64
 		//requestOcrBankCardBase64(token, "data/bank-card-demo.png");
 
 		// 运行机动车购车发票识别服务，请调用方法requestOcrMvsInvoiceBase64
