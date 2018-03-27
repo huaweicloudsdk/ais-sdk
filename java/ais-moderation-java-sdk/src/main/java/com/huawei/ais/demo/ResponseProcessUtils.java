@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -24,6 +25,20 @@ public class ResponseProcessUtils {
 	 */
 	public static void processResponseStatus(HttpResponse response) {
 		System.out.println(response.getStatusLine().getStatusCode());
+	}
+	
+	/**
+	 * 打印响应的状态码，并检测是否为200
+	 * 
+	 * @param response 
+	 * 			响应对象
+	 * @return 如果状态码为200则返回true，否则返回false
+	 * 
+	 */
+	public static boolean isRespondedOK(HttpResponse response) {
+		int statusCode = response.getStatusLine().getStatusCode();
+		System.out.println(statusCode);
+		return HttpStatus.SC_OK == statusCode;
 	}
 	
 	/**
@@ -47,7 +62,9 @@ public class ResponseProcessUtils {
 	public static void processResponseWithImage(HttpResponse response, String fileName) throws UnsupportedOperationException, IOException {
 		String result = HttpClientUtils.convertStreamToString(response.getEntity().getContent());
 		JSONObject resp = JSON.parseObject(result);
-		String imageString = (String)resp.get("result");
+		JSONObject responseRlt = (JSONObject) resp.get("result");
+		String imageString = (String)responseRlt.get("data");
+		
 		byte[] fileBytes = Base64.decode(imageString);
 		writeBytesToFile(fileName, fileBytes);
 	}
