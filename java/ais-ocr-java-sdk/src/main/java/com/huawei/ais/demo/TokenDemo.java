@@ -508,13 +508,12 @@ public class TokenDemo {
 		System.out.println(token);
 		
 		// 运行增值税发票识别服务，请调用方法requestOcrVatInvoiceBase64
-        //requestOcrVatInvoiceBase64(token, "data/vat-invoice-demo.jpg");
-
-        // 运行英文海关单据识别服务，请调用方法requestOcrCustomsFormEnBase64
-        //requestOcrCustomsFormEnBase64(token, "data/customs-form-en-demo.jpg");
+		//requestOcrVatInvoiceBase64(token, "data/vat-invoice-demo.jpg");
+		// 运行英文海关单据识别服务，请调用方法requestOcrCustomsFormEnBase64
+		//requestOcrCustomsFormEnBase64(token, "data/customs-form-en-demo.jpg");
 
 		// 运行身份证识别服务，请调用方法requestOcrIDCardBase64
-        //requestOcrIDCardBase64(token, "data/id-card-demo.png");
+		//requestOcrIDCardBase64(token, "data/id-card-demo.png");
 
 		// 运行驾驶证识别服务，请调用方法requestOcrDriverLicenseBase64
 		//requestOcrDriverLicenseBase64(token, "data/driver-license-demo.png");
@@ -529,15 +528,14 @@ public class TokenDemo {
 		//requestOcrHandwritingBase64(token, "data/handwriting-demo.jpg");
 		
 	    // 运行银行卡识别服务，请调用方法requestOcrBankCardBase64
-        //requestOcrBankCardBase64(token, "data/bank-card-demo.png");
+		//requestOcrBankCardBase64(token, "data/bank-card-demo.png");
 
 		// 运行机动车购车发票识别服务，请调用方法requestOcrMvsInvoiceBase64
 		//requestOcrMvsInvoiceBase64(token, "data/mvs-invoice-demo.jpg");
 		
 		// 运行一维码识别服务，请调用方法requestOcrBarcodeBase64
-        //requestOcrBarcodeBase64(token, "data/barcode-demo.jpg");
-        
-        // 运行二维码识别服务，请调用方法requestOcrQRCodeBase64
+		//requestOcrBarcodeBase64(token, "data/barcode-demo.jpg");
+		// 运行二维码识别服务，请调用方法requestOcrQRCodeBase64
 		//requestOcrQRCodeBase64(token, "data/qr-code-demo.jpg");
 		
 		// 运行车牌识别服务，请调用方法requestOcrPlateNumberBase64
