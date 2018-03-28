@@ -192,7 +192,7 @@ public class TokenDemo {
 			if(ResponseProcessUtils.isRespondedOK(response)) {
 				ResponseProcessUtils.processResponseWithImage(response, "data/moderation-distortion.corrected.jpg");
 			} else {
-				// 5.处理服务返回的字符流，输出识别结果。
+				// 处理服务返回的字符流，输出识别结果。
 				ResponseProcessUtils.processResponseStatus(response);
 				String content = IOUtils.toString(response.getEntity().getContent());
 				System.out.println(content);
