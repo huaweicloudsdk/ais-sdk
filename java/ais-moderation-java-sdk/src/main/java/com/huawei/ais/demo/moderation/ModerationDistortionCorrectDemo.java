@@ -16,11 +16,11 @@ import java.io.IOException;
 /**
  *  扭曲矫正服务的使用示例类
  */
-public class ModerationdDistortionCorrectDemo {
+public class ModerationDistortionCorrectDemo {
 	//
 	// 扭曲矫正服务的使用示例函数
 	//
-	private static void moderationdDistortionCorrectDemo() throws IOException {
+	private static void moderationDistortionCorrectDemo() throws IOException {
 		//
 		// 1. 在ClientContextUtils类中, 配置好访问扭曲矫正服务的基本信息,
 		// 然后，在此处生成对应的一个客户端连接对象
@@ -74,6 +74,6 @@ public class ModerationdDistortionCorrectDemo {
 	public static void main(String[] args) throws IOException {
 
 		// 测试入口函数
-		moderationdDistortionCorrectDemo();
+		moderationDistortionCorrectDemo();
 	}
 }
