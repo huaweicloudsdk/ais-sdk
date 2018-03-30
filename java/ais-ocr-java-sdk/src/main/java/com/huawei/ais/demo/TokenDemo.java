@@ -495,6 +495,42 @@ public class TokenDemo {
 
 	}
 	
+    /**
+	 * 通用文字识别，使用Base64编码后的文件方式，使用Token认证方式访问服务
+	 * @param token token认证串
+	 * @param formFile 文件路径
+	 * @throws IOException
+	 */
+	public static void requestOcrGeneralTextBase64(String token, String formFile) {
+
+		// 1.构建通用文字识别服务所需要的参数
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/general-text";
+		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token), new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString()) };
+		try {
+			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
+			String fileBase64Str = Base64.encodeBase64String(fileData);
+			JSONObject json = new JSONObject();
+			json.put("image", fileBase64Str);
+
+			// 
+			// 1.a 此项参数可选，可以指定是否检测文字方向，不填则默认不检测文字方向，
+			// detect_direction可选:true, false
+			//
+			json.put("detect_direction", false);
+
+
+			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
+
+			// 2.传入通用文字识别服务对应的参数, 使用POST方法调用服务并解析输出识别结果
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			System.out.println(response);
+			String content = IOUtils.toString(response.getEntity().getContent());
+			System.out.println(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	/**
 	 * 调用主入口函数
@@ -509,6 +545,7 @@ public class TokenDemo {
 		
 		// 运行增值税发票识别服务，请调用方法requestOcrVatInvoiceBase64
 		//requestOcrVatInvoiceBase64(token, "data/vat-invoice-demo.jpg");
+
 		// 运行英文海关单据识别服务，请调用方法requestOcrCustomsFormEnBase64
 		//requestOcrCustomsFormEnBase64(token, "data/customs-form-en-demo.jpg");
 
@@ -535,11 +572,15 @@ public class TokenDemo {
 		
 		// 运行一维码识别服务，请调用方法requestOcrBarcodeBase64
 		//requestOcrBarcodeBase64(token, "data/barcode-demo.jpg");
+
 		// 运行二维码识别服务，请调用方法requestOcrQRCodeBase64
 		//requestOcrQRCodeBase64(token, "data/qr-code-demo.jpg");
 		
 		// 运行车牌识别服务，请调用方法requestOcrPlateNumberBase64
 		//requestOcrPlateNumberBase64(token, "data/plate-number-demo.jpg");
+
+		// 运行通用文字识别服务，请调用方法requestOcrGeneralTextBase64
+		//requestOcrGeneralTextBase64(token, "data/general-text-demo.jpg");
 	}
 
 }
