@@ -118,7 +118,7 @@ public class TokenDemo {
 	
 
 	/**
-	 * 内容检测，使用Base64编码后的文件方式，使用Token认证方式访问服务
+	 * 图像检测，使用Base64编码后的文件方式，使用Token认证方式访问服务
 	 * @param token 
 	 * 			token认证串
 	 * @param formFile 
