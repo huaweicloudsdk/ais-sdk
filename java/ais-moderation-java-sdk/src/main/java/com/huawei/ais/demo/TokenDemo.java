@@ -204,6 +204,39 @@ public class TokenDemo {
 		}
 	}
 	
+	/**
+	 * 文本内容检测，使用Base64编码后的文件方式，使用Token认证方式访问服务
+	 * @param token 
+	 * 			token认证串
+	 * @param formFile 
+	 * 			文件路径
+	 * @throws IOException
+	 */
+	public static void requestModerationTextContentBase64(String token, String textModeration) throws IOException {
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/text";
+		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
+		try {
+			JSONObject json = new JSONObject();
+			json.put("categories", new String[] {"porn","politics"}); 
+			
+			JSONObject text = new JSONObject();
+			text.put("text", textModeration);
+			text.put("type", "content");
+			
+			JSONArray items = new JSONArray();
+			items.add(text);
+			
+			json.put("items", items);
+			
+			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			System.out.println(response);
+			String content = IOUtils.toString(response.getEntity().getContent());
+			System.out.println(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * 调用主入口函数
@@ -223,7 +256,10 @@ public class TokenDemo {
 		
 		//运行扭曲矫正服务
 		//requestModerationDistortionCorrectBase64(token, "data/moderation-demo-1.jpg");
-
+		
+		//运行文本内容检测服务
+		requestModerationTextContentBase64(token, "luo聊请+我，微信110");
+				
 	}
 
 }
