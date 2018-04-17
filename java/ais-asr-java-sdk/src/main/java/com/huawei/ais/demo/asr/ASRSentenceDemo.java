@@ -46,7 +46,7 @@ public class ASRSentenceDemo {
 			json.put("data", fileBase64Str);
 			//语音的格式，当前支持wav格式
 			json.put("encode_type", "wav");
-            //语音的采样率，当前支持8k和16k，分别代表8KHz和16KHz
+			//语音的采样率，当前支持8k和16k，分别代表8KHz和16KHz
 			json.put("sample_rate", "16k");
 
 			// 3.传入短语音识别服务对应的uri参数, 传入短语音识别服务需要的参数，
@@ -55,9 +55,9 @@ public class ASRSentenceDemo {
 
 			// 4.验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
 			ResponseProcessUtils.processResponseStatus(response);
-
-            // 5.处理服务返回的字符流，输出识别结果。
-            ResponseProcessUtils.processResponse(response);
+			
+			// 5.处理服务返回的字符流，输出识别结果。
+			ResponseProcessUtils.processResponse(response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
