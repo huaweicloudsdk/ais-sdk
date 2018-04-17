@@ -342,7 +342,7 @@ public class TokenDemo {
      */
     public static void requestOcrBankCardBase64(String token, String formFile) {
 
-        // 1.构建身份证识别服务所需要的参数
+        // 1.构建银行卡识别服务所需要的参数
         String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/bank-card";
         Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token), new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString()) };
         try {
