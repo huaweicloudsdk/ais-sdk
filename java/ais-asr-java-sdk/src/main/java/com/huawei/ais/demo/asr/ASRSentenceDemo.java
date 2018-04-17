@@ -45,7 +45,7 @@ public class ASRSentenceDemo {
 			JSONObject json = new JSONObject();
 			json.put("data", fileBase64Str);
 			//语音的格式，当前支持wav格式
-            json.put("encode_type", "wav");
+			json.put("encode_type", "wav");
             //语音的采样率，当前支持8k和16k，分别代表8KHz和16KHz
 			json.put("sample_rate", "16k");
 
