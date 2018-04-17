@@ -46,7 +46,7 @@ public class TokenDemo {
 		user.put("password", passwd);
 
 		JSONObject domain = new JSONObject();
-		domain.put("name", username);
+		domain.put("name", domainName);
 		user.put("domain", domain);
 
 		password.put("user", user);
@@ -95,6 +95,7 @@ public class TokenDemo {
 
 		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
 		Header[] xst = response.getHeaders("X-Subject-Token");
+//		System.out.println(xst[0]);
 		return xst[0].getValue();
 
 	}
@@ -118,14 +119,14 @@ public class TokenDemo {
 	
 
 	/**
-	 * 图像检测，使用Base64编码后的文件方式，使用Token认证方式访问服务
+	 * 图像反黄检测，使用Base64编码后的文件方式，使用Token认证方式访问服务
 	 * @param token 
 	 * 			token认证串
 	 * @param formFile 
 	 * 			文件路径
 	 * @throws IOException
 	 */
-	public static void requestModerationBase64(String token, String formFile) throws IOException {
+	public static void requestModerationAntiPornBase64(String token, String formFile) throws IOException {
 		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/anti-porn";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
@@ -239,6 +240,37 @@ public class TokenDemo {
 	}
 	
 	/**
+	 * 图像内容检测，使用Base64编码后的文件方式，使用Token认证方式访问服务
+	 * @param token 
+	 * 			token认证串
+	 * @param formFile 
+	 * 			文件路径
+	 * @throws IOException
+	 */
+	public static void requestModerationImageContentBase64(String token, String formFile) throws IOException {
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image";
+		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
+		try {
+			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
+			String fileBase64Str = Base64.encodeBase64String(fileData);
+			JSONObject json = new JSONObject();
+			json.put("image", fileBase64Str);
+			json.put("correction", true);
+			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
+			
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			
+			System.out.println(response);
+			String content = IOUtils.toString(response.getEntity().getContent());
+			System.out.println(content);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * 调用主入口函数
 	 */
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
@@ -248,8 +280,8 @@ public class TokenDemo {
 		String token = getToken(username, password, projectName);
 		System.out.println(token);
 		
-		//运行内容检测服务
-		//requestModerationBase64(token, "data/moderation-demo-1.jpg");
+		//运行图像反黄检测服务
+	    //requestModerationAntiPornBase64(token, "data/moderation-demo-1.jpg");
 		
 		//运行清晰度检测服务
 		//requestModerationClarityBase64(token, "data/moderation-demo-1.jpg");
@@ -258,7 +290,10 @@ public class TokenDemo {
 		//requestModerationDistortionCorrectBase64(token, "data/moderation-demo-1.jpg");
 		
 		//运行文本内容检测服务
-		requestModerationTextContentBase64(token, "luo聊请+我，微信110");
+		//requestModerationTextContentBase64(token, "luo聊请+我，微信110");
+		
+		//运行图像内容检测服务
+		requestModerationImageContentBase64(token, "data/moderation-demo-1.jpg");
 				
 	}
 
