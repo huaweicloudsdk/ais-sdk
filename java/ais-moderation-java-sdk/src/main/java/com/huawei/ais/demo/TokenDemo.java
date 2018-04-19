@@ -95,7 +95,6 @@ public class TokenDemo {
 
 		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
 		Header[] xst = response.getHeaders("X-Subject-Token");
-//		System.out.println(xst[0]);
 		return xst[0].getValue();
 
 	}
@@ -255,7 +254,8 @@ public class TokenDemo {
 			String fileBase64Str = Base64.encodeBase64String(fileData);
 			JSONObject json = new JSONObject();
 			json.put("image", fileBase64Str);
-			json.put("correction", true);
+			json.put("categories", new String[] {"politics"}); //检测内容
+			json.put("threshold", "");
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 			
 			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
@@ -274,7 +274,7 @@ public class TokenDemo {
 	 * 调用主入口函数
 	 */
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
-		String username = "***";    // 此处，请输入用户名
+		String username = "zhangsan";    // 此处，请输入用户名
 		String password = "***";	  // 此处，请输入对应用户名的密码
 		String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
 		String token = getToken(username, password, projectName);

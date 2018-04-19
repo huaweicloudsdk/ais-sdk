@@ -49,7 +49,7 @@ public class ModerationImageContentDemo {
 
 			json.put("categories", new String[] {"politics"}); //检测内容
 
-			json.put("threshhold", "");
+			json.put("threshold", "");
 			
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 
