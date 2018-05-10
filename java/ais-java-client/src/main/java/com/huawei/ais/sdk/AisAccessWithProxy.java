@@ -22,10 +22,20 @@ public class AisAccessWithProxy extends AisAccess{
 		proxyHostInfo = hostInfo;
 	}
 	
+	public AisAccessWithProxy(AuthInfo authInfo, ProxyHostInfo hostInfo, int connectionTimeout, int connectionRequestTimeout, int socketTimeout ) {
+		super(authInfo);
+		proxyHostInfo = hostInfo;
+		this.connectionTimeout = connectionTimeout;
+		this.connectionRequestTimeout = connectionRequestTimeout;
+		this.socketTimeout = socketTimeout;
+		
+	}
+	
+	
 	@Override
 	protected CloseableHttpClient getHttpClient()
 			throws KeyManagementException, KeyStoreException, NoSuchAlgorithmException {
-		return HttpClientUtils.acceptsUntrustedCertsHttpClient(true, proxyHostInfo);
+		return HttpClientUtils.acceptsUntrustedCertsHttpClient(true, proxyHostInfo, this.connectionTimeout, this.connectionRequestTimeout, this.socketTimeout);
 	}
 
 }

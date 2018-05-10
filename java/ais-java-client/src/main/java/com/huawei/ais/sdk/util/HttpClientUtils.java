@@ -21,6 +21,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -42,13 +43,22 @@ import com.huawei.ais.common.ProxyHostInfo;
 
 public class HttpClientUtils {
 	
-	public static CloseableHttpClient acceptsUntrustedCertsHttpClient(boolean withProxy, ProxyHostInfo hostInfo)
+	public static int DEFAULT_CONNECTION_TIMEOUT = 5000;
+	public static int DEFAULT_CONNECTION_REQUEST_TIMEOUT = 1000;
+	public static int DEFAULT_SOCKET_TIMEOUT = 5000;
+	
+	public static CloseableHttpClient acceptsUntrustedCertsHttpClient(boolean withProxy, ProxyHostInfo hostInfo, int connectionTimeout, int connectionRequestTimeout, int socketTimeout)
 			throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
 		HttpClientBuilder b = HttpClientBuilder.create();
 		
 		/**
 		 * set http proxy
 		 */
+		
+		b.setDefaultRequestConfig( 
+				RequestConfig.custom().setConnectTimeout(connectionTimeout).setConnectionRequestTimeout(connectionRequestTimeout).setSocketTimeout(socketTimeout).build()
+				);
+		
 		if(withProxy){
 			HttpHost proxy=new HttpHost(hostInfo.getHostName(),hostInfo.getPort());
 			b.setProxy(proxy);
@@ -83,7 +93,31 @@ public class HttpClientUtils {
 	}
 	
 	public static CloseableHttpClient acceptsUntrustedCertsHttpClient() throws KeyManagementException, KeyStoreException, NoSuchAlgorithmException{
-		return acceptsUntrustedCertsHttpClient(false, null);
+		return acceptsUntrustedCertsHttpClient(false, null, DEFAULT_CONNECTION_TIMEOUT, DEFAULT_CONNECTION_REQUEST_TIMEOUT, DEFAULT_SOCKET_TIMEOUT);
+	}
+	
+	public static CloseableHttpClient acceptsUntrustedCertsHttpClient(int connectionTimeout, int connectionRequestTimeout, int socketTimeout) throws KeyManagementException, KeyStoreException, NoSuchAlgorithmException{
+		return acceptsUntrustedCertsHttpClient(false, null, connectionTimeout, connectionRequestTimeout, socketTimeout);
+	}
+	
+	public static HttpResponse post(String url, Header[] headers, HttpEntity entity, int connectionTimeout, int connectionRequestTimeout, int socketTimeout) {
+		CloseableHttpResponse response = null;
+		CloseableHttpClient httpClient=null;
+		try {
+		    httpClient = acceptsUntrustedCertsHttpClient(connectionTimeout, connectionRequestTimeout, socketTimeout);
+			HttpPost post = new HttpPost(url);
+			if (null != headers) {
+				post.setHeaders(headers);
+			}
+			if (null != entity) {
+				post.setEntity(entity);
+			}
+			response = httpClient.execute(post);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+		return response;
 	}
 	
 	public static HttpResponse post(String url, Header[] headers, HttpEntity entity) {

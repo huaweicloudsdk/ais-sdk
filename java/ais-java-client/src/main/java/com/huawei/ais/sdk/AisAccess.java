@@ -26,10 +26,25 @@ public class AisAccess extends AccessServiceImpl{
 	 * 服务名
 	 */
 	private static final String SERVICE_NAME = "ais";
+		
+	public int connectionTimeout = HttpClientUtils.DEFAULT_CONNECTION_TIMEOUT;
+	public int connectionRequestTimeout = HttpClientUtils.DEFAULT_CONNECTION_REQUEST_TIMEOUT;
+	public int socketTimeout =  HttpClientUtils.DEFAULT_SOCKET_TIMEOUT;
+	
 	
 	public AisAccess(AuthInfo authInfo) {
 		super(AisAccess.SERVICE_NAME, authInfo.getRegion(), authInfo.getAk(), authInfo.getSk());
 		this.authInfo = authInfo;
+	}
+	
+	public AisAccess(AuthInfo authInfo, int connectionTimeout, int connectionRequestTimeout, int socketTimeout) {
+		super(AisAccess.SERVICE_NAME, authInfo.getRegion(), authInfo.getAk(), authInfo.getSk());
+		this.authInfo = authInfo;
+		
+		this.connectionTimeout = connectionTimeout;
+		this.connectionRequestTimeout = connectionRequestTimeout;
+		this.socketTimeout = socketTimeout;
+		
 	}
 	
 	/**
@@ -40,7 +55,7 @@ public class AisAccess extends AccessServiceImpl{
 	@Override
 	protected CloseableHttpClient getHttpClient()
 			throws KeyManagementException, KeyStoreException, NoSuchAlgorithmException {
-		return HttpClientUtils.acceptsUntrustedCertsHttpClient(false, null);
+		return HttpClientUtils.acceptsUntrustedCertsHttpClient(false, null, this.connectionTimeout, this.connectionRequestTimeout, this.socketTimeout);
 	}
 
 	protected boolean useDefaultHttpClient()
