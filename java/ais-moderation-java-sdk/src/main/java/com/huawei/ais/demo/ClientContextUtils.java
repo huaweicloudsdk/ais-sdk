@@ -17,8 +17,8 @@ public class ClientContextUtils {
 			 * */
 			 "https://ais.cn-north-1.myhuaweicloud.com",
 			 "cn-north-1",  /* 内容检测服务的区域信息, 可以在上面的地址中查询 */
-			 "***",    /* 请输入你的AK信息 */
-			 "***"     /* 对应AK的的SK信息 */
+			 "your ak",    /* 请输入你的AK信息 */
+			 "your sk"     /* 对应AK的的SK信息 */
 			 );
 	
 	public static AuthInfo getAuthInfo() {

@@ -1,7 +1,5 @@
 package com.huawei.ais.demo;
 
-
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.ais.sdk.util.HttpClientUtils;
@@ -23,6 +21,10 @@ import java.net.URISyntaxException;
  */
 public class TokenDemo {
 
+	public static int connectionTimeout = 5000; //连接目标url超时限制参数
+	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
+	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
+	
 	/**
 	 * 构造使用Token方式访问服务的请求Token对象
 	 * 
@@ -95,7 +97,7 @@ public class TokenDemo {
 		StringEntity stringEntity = new StringEntity(requestBody,
 				"utf-8");
 
-		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 		Header[] xst = response.getHeaders("X-Subject-Token");
 		return xst[0].getValue();
 
@@ -133,7 +135,7 @@ public class TokenDemo {
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
 		try {
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
 			System.out.println(content);
@@ -161,7 +163,7 @@ public class TokenDemo {
 			json.put("threshhold", 0.8);
 						
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
 			System.out.println(content);
@@ -189,7 +191,7 @@ public class TokenDemo {
 			json.put("correction", true);
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 			
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 			
 			if(ResponseProcessUtils.isRespondedOK(response)) {
 				ResponseProcessUtils.processResponseWithImage(response, "data/moderation-distortion.corrected.jpg");
@@ -231,7 +233,7 @@ public class TokenDemo {
 			json.put("items", items);
 			
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
 			System.out.println(content);
@@ -260,8 +262,8 @@ public class TokenDemo {
 			json.put("threshold", "");
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 			
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
-			
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
 			System.out.println(content);
@@ -282,8 +284,13 @@ public class TokenDemo {
 		String token = getToken(username, password, projectName);
 		System.out.println(token);
 		
+		// 设置三个超时参数限制连接超时，分别如下
+		connectionTimeout = 5000; //连接目标url超时限制
+		connectionRequestTimeout = 1000;//连接池获取可用连接超时限制
+		socketTimeout = 5000;//获取服务器响应数据超时限制
+				
 		//运行图像反黄检测服务
-	    //requestModerationAntiPornBase64(token, "data/moderation-demo-1.jpg");
+	    requestModerationAntiPornBase64(token, "data/moderation-demo-1.jpg");
 		
 		//运行清晰度检测服务
 		//requestModerationClarityBase64(token, "data/moderation-demo-1.jpg");
@@ -295,7 +302,7 @@ public class TokenDemo {
 		//requestModerationTextContentBase64(token, "luo聊请+我，微信110");
 		
 		//运行图像内容检测服务
-		requestModerationImageContentBase64(token, "data/moderation-demo-1.jpg");
+		//requestModerationImageContentBase64(token, "data/moderation-demo-1.jpg");
 				
 	}
 
