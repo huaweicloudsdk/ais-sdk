@@ -62,37 +62,42 @@ public class LongSentenceDemo {
 				System.out.println("Long sentence process failed: submit the job failed!");
 				return;
 			}
-			
+
+			// 5.获取到提交成功的任务ID, 准备进行结果的查询
 			String jobId = getJobId(response);
 
-			// 
-			// 等待一段时间  进行轮询, 
-			//
+
+			// 5.1 构建进行查询的请求链接，并进行轮询查询，由于是异步任务，必须多次进行轮询
+			// 直到结果状态为任务已处理完成
 			String words = "";
 			String url = String.format(URL_TEMPLATE, jobId);
 			System.out.println(url);
 			
 			while(true){
+
+				// 5.1 发起请求
 				HttpResponse getResponse = service.get(url);
 				String result = HttpClientUtils.convertStreamToString(getResponse.getEntity().getContent());
 				int status = getProcessStatus(result);
-				
+
+				// 6.3 如果处理失败，直接退出
 				if( status == -1 )
 				{
-					// 5.3 如果失败，直接退出
 					System.out.println("Process the audio result failed!");
 					break;
 				}
+
+				// 6.2 任务处理成功
 				else if( status == 2)
 				{
-					// 5.2 处理服务返回的字符流，输出识别结果。
+					// 7. 处理服务返回的字符流，输出识别结果。
 					words = getProcessResult(result);
 					break;
 				}
 				// status == 0 || status == 1
 				else
 				{
-					// 5.1 如果没有返回，继续进行轮询。
+					// 6.1 如果没有返回，等待一段时间，继续进行轮询。
 					Thread.sleep(POLLING_INTERVAL);
 					continue;
 				}
@@ -102,11 +107,14 @@ public class LongSentenceDemo {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// 6.使用完毕，关闭服务的客户端连接
+			// 8.使用完毕，关闭服务的客户端连接
 			service.close();
 		}
 	}
 
+	//
+	// 获取提交任务的任务ID
+	//
 	private static String getJobId(HttpResponse response) throws UnsupportedOperationException, IOException
 	{
 		String result = HttpClientUtils.convertStreamToString(response.getEntity().getContent());
@@ -116,7 +124,10 @@ public class LongSentenceDemo {
 		
 		return jobId;
 	}
-	
+
+	//
+	//  获取长语音服务处理的结果状态
+	//
 	private static int getProcessStatus(String response) throws UnsupportedOperationException, IOException
 	{
 		JSONObject resp = JSON.parseObject(response);
@@ -125,7 +136,10 @@ public class LongSentenceDemo {
 		
 		return status;
 	}
-	
+
+	//
+	//  获取长语音服务识别的结果内容
+	//
 	private static String getProcessResult(String response) throws UnsupportedOperationException, IOException
 	{
 		JSONObject resp = JSON.parseObject(response);
