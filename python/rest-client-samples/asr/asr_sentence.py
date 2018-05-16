@@ -8,7 +8,7 @@ from utils import encode_to_base64
 from urllib2 import HTTPError, URLError
 
 #
-# access moderation, image anti-porn
+# access asr, asr_sentence
 #
 def asr_sentence(token, data, url, encode_type='wav', sample_rate='8k'):
     _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/sentence'
@@ -57,6 +57,7 @@ if __name__ == '__main__':
     user_name = '******'
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
+
     demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/asr-sentence.wav'
     token = get_token(user_name, password, account_name)
 
