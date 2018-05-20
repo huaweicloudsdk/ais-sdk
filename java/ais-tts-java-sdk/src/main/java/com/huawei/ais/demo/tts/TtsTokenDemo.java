@@ -18,6 +18,10 @@ import java.net.URISyntaxException;
  */
 public class TtsTokenDemo {
 
+	public static int connectionTimeout = 5000; //连接目标url超时限制参数
+	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
+	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
+
 	/**
 	 * 构造使用Token方式访问服务的请求Token对象
 	 *
@@ -89,7 +93,7 @@ public class TtsTokenDemo {
 		Header[] headers = new Header[]{new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
 
-		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 		Header[] xst = response.getHeaders("X-Subject-Token");
 		return xst[0].getValue();
 
@@ -108,7 +112,7 @@ public class TtsTokenDemo {
 		String requestBody = toTtsHttpBody();
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
 		try {
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 
 			//验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败，成功时输出结果。
 			if(ResponseProcessUtils.isOKResponded(response)) {

@@ -11,9 +11,6 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.message.BasicHeader;
 
 import com.alibaba.fastjson.JSONArray;
@@ -24,6 +21,9 @@ import com.huawei.ais.sdk.util.HttpClientUtils;
  * 使用Token认证方式访问服务
  */
 public class TokenDemo {
+	public static int connectionTimeout = 5000; //连接目标url超时限制参数
+	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
+	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
 
 	/**
 	 * 构造使用Token方式访问服务的请求Token对象
@@ -97,7 +97,7 @@ public class TokenDemo {
 		StringEntity stringEntity = new StringEntity(requestBody,
 				"utf-8");
 
-		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 		Header[] xst = response.getHeaders("X-Subject-Token");
 		return xst[0].getValue();
 
@@ -115,7 +115,7 @@ public class TokenDemo {
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
 		try {
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
 			System.out.println(content);

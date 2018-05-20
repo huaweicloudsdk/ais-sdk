@@ -20,6 +20,10 @@ import java.net.URISyntaxException;
  */
 public class TokenDemo {
 
+	public static int connectionTimeout = 5000; //连接目标url超时限制参数
+	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
+	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
+
 	/**
 	 * 构造使用Token方式访问服务的请求Token对象
 	 * 
@@ -93,7 +97,7 @@ public class TokenDemo {
 		StringEntity stringEntity = new StringEntity(requestBody,
 				"utf-8");
 
-		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 		Header[] xst = response.getHeaders("X-Subject-Token");
 		return xst[0].getValue();
 
@@ -111,7 +115,7 @@ public class TokenDemo {
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
 		try {
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 
             //验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             ResponseProcessUtils.processResponseStatus(response);

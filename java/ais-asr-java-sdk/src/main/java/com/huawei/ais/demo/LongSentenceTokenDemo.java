@@ -20,6 +20,10 @@ import java.net.URISyntaxException;
  * 使用Token认证方式访问服务
  */
 public class LongSentenceTokenDemo {
+	public static int connectionTimeout = 5000; //连接目标url超时限制参数
+	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
+	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
+
 	private static final String ENDPOINT_HOST = "https://ais.cn-north-1.myhuaweicloud.com";
 	private static final String URL_TEMPLATE = "/v1.0/voice/asr/long-sentence?job_id=%s";
 	private static final long POLLING_INTERVAL = 2000L;
@@ -97,7 +101,7 @@ public class LongSentenceTokenDemo {
 		StringEntity stringEntity = new StringEntity(requestBody,
 				"utf-8");
 
-		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity);
+		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 		Header[] xst = response.getHeaders("X-Subject-Token");
 		return xst[0].getValue();
 
@@ -149,7 +153,7 @@ public class LongSentenceTokenDemo {
 
 			// 3.传入长语音识别服务对应的uri参数, 传入长语音识别服务需要的参数，
 			// 该参数主要通过JSON对象的方式传入, 使用POST方法调用服务
-			HttpResponse response = HttpClientUtils.post(urlPost, headers, stringEntity);
+			HttpResponse response = HttpClientUtils.post(urlPost, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 
 			// 4.验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
 			ResponseProcessUtils.processResponseStatus(response);
