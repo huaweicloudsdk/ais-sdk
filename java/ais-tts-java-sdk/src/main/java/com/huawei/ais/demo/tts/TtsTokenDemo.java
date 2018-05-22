@@ -47,7 +47,7 @@ public class TtsTokenDemo {
 		user.put("password", passwd);
 
 		JSONObject domain = new JSONObject();
-		domain.put("name", domaiName);
+		domain.put("name", domainName);
 		user.put("domain", domain);
 
 		password.put("user", user);
