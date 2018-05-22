@@ -50,7 +50,7 @@ public class TokenDemo {
 		user.put("password", passwd);
 
 		JSONObject domain = new JSONObject();
-		domain.put("name", username);
+		domain.put("name", domainName);
 		user.put("domain", domain);
 
 		password.put("user", user);
@@ -61,10 +61,6 @@ public class TokenDemo {
 
 		JSONObject scopeProject = new JSONObject();
 		scopeProject.put("name", projectName);
-
-		JSONObject projectDomain = new JSONObject();
-		projectDomain.put("name", domainName);
-		scopeProject.put("domain", projectDomain);
 
 		scope.put("project", scopeProject);
 

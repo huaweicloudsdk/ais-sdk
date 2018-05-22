@@ -49,7 +49,7 @@ public class TokenDemo {
 		user.put("password", passwd);
 
 		JSONObject domain = new JSONObject();
-		domain.put("name", username);
+		domain.put("name", domainName);
 		user.put("domain", domain);
 
 		password.put("user", user);
@@ -61,9 +61,6 @@ public class TokenDemo {
 		JSONObject scopeProject = new JSONObject();
 		scopeProject.put("name", projectName);
 
-		JSONObject projectDomain = new JSONObject();
-		projectDomain.put("name", domainName);
-		scopeProject.put("domain", projectDomain);
 
 		scope.put("project", scopeProject);
 
@@ -153,7 +150,7 @@ public class TokenDemo {
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
 		String username = "zhangshan";    // 此处，请输入用户名
 		String domainname = "MyCompany";  // 此处，请输入账户名，参考地址：https://console.huaweicloud.com/iam/#/myCredential
-		String password = "*******";	  // 此处，请输入对应用户名的密码
+		String password = "******";	  // 此处，请输入对应用户名的密码
 		String regionName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
 		String token = getToken(username, domainname, password, regionName);
 		System.out.println(token);
