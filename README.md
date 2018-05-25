@@ -27,8 +27,8 @@
 + 内容检测 http://support.huaweicloud.com/moderation_gls/index.html
 + 图像处理 http://support.huaweicloud.com/deblur_gls/index.html
 + 智能物流 http://support.huaweicloud.com/ils_gls/index.html
-+ 语音合成 https://support.huaweicloud.com/asr_gls/index.html
-+ 语音识别 https://support.huaweicloud.com/tts_gls/index.html
++ 语音合成 https://support.huaweicloud.com/tts_gls/index.html
++ 语音识别 https://support.huaweicloud.com/asr_gls/index.html
 
 ## 目录结构说明
 + curl 提供使用curl工具访问服务示例的代码说明
