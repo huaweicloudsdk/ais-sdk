@@ -20,7 +20,7 @@ public class ASRSentenceDemo {
 	//
 	// 短语音识别服务的使用示例函数
 	//
-	private static void asr_sentenceDemo() throws IOException {
+	private static void asrSentenceDemo() throws IOException {
 		//
 		// 1. 在ClientContextUtils类中, 配置好访问语音识别服务的基本信息,
 		// 然后，在此处生成对应的一个客户端连接对象
@@ -77,6 +77,6 @@ public class ASRSentenceDemo {
 	public static void main(String[] args) throws IOException {
 
 		// 测试入口函数
-		asr_sentenceDemo();
+		asrSentenceDemo();
 	}
 }
