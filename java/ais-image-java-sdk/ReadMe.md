@@ -36,5 +36,5 @@
 4. ReadMe.md 为图像识别 SDK使用说明
 5. VERSION 为图像识别 SDK的版本说明文件
 
-####5.图像识别 SDK使用说明
+#### 5.图像识别 SDK使用说明
 可参见[使用说明视频](http://www.huaweicloud.com/product/image.html#section-4 "视频专区")使用说明视频进一步的了解。
