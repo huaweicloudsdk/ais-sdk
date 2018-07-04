@@ -4,14 +4,11 @@ import urllib2
 import json
 import ssl
 from gettoken import get_token
-from utils import encode_to_base64
+from utils import encode_to_base64, download_url_base64
 from urllib2 import HTTPError, URLError
 
-#
-# access moderation, image anti-porn
-#
-def image_antiporn(token, image_str=None, url=None ):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/anti-porn'
+def request_moderation_url(token, inner_path, image_str=None, url=None):
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com' + inner_path
 
     _data = {
       "image":image_str,
@@ -51,17 +48,26 @@ def image_antiporn(token, image_str=None, url=None ):
         resp = r.read()        
     return resp 
 
+#
+# access moderation, image anti-porn
+#
+def image_antiporn(token, image_str=None, url=None ):
+    print request_moderation_url(token, '/v1.1/moderation/image/anti-porn', image_str, url)
+    print request_moderation_url(token, '/v1.0/moderation/image', image_str, url)
+
 if __name__ == '__main__':
-    user_name = '******'
-    password = '******'
-    account_name = '******'  # the same as user_name in commonly use
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+    user_name = '*******'
+    password = '*******'
+    account_name = '*******'  # the same as user_name in commonly use
     token = get_token(user_name, password, account_name)
 
+    # call interface use the url download
+    image_antiporn(token, download_url_base64('http://moderation-demo.ei.huaweicloud.com/theme/images/imagga/image_tagging_04.jpg'))
+
     # call interface use the url
-    result = image_antiporn(token, '', demo_data_url )
-    print result
+    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+    image_antiporn(token, '', demo_data_url )
 
     # call interface use the file
-    result = image_antiporn(token, encode_to_base64('data/tagging-normal.jpg'))
-    print result
+    image_antiporn(token, encode_to_base64('data/tagging-normal.jpg'))
+
