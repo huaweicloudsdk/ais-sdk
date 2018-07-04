@@ -43,7 +43,7 @@ public class ModerationAntiPornDemo {
 			//
 			// 2.构建访问图像反黄检测服务需要的参数
 			//
-			String uri = "/v1.0/moderation/image/anti-porn";
+			String uri = "/v1.1/moderation/image/anti-porn";
 			byte[] fileData = FileUtils.readFileToByteArray(new File("data/moderation-demo-1.jpg"));
 			String fileBase64Str = Base64.encodeBase64String(fileData);
 
