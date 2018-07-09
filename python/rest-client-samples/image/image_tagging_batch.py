@@ -70,20 +70,18 @@ if __name__ == "__main__":
     password = "XXX"
     account_name = "XXX"
 
+    url_file = sys.argv[1]
+
     # token expire in 24hour
     token = get_token(user_name, password, account_name)
     if len(token) == 0:
         print "Error username password"
         sys.exit(-1)
 
-    # test a sigle url
-    url_image_tagging(token, 'http://www.example.com/example.jpg')
-
     # test urls in file
-    #url_file = sys.argv[1]
-    #for line in open(url_file):
-    #    url = line.strip()
-    #    url_image_tagging(token, url)
+    for line in open(url_file):
+        url = line.strip()
+        url_image_tagging(token, url)
 
-
-
+    # test a sigle url
+    #url_image_tagging(token, 'http://www.example.com/example.jpg')
