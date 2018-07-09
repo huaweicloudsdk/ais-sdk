@@ -8,6 +8,9 @@ import base64
 from urllib2 import HTTPError, URLError
 from gettoken import get_token
 
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 def download_url_base64(url):
     try:
         r = urllib2.urlopen(url)
@@ -83,5 +86,5 @@ if __name__ == "__main__":
         url = line.strip()
         url_image_tagging(token, url)
 
-    # test a sigle url
+    ## test a sigle url
     #url_image_tagging(token, 'http://www.example.com/example.jpg')
