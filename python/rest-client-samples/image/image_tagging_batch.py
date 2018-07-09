@@ -77,7 +77,7 @@ if __name__ == "__main__":
         sys.exit(-1)
 
     # test a sigle url
-    url_image_tagging(token, 'http://img2.inke.cn/MTUyOTg2MjkyMzI3OCM3NjQjanBn.jpg')
+    url_image_tagging(token, 'http://www.example.com/example.jpg')
 
     # test urls in file
     #url_file = sys.argv[1]
