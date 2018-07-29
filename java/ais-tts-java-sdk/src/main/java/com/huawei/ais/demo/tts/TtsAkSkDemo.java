@@ -48,11 +48,11 @@ public class TtsAkSkDemo {
 			json.put("voice_name", "xiaoyu");
 			// 语音的采样率，当前支持16k，代表16KHz
 			json.put("sample_rate", "16k");
-			// 语速： -500～500，默认为0
+			// 语速: [-500, 500], 默认为0
 			json.put("speech_speed", 0);
-			// 语调： -20～20，默认为0
+			// 音高：[-500, 500]，默认为0
 			json.put("pitch_rate", 0);
-			// 音量： -500～500，默认为0
+			// 音量: [-20, 20], 默认为0
 			json.put("volume", 0);
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 
