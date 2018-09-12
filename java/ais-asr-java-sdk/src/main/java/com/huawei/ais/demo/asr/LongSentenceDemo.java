@@ -56,19 +56,24 @@ public class LongSentenceDemo {
 
 			JSONObject json = new JSONObject();
 
-			json.put("data", fileBase64Str); //如果音频超过10MB，请使用OBS方式，注释掉此行
+			json.put("data", fileBase64Str); //如果音频Base64编码超过10MB（对应音频本身约6MB），请使用OBS方式，注释掉此行
 
+
+			//------------OBS方式，提交音频的OBS临时授权下载链接--------------//
 			//String bucketName = "asr-sdk-test";
+			
 			//如果目标桶已存在，则不需要执行创建桶的动作
 			//simpleObsClient.createBucket(bucketName);
 
-			//将音频上传到OBS中，生成临时授权下载链接，提交给语音识别服务
+			//如果音频在本地，将音频上传到OBS中，返回OBS文件句柄
 			//ObsFileHandle obsFileHandle = simpleObsClient.uploadFile(bucketName, "data/sentence.wav");
 
-			//如果音频已在OBS中，直接获取其句柄生成临时授权下载链接，提交给语音识别服务
+			//如果音频已在OBS中，直接获取其OBS文件句柄
 			//ObsFileHandle obsFileHandle = simpleObsClient.locateFile(bucketName, "sentence.wav");
 
+			//生成OBS文件临时授权下载链接，提交给语音识别服务
 			//json.put("url", obsFileHandle.generateSharedDownloadUrl());
+			//------------OBS方式，提交音频的OBS临时授权下载链接--------------//
 
 
 			// 3.传入长语音识别服务对应的uri参数, 传入长语音识别服务需要的参数，
