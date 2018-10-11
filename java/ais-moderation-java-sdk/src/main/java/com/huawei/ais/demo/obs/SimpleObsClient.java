@@ -157,7 +157,7 @@ public class SimpleObsClient {
         } else {
             obsClient.putObject(bucketName, objectKey, file);
         }
-        System.out.println("upload file " + file.getAbsolutePath() + " successfully!\n");
+        System.out.println("upload file " + filePath + " successfully!\n");
         return new ObsFileHandle(bucketName, objectKey, this);
     }
 

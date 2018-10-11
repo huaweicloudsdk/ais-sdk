@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum Suggestion {
 
-    @JsonProperty("pass")
-    PASS,
+	@JsonProperty("pass")
+	PASS,
 
-    @JsonProperty("review")
-    REVIEW,
+	@JsonProperty("review")
+	REVIEW,
 
-    @JsonProperty("block")
-    BLOCK
+	@JsonProperty("block")
+	BLOCK
 }
