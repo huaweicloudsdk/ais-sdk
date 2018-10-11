@@ -11,15 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.obs.services.ObsClient;
 import com.obs.services.exception.ObsException;
-import com.obs.services.model.CompleteMultipartUploadRequest;
-import com.obs.services.model.InitiateMultipartUploadRequest;
-import com.obs.services.model.InitiateMultipartUploadResult;
-import com.obs.services.model.ListPartsRequest;
-import com.obs.services.model.ListPartsResult;
-import com.obs.services.model.Multipart;
-import com.obs.services.model.PartEtag;
-import com.obs.services.model.UploadPartRequest;
-import com.obs.services.model.UploadPartResult;
+import com.obs.services.model.*;
 
 /**
  * copy from OBS Java SDK
