@@ -52,10 +52,10 @@ public class TokenDemo {
         String videoUrl = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/news.mp4";
 
         // 3. 调用视频标签服务
-        callVCMService(token, videoUrl);
+        callVCTService(token, videoUrl);
     }
 
-    private static void callVCMService(String token, String videoUrl) throws InterruptedException, IOException {
+    private static void callVCTService(String token, String videoUrl) throws InterruptedException, IOException {
         JobMetaInfo jobMetaInfo = new JobMetaInfo();
         // 设置必选参数
         jobMetaInfo.setUrl(videoUrl);
