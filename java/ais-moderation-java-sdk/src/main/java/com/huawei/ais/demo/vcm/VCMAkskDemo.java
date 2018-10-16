@@ -35,13 +35,13 @@ public class VCMAkskDemo {
 
 	public static void main(String[] args) {
 		//
-		// 1. 在ClientContextUtils类中, 配置好访问语音识别服务的基本信息,
+		// 1. 在ClientContextUtils类中, 配置好访问视频审核服务的基本信息,
 		// 然后，在此处生成对应的一个客户端连接对象
 		//
 		AisAccess aisAkskClient = new AisAccess(ClientContextUtils.getAuthInfo(), connectionTimeout, connectionRequestTimeout, socketTimeout);
 		SimpleObsClient simpleObsClient = new SimpleObsClient();
 		//
-		// 1.a 此处支持使用代理方式访问语音识别服务，用于不能直接访问华为云官网服务的情况, 例如，内网网络。
+		// 1.a 此处支持使用代理方式访问视频审核服务，用于不能直接访问华为云官网服务的情况, 例如，内网网络。
 		// 如果使用此处方式，需要同时在ClientContextUtils中，配置相应的代理服务器的参数类(ProxyHostInfo)
 		//
 		//AisAccess aisAkskClient = new AisAccessWithProxy(ClientContextUtils.getAuthInfo(), ClientContextUtils.getProxyHost(), connectionTimeout, connectionRequestTimeout, socketTimeout);

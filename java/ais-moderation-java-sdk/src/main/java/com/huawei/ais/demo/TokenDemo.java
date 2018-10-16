@@ -126,7 +126,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationAntiPornBase64(String token, String formFile) throws IOException {
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/anti-porn";
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.1/moderation/image/anti-porn";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
