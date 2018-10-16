@@ -69,7 +69,7 @@ public class AkskDemo {
             //
             // 3.调用视频标签服务
             //
-            callVCMService(sharedDownloadUrl, aisAkskClient);
+            callVCTService(sharedDownloadUrl, aisAkskClient);
             //
             // 4. 可选动作，任务结束，将文件从obs中删除
             //
@@ -86,7 +86,7 @@ public class AkskDemo {
         }
     }
 
-    private static void callVCMService(String videoUrl, AisAccess service) throws IOException, InterruptedException {
+    private static void callVCTService(String videoUrl, AisAccess service) throws IOException, InterruptedException {
         JobMetaInfo jobMetaInfo = new JobMetaInfo();
         // 设置必选参数
         jobMetaInfo.setUrl(videoUrl);
