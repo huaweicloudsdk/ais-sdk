@@ -39,7 +39,7 @@ public class ModerationImageContentDemo {
 		// 1.a 此处支持使用代理方式访问图像内容检测服务，用于不能直接访问华为云官网服务的情况, 例如，内网网络。
 		// 如果使用此处方式，需要同时在ClientContextUtils中，配置相应的代理服务器的参数类(ProxyHostInfo)
 		//
-		//AisAccess service = new AisAccessWithProxy(ClientContextUtils.getAuthInfo(), ClientContextUtils.getProxyHost(), connectionTimeout,connectionRequestTimeout, socketTimeout);
+		//service = new AisAccessWithProxy(ClientContextUtils.getAuthInfo(), ClientContextUtils.getProxyHost(), connectionTimeout,connectionRequestTimeout, socketTimeout);
 
 	}
 	

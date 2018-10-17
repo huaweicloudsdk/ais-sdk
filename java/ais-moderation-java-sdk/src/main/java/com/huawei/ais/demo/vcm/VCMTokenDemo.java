@@ -42,7 +42,7 @@ public class VCMTokenDemo {
 
 	public static void main(String[] args)
 			throws UnsupportedOperationException, IOException, InterruptedException {
-		// 1. 配置好访问语音识别服务的基本信息, 获取Token
+		// 1. 配置好访问视频审核服务的基本信息, 获取Token
 		String username = "zhangshan";    // 用户名
 		String domainName = "MyCompany";  // 账户名，参考地址：https://console.huaweicloud.com/iam/#/myCredential
 		String password = "*******";      // 对应用户名的密码
