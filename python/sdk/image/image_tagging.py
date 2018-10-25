@@ -3,27 +3,27 @@
 import urllib2
 import json
 import ssl
-from gettoken import get_token
-from utils import encode_to_base64
 from urllib2 import HTTPError, URLError
 
-
 #
-# access ocr idcard
+# access image tagging
 #
-def ocr_barcode(token, image_str=None, url=None):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/barcode'
+def image_tagging(token, url):
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/tagging'
 
     _data = {
-        "image": image_str,
-        "url": url
+      "image":"",
+      "url":url,
+      "language": "zh",
+      "limit": 5,
+      "threshold": 30.0
     }
 
-    kreq = urllib2.Request(url=_url)
+    kreq = urllib2.Request( url = _url)
     kreq.add_header('Content-Type', 'application/json')
-    kreq.add_header('X-Auth-Token', token)
+    kreq.add_header('X-Auth-Token', token )
     kreq.add_data(json.dumps(_data))
-
+    
     resp = None
     status_code = None
     try:
@@ -33,7 +33,7 @@ def ocr_barcode(token, image_str=None, url=None):
         #
         _context = ssl._create_unverified_context()
         r = urllib2.urlopen(kreq, context=_context)
-
+        
     #
     # We use HTTPError and URLError，because urllib2 can't process the 4XX & 
     # 500 error in the single urlopen function.
@@ -49,21 +49,5 @@ def ocr_barcode(token, image_str=None, url=None):
         status_code = e.code
     else:
         status_code = r.code
-        resp = r.read()
-    return resp
-
-
-if __name__ == '__main__':
-    user_name = '******'
-    password = '******'
-    account_name = '******'
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/barcode.jpg'
-    token = get_token(user_name, password, account_name)
-
-    # call interface use the url
-    result = ocr_barcode(token, '', demo_data_url)
-    print result
-
-    # call interface use the data
-    result = ocr_barcode(token,  encode_to_base64('data/barcode.jpg'))
-    print result
+        resp = r.read()        
+    return resp 

@@ -22,8 +22,6 @@ class ImageURI:
 class ModerationURI:
     IMAGE_ANTI_PORN='/v1.0/moderation/image/anti-porn'
     IMAGE_CLARITY_DETECT='/v1.0/moderation/image/clarity-detect'
-
-class DeblurURI:
     DARK_ENHANCE='/v1.0/vision/dark-enhance'
     DEFOG='/v1.0/vision/defog'
     SURPER_RESOLUTION='/v1.0/vision/super-resolution'
@@ -35,6 +33,5 @@ class AisURI:
     ocr_uri = OcrURI
     image_uri = ImageURI
     moderation_uri = ModerationURI
-    deblur_uri = DeblurURI
     asr_uri = AsrURI
 

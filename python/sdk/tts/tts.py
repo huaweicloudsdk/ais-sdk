@@ -1,21 +1,25 @@
-
 # -*- coding:utf-8 -*-
 
 import urllib2
 import json
 import ssl
+from core.utils import decode_to_wave_file
+from core.gettoken import get_token
 from urllib2 import HTTPError, URLError
 
 #
-# access ocr idcard
+# access ocr vat invoice
 #
-def ocr_idcard(token, url):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/ocr/id-card'
+def tts(token, text, voice_name = 'xiaoyan', volume='0', sample_rate = '16k', speech_speed = '0', pitch_rate = '0' ):
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/tts'
 
     _data = {
-      "image":"",
-      "url":url,
-      "side":"front"
+        "text": text,
+        "voice_name": voice_name,
+        "volume": volume,
+        "sample_rate": sample_rate,
+        "speech_speed": speech_speed,
+        "pitch_rate": pitch_rate
     }
 
     kreq = urllib2.Request( url = _url)
@@ -49,4 +53,5 @@ def ocr_idcard(token, url):
     else:
         status_code = r.code
         resp = r.read()        
-    return resp 
+    return resp
+
