@@ -3,8 +3,6 @@
 import urllib2
 import json
 import ssl
-from core.gettoken import get_token
-from core.utils import encode_to_base64
 from urllib2 import HTTPError, URLError
 
 #

@@ -3,8 +3,6 @@
 import urllib2
 import json
 import ssl
-from core.utils import decode_to_wave_file
-from core.gettoken import get_token
 from urllib2 import HTTPError, URLError
 
 #

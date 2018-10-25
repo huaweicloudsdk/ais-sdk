@@ -1,17 +1,15 @@
 # -*- coding:utf-8 -*-
 
-from core.gettoken import get_token
-from core.utils import encode_to_base64, decode_to_wave_file
-from tts.tts import tts
+from ais_sdk.gettoken import get_token
+from ais_sdk.utils import decode_to_wave_file
+from ais_sdk.tts import tts
 import json
 
 if __name__ == '__main__':
     user_name = '*****'
     password = '******'
     account_name = '*****'  # the same as user_name in commonly use
-    user_name = 'l65717'
-    password = 'il0veais'
-    account_name = 'l65717'  # the same as user_name in commonly use
+
     token = get_token(user_name, password, account_name)
 
     # call interface use the default config

@@ -5,8 +5,6 @@ import json
 import ssl
 from urllib2 import HTTPError, URLError
 
-from core.gettoken import get_token
-from core.utils import encode_to_base64, download_url_base64
 
 def request_moderation_url(token, inner_path, image_str=None, url=None):
     _url = 'https://ais.cn-north-1.myhuaweicloud.com' + inner_path
