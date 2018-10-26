@@ -17,7 +17,6 @@ def encode_to_base64(filename):
 def download_url_base64(url):
     return base64.b64encode(urllib.urlopen(url).read())
 
-
 def decode_to_wave_file(base64_encoded_str, filename):
     '''
     decode base64 stream to wave file

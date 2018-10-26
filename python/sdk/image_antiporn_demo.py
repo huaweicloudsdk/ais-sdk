@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-from core.gettoken import get_token
-from core.utils import encode_to_base64, download_url_base64
-from moderation.image_antiporn import image_antiporn
+from ais_sdk.gettoken import get_token
+from ais_sdk.utils import encode_to_base64, download_url_base64
+from ais_sdk.image_antiporn import image_antiporn
 
 if __name__ == '__main__':
     user_name = '*******'

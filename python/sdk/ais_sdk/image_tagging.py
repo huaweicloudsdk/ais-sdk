@@ -8,15 +8,15 @@ from urllib2 import HTTPError, URLError
 #
 # access image tagging
 #
-def image_tagging(token, url):
+def image_tagging(token, image, url, languzge, limit=-1, threshold=0.0):
     _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/tagging'
 
     _data = {
-      "image":"",
+      "image":image,
       "url":url,
-      "language": "zh",
-      "limit": 5,
-      "threshold": 30.0
+      "language": languzge,
+      "limit": limit,
+      "threshold": threshold
     }
 
     kreq = urllib2.Request( url = _url)
