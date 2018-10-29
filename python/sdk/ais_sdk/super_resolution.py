@@ -5,18 +5,19 @@ import json
 import ssl
 from urllib2 import HTTPError, URLError
 import signer
+
 #
-# access moderation text enhance,posy data by token
+# access image super resolution,post data by token
 #
-def moderation_text(token, text, type='content', cattegories=[ "ad","politics","politics","politics",  "contraband",  "contraband"]):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/text'
+def super_resolution(token, image, scale=3, model="ESPCN"):
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/vision/super-resolution'
 
     _data = {
-        "categories": cattegories,   # 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
-        "items": [
-            {  "text": text,"type": type }    #items: 待检测的文本列表  text 待检测文本 type 文本类型
-        ]
+        "image": image,
+        "scale": scale,
+        "model": model
     }
+
     kreq = urllib2.Request(url=_url)
     kreq.add_header('Content-Type', 'application/json')
     kreq.add_header('X-Auth-Token', token)
@@ -50,27 +51,27 @@ def moderation_text(token, text, type='content', cattegories=[ "ad","politics","
         resp = r.read()
     return resp
 
+
 #
-# access moderation text enhance,posy data by ak,sk
+# access image super resolution enhance,post data by sk,sk
 #
-def moderation_text_aksk(_ak, _sk, text, type='content', cattegories=[ "ad","politics","politics","politics",  "contraband",  "contraband"]):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/text'
+def super_resolution_aksk(_ak, _sk, image, scale=3, model="ESPCN"):
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/vision/super-resolution'
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
     _data = {
-        "categories": cattegories,   # 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
-        "items": [
-            {  "text": text,"type": type }    #items: 待检测的文本列表  text 待检测文本 type 文本类型
-        ]
+        "image": image,
+        "scale": scale,
+        "model": model
     }
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
     kreq.host = "ais.cn-north-1.myhuaweicloud.com"
-    kreq.uri = "/v1.0/moderation/text"
+    kreq.uri = "/v1.0/vision/super-resolution"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
     kreq.body = json.dumps(_data)

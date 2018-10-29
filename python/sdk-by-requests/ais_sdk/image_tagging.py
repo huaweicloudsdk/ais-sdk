@@ -1,11 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from core import ais
+import ais
+import authenticate
+import utils
 import sys
 import requests
-
-import core.authenticate
 
 def tagging(filename, token, proxy_dict=None):
     '''

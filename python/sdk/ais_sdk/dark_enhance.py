@@ -5,18 +5,18 @@ import json
 import ssl
 from urllib2 import HTTPError, URLError
 import signer
+
 #
-# access moderation text enhance,posy data by token
+# access image dark enhance,post data by token
 #
-def moderation_text(token, text, type='content', cattegories=[ "ad","politics","politics","politics",  "contraband",  "contraband"]):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/text'
+def dark_enhance(token, image, brightness=0.9):
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/vision/dark-enhance'
 
     _data = {
-        "categories": cattegories,   # 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
-        "items": [
-            {  "text": text,"type": type }    #items: 待检测的文本列表  text 待检测文本 type 文本类型
-        ]
+        "image": image,
+        "brightness": brightness
     }
+
     kreq = urllib2.Request(url=_url)
     kreq.add_header('Content-Type', 'application/json')
     kreq.add_header('X-Auth-Token', token)
@@ -50,27 +50,28 @@ def moderation_text(token, text, type='content', cattegories=[ "ad","politics","
         resp = r.read()
     return resp
 
+
+
+
 #
-# access moderation text enhance,posy data by ak,sk
+# access image dark enhance by ak,sk
 #
-def moderation_text_aksk(_ak, _sk, text, type='content', cattegories=[ "ad","politics","politics","politics",  "contraband",  "contraband"]):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/text'
+def dark_enhance_aksk(_ak, _sk, image, brightness=0.9):
+    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/vision/dark-enhance'
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
     _data = {
-        "categories": cattegories,   # 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
-        "items": [
-            {  "text": text,"type": type }    #items: 待检测的文本列表  text 待检测文本 type 文本类型
-        ]
+        "image": image,
+        "brightness": brightness
     }
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
     kreq.host = "ais.cn-north-1.myhuaweicloud.com"
-    kreq.uri = "/v1.0/moderation/text"
+    kreq.uri = "/v1.0/vision/dark-enhance"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
     kreq.body = json.dumps(_data)
@@ -86,6 +87,7 @@ def moderation_text_aksk(_ak, _sk, text, type='content', cattegories=[ "ad","pol
         _context = ssl._create_unverified_context()
         req = urllib2.Request(url=_url, data=kreq.body, headers=kreq.headers)
         r = urllib2.urlopen(req, context=_context)
+
     #
     # We use HTTPError and URLError，because urllib2 can't process the 4XX &
     # 500 error in the single urlopen function.
