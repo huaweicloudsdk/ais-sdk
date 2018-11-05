@@ -34,7 +34,7 @@ def moderation_video(token, url, frame_interval=5, categories=['politics','terro
             if process_status == 'failed':
                 return r;
 
-            elif process_status == 'finished':
+            elif process_status == 'finish':
                 return r;
 
             #
@@ -165,7 +165,7 @@ def moderation_video_aksk(_ak, _sk, url, frame_interval=5, categories=['politics
             if process_status == 'failed':
                 return r;
 
-            elif process_status == 'finished':
+            elif process_status == 'finish':
                 return r;
 
             #
