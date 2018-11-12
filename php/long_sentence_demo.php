@@ -21,13 +21,13 @@ $data_url = "https://ais-sample-data.obs.myhwclouds.com/lsr-1.mp3";
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
-//// obs的url方式请求
-//$result = long_sentence($token, "", $data_url);
-//echo $result;
-//
-//// base64 方式请求
-//$result = long_sentence($token, $data, "");
-//echo $result;
+// obs的url方式请求
+$result = long_sentence($token, "", $data_url);
+echo $result;
+
+// base64 方式请求
+$result = long_sentence($token, $data, "");
+echo $result;
 
 /**
  * ak,sk 方式请求
