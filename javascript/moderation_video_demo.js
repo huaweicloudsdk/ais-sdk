@@ -10,7 +10,7 @@ var domainname = "*******";     // 配置用户名
 var password = "*******";       // 密码
 var regionName = "cn-north-1";  // 配置区域信息
 
-demo_data_url = "https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition"
+demo_data_url = "https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition";
 
 /**
  * token 方式获取结果

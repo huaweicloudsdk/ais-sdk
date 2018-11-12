@@ -10,7 +10,7 @@ var domainname = "*******";     // 配置用户名
 var password = "*******";       // 密码
 var regionName = "cn-north-1";  // 配置区域信息
 
-var filepath = "./data/dark-enhance-demo-1.bmp";
+var filepath = "./data/dark-enhance-demo.bmp";
 var data = utils.changeFileToBase64(filepath);
 
 /**
@@ -21,7 +21,7 @@ token.getToken(username, domainname, password, regionName, function (token) {
 
     enhance.dark_enhance(token, data, 0.9, function (result) {
         var resultObj = JSON.parse(result);
-        utils.getFileByBase64Str("./data/dark-enhance-demo-1-cooked.bmp", resultObj.result);
+        utils.getFileByBase64Str("./data/dark-enhance-demo-token.bmp", resultObj.result);
     })
 });
 
@@ -34,6 +34,6 @@ var app_secret = "************";
 
 enhance.dark_enhance_aksk(app_key, app_secret, data, 0.9, function (result) {
     var resultObj = JSON.parse(result);
-    utils.getFileByBase64Str("./data/dark-enhance-demo-2-cooked.bmp", resultObj.result);
+    utils.getFileByBase64Str("./data/dark-enhance-demo-aksk.bmp", resultObj.result);
 });
 

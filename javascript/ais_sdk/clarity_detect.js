@@ -9,7 +9,7 @@ module.exports = {
         var requestData = {"image": data, "url": url, "threshold": threshold};
         var host = "ais.cn-north-1.myhuaweicloud.com";
         var method = "POST";
-        var uri = "/v1.0/moderation/image/anti-porn";
+        var uri = "/v1.0/moderation/image/clarity-detect";
         var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
         var options = utils.getHttpRequestEntityOptions(host, method, uri, headers);
         var requestBody = JSON.stringify(requestData);
@@ -46,7 +46,7 @@ module.exports = {
         var requestData = {"image": data, "url": url, "threshold": threshold};
         var host = "ais.cn-north-1.myhuaweicloud.com";
         var _headers = {"Content-Type": "application/json"};
-        var uri = "/v1.0/moderation/image/anti-porn";
+        var uri = "/v1.0/moderation/image/clarity-detect";
         var req = new signer.HttpRequest();
         var options = utils.getHttpRequestEntity(sig, req, host, "POST", uri, "", _headers, requestData);
 

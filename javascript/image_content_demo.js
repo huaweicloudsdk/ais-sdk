@@ -10,13 +10,15 @@ var domainname = "*******";     // 配置用户名
 var password = "*******";       // 密码
 var regionName = "cn-north-1";  // 配置区域信息
 
-var filepath = "./data/moderation-demo-1.jpg";
+var filepath = "./data/moderation-terrorism.jpg";
 var data = utils.changeFileToBase64(filepath);
+
+demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";
 /**
  * token 方式获取结果
  * @type {string}
  */
-demo_data_url = "https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg";
+
 token.getToken(username, domainname, password, regionName, function (token) {
 
     content.image_content(token, data, "", ["politics"], "", function (result) {

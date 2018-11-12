@@ -148,7 +148,7 @@ function get_result_aksk(sign, job_id, resultsearch, callback) {
     var request = new signer.HttpRequest();
     var options = utils.getHttpRequestEntity(sign, request, "ais.cn-north-1.myhwclouds.com", "GET", "/v1.0/moderation/video", {'job_id': job_id}, {"Content-Type": "application/json"}, "");
 
-    // 轮询请求长语音接口，获取结果信息
+    // 轮询请求视频接口，获取结果信息
     var reqsearch = https.request(options, function (response) {
 
         response.setEncoding('utf8');

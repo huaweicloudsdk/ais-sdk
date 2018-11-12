@@ -10,14 +10,14 @@ var domainname = "*******";     // 配置用户名
 var password = "*******";       // 密码
 var regionName = "cn-north-1";  // 配置区域信息
 
-var filepath = "./data/moderation-demo-1.jpg";
+var filepath = "./data/moderation-clarity.jpg";
 var data = utils.changeFileToBase64(filepath);
 
 /**
  * token 方式获取结果
  * @type {string}
  */
-demo_data_url = "https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg";
+demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg";
 token.getToken(username, domainname, password, regionName, function (token) {
 
     clarity.clarity_detect(token, data, "", 0.8, function (result) {

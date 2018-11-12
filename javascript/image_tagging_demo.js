@@ -10,7 +10,7 @@ var domainname = "*******";     // 配置用户名
 var password = "*******";       // 密码
 var regionName = "cn-north-1";  // 配置区域信息
 
-var filepath = "./data/moderation-demo-1.jpg";
+var filepath = "./data/image-tagging-demo.jpg";
 var data = utils.changeFileToBase64(filepath);
 
 /**

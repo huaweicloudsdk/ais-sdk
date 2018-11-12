@@ -10,7 +10,7 @@ module.exports = {
         var uri = "/v1.0/image/tagging";
         /**
          * image: 图片信息
-         * urk： 与image 二选一
+         * url： 与image 二选一
          * language： 可选 返回标签语言
          * limit： 可选 最多的tag数
          * threshold：可选 标签的置信度，低于不返回
