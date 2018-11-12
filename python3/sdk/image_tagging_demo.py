@@ -13,6 +13,7 @@ if __name__ == '__main__':
     account_name = '******'  # the same as user_name in commonly use
 
     demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+
     token = get_token(user_name, password, account_name)
 
     # call interface use the url
@@ -20,7 +21,7 @@ if __name__ == '__main__':
     print(result)
 
     # call interface use the file
-    result = image_tagging(token, encode_to_base64('data/image-tagging-demo-1.jpg'), '', 'zh', 5, 60)
+    result = image_tagging(token, encode_to_base64('data/image-tagging-demo.jpg'), '', 'zh', 5, 60)
     print(result)
 
     #
@@ -29,11 +30,10 @@ if __name__ == '__main__':
     app_key = "*************"
     app_secret = "************"
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
     # call interface use the url
     result = image_tagging_aksk(app_key, app_secret, "", demo_data_url, 'zh', 5, 30)
     print(result)
 
     # call interface use the file
-    result = image_tagging_aksk(app_key, app_secret, encode_to_base64('data/image-tagging-demo-1.jpg'), '', 'zh', 5, 60)
+    result = image_tagging_aksk(app_key, app_secret, encode_to_base64('data/image-tagging-demo.jpg'), '', 'zh', 5, 60)
     print(result)

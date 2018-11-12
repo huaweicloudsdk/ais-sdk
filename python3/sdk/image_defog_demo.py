@@ -18,10 +18,10 @@ if __name__ == '__main__':
     token = get_token(user_name, password, account_name)
 
     # call interface use base64 file
-    result = image_defog(token, encode_to_base64('data/defog-demo-1.png'), '1.5')
+    result = image_defog(token, encode_to_base64('data/defog-demo.png'), '1.5')
     print(result)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result'], 'data/defog-demo_first.png')
+    decode_to_wave_file(result_obj['result'], 'data/defog-demo-token.png')
 
     #
     # access image defog,post data by ak,sk
@@ -30,8 +30,8 @@ if __name__ == '__main__':
     app_secret = "************"
 
     # call interface use base64 file
-    result = image_defog_aksk(app_key, app_secret, encode_to_base64('data/defog-demo-1.png'), '1.5')
+    result = image_defog_aksk(app_key, app_secret, encode_to_base64('data/defog-demo.png'), '1.5')
     print(result)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result'], 'data/defog-demo_second.png')
+    decode_to_wave_file(result_obj['result'], 'data/defog-demo-aksk.png')
 

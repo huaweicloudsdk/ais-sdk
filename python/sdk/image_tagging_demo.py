@@ -20,7 +20,7 @@ if __name__ == '__main__':
     print result
 
     # call interface use the file
-    result = image_tagging(token, encode_to_base64('data/image-tagging-demo-1.jpg'), '', 'zh', 5, 60)
+    result = image_tagging(token, encode_to_base64('data/image-tagging-demo.jpg'), '', 'zh', 5, 60)
     print result
 
     #
@@ -35,5 +35,5 @@ if __name__ == '__main__':
     print result
 
     # call interface use the file
-    result = image_tagging_aksk(app_key, app_secret, encode_to_base64('data/image-tagging-demo-1.jpg'), '', 'zh', 5, 60)
+    result = image_tagging_aksk(app_key, app_secret, encode_to_base64('data/image-tagging-demo.jpg'), '', 'zh', 5, 60)
     print result

@@ -12,17 +12,18 @@ if __name__ == '__main__':
     password = '*******'
     account_name = '*******'  # the same as user_name in commonly use
 
+    demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg'
     token = get_token(user_name, password, account_name)
 
     # call interface use the url download
     image_antiporn(token, download_url_base64('http://moderation-demo.ei.huaweicloud.com/theme/images/imagga/image_tagging_04.jpg'))
 
     # call interface use the url
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+
     image_antiporn(token, '', demo_data_url )
 
     # call interface use the file
-    image_antiporn(token, encode_to_base64('data/image-tagging-demo-1.jpg'))
+    image_antiporn(token, encode_to_base64('data/moderation-antiporn.jpg'))
 
     #
     # access moderation, image anti-porn,post data by ak,sk
@@ -34,9 +35,8 @@ if __name__ == '__main__':
     image_antiporn_aksk(app_key, app_secret, download_url_base64('http://moderation-demo.ei.huaweicloud.com/theme/images/imagga/image_tagging_04.jpg'))
 
     # call interface use the url
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
     image_antiporn_aksk(app_key, app_secret, '', demo_data_url )
 
     # call interface use the file
-    image_antiporn_aksk(app_key, app_secret, encode_to_base64('data/image-tagging-demo-1.jpg'))
+    image_antiporn_aksk(app_key, app_secret, encode_to_base64('data/moderation-antiporn.jpg'))
 

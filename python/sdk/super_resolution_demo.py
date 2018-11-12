@@ -18,10 +18,10 @@ if __name__ == '__main__':
     token = get_token(user_name, password, account_name)
 
     # call interface use base64 file
-    result = super_resolution(token, encode_to_base64('data/super-resolution-demo-1.png'), 3)
+    result = super_resolution(token, encode_to_base64('data/super-resolution-demo.png'), 3)
     print(result)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result'], 'data/super-resolution-demo-first.png')
+    decode_to_wave_file(result_obj['result'], 'data/super-resolution-demo-token.png')
 
     #
     # access image super resolution enhance,post data by sk,sk
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     app_secret = "************"
 
     # call interface use base64 file
-    result = super_resolution_aksk(app_key, app_secret, encode_to_base64('data/super-resolution-demo-1.png'), 3)
+    result = super_resolution_aksk(app_key, app_secret, encode_to_base64('data/super-resolution-demo.png'), 3)
     print(result)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result'], 'data/super-resolution-demo-second.png')
+    decode_to_wave_file(result_obj['result'], 'data/super-resolution-demo-aksk.png')

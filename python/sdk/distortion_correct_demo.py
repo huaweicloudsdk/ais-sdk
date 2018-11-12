@@ -14,19 +14,19 @@ if __name__ == '__main__':
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg'
     token = get_token(user_name, password, account_name)
 
     #call interface use the url correction is true means do not correction
     result = distortion_correct(token, "", demo_data_url, True)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result']['data'], 'data/modeation_distortion-correct_first.png')
+    decode_to_wave_file(result_obj['result']['data'], 'data/modeation-distortion-token-1.png')
     print result
 
     # call interface use the file
     result = distortion_correct(token, encode_to_base64('data/modeation_distortion.jpg'), '', True)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result']['data'], 'data/modeation_distortion-correct_second.png')
+    decode_to_wave_file(result_obj['result']['data'], 'data/modeation-distortion-token-2.png')
     print result
 
     #
@@ -34,13 +34,13 @@ if __name__ == '__main__':
     app_key = "*************"
     app_secret = "************"
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
     #call interface use the url correction is true means do not correction
     result = distortion_correct_aksk(app_key, app_secret, "", demo_data_url, True)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result']['data'], 'data/modeation_distortion-third.png')
+    decode_to_wave_file(result_obj['result']['data'], 'data/modeation-distortion-aksk-1.png')
     print result
 
     # call interface use the file
     result = distortion_correct_aksk(app_key, app_secret, encode_to_base64('data/modeation_distortion.jpg'), '', True)
+    decode_to_wave_file(result_obj['result']['data'], 'data/modeation-distortion-aksk-2.png')
     print result

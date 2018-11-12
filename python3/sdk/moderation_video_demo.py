@@ -13,6 +13,7 @@ if __name__ == '__main__':
     account_name = '******'  # the same as user_name in commonly use
 
     demo_data_url = 'https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition'
+
     token = get_token(user_name, password, account_name)
 
     # call interface use the url

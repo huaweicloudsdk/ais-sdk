@@ -18,10 +18,10 @@ if __name__ == '__main__':
     token = get_token(user_name, password, account_name)
 
     # call interface use base64 file
-    result = dark_enhance(token, encode_to_base64('data/dark-enhance-demo-1.bmp'), '0.95')
+    result = dark_enhance(token, encode_to_base64('data/dark-enhance-demo.bmp'), '0.95')
     print(result)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result'], 'data/dark_enhance_first.bmp')
+    decode_to_wave_file(result_obj['result'], 'data/dark_enhance-token.bmp')
 
     #
     # access image dark enhance by ak,sk
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     app_secret = "************"
 
     # call interface use base64 file
-    result = dark_enhance_aksk(app_key,app_secret, encode_to_base64('data/dark-enhance-demo-1.bmp'), '0.95')
+    result = dark_enhance_aksk(app_key,app_secret, encode_to_base64('data/dark-enhance-demo.bmp'), '0.95')
     print(result)
     result_obj = json.loads(result)
-    decode_to_wave_file(result_obj['result'], 'data/dark_enhance_second.bmp')
+    decode_to_wave_file(result_obj['result'], 'data/dark-enhance-aksk.bmp')

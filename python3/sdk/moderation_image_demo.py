@@ -11,11 +11,12 @@ if __name__ == '__main__':
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg'
+
     token = get_token(user_name, password, account_name)
 
     # call interface use the local file
-    result = moderation_image(token, encode_to_base64('data/moderation-demo-1.jpg'), "", ['politics','terrorism'], "")
+    result = moderation_image(token, encode_to_base64('data/moderation-terrorism.jpg'), "", ['politics','terrorism'], "")
     print(result)
 
     # call interface use the url (token, image, url, threshold=0.95, scene=None)
@@ -28,9 +29,8 @@ if __name__ == '__main__':
     app_key = "*************"
     app_secret = "************"
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
     # call interface use the local file
-    result = moderation_image_aksk(app_key, app_secret, encode_to_base64('data/moderation-demo-1.jpg'), "", ['politics','terrorism'], "")
+    result = moderation_image_aksk(app_key, app_secret, encode_to_base64('data/moderation-terrorism.jpg'), "", ['politics','terrorism'], "")
     print(result)
 
     # call interface use the url

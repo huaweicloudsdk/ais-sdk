@@ -12,7 +12,7 @@ if __name__ == '__main__':
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg'
     token = get_token(user_name, password, account_name)
 
     # call interface use the url
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     print result
 
     # call interface use the file
-    result = clarity_detect(token, encode_to_base64('data/image-tagging-demo-1.jpg'), '', 0.8)
+    result = clarity_detect(token, encode_to_base64('data/moderation-clarity-detect.jpg'), '', 0.8)
     print result
 
     #
@@ -29,11 +29,10 @@ if __name__ == '__main__':
     app_key = "*************"
     app_secret = "************"
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
     # call interface use the url
     result = clarity_detect_aksk(app_key, app_secret, "", demo_data_url, 0.8)
     print result
 
     # call interface use the file
-    result = clarity_detect_aksk(app_key, app_secret, encode_to_base64('data/image-tagging-demo-1.jpg'), '', 0.8)
+    result = clarity_detect_aksk(app_key, app_secret, encode_to_base64('data/moderation-clarity-detect.jpg'), '', 0.8)
     print result

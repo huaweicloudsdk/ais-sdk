@@ -12,10 +12,14 @@ if __name__ == '__main__':
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg'
     token = get_token(user_name, password, account_name)
 
-    # call interface use the url (token, image, url, threshold=0.95, scene=None)
+    # call interface use the file
+    result = recapture_detect(token, encode_to_base64('data/recapture-detect-demo.jpg'), "", 0.75, ["recapture"])
+    print result
+
+    # call interface use the url
     result = recapture_detect(token, "", demo_data_url, 0.75, ["recapture"])
     print result
 
@@ -26,10 +30,8 @@ if __name__ == '__main__':
     app_secret = "************"
 
     # call interface use the file
-    result = recapture_detect_aksk(app_key, app_secret, encode_to_base64('data/recapture-detect-demo-1.jpg'), "", 0.75, ["recapture"])
+    result = recapture_detect_aksk(app_key, app_secret, encode_to_base64('data/recapture-detect-demo.jpg'), "", 0.75, ["recapture"])
     print result
-
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
 
     # call interface use the url (token, image, url, threshold=0.95, scene=None)
     result = recapture_detect_aksk(app_key, app_secret, "", demo_data_url, 0.75, ["recapture"])
