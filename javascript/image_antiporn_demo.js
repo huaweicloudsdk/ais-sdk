@@ -10,11 +10,6 @@ var domainname = "*******";     // 配置用户名
 var password = "*******";       // 密码
 var regionName = "cn-north-1";  // 配置区域信息
 
-var username = "w00367249";       // 配置用户名
-var domainname = "w00367249";     // 配置用户名
-var password = "Ais@1234";       // 密码
-var regionName = "cn-north-1";  // 配置区域信息
-
 var filepath = "./data/moderation-antiporn.jpg";
 var data = utils.changeFileToBase64(filepath);
 /**
@@ -38,9 +33,6 @@ token.getToken(username, domainname, password, regionName, function (token) {
  */
 var app_key = "*************";
 var app_secret = "************";
-
-var app_key = "GVNFDUVG205CWWBQFBWG";
-var app_secret = "CIKdoaSA3UQLL0iWx8ihtAZORS1akvs6ItjJyLuB";
 
 antiporn.image_antiporn_aksk(app_key, app_secret, data, "", function (result) {
     console.log(result);
