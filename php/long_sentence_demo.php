@@ -14,11 +14,6 @@ $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
 $regionName = "********";    // 配置区域信息
 
-$username = "w00367249";
-$domainName = "w00367249";   //　配置用户名
-$password = "Ais@1234";      //  密码
-$regionName = "cn-north-1";  // 配置区域信息
-
 $filepath = "./data/asr-sentence.wav";
 $data = fileToBase64($filepath);
 
@@ -40,9 +35,6 @@ $token = gettoken($username, $password, $domainName, $regionName);
 
 $app_key = "*************";
 $app_secret = "*************";
-
-$app_key = "GVNFDUVG205CWWBQFBWG";
-$app_secret = "CIKdoaSA3UQLL0iWx8ihtAZORS1akvs6ItjJyLuB";
 
 // base64 方式请求
 $result = long_sentence_aksk($app_key, $app_secret, $data, "");
