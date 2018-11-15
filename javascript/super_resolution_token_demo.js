@@ -1,5 +1,5 @@
 /**
- * 超分重建服务的使用示例
+ * 超分重建服务token方式请求的使用示例
  */
 var supresol = require("./ais_sdk/super_resolution");
 var token = require("./ais_sdk/gettoken");
@@ -24,16 +24,3 @@ token.getToken(username, domainname, password, regionName, function (token) {
         utils.getFileByBase64Str("./data/super-resolution-demo-token.png", resultObj.result);
     })
 });
-
-/**
- * aksk 方式获取结果
- * @type {string}
- */
-var app_key = "*************";
-var app_secret = "************";
-
-supresol.super_resolution_aksk(app_key, app_secret, data, 3, "ESPCN", function (result) {
-    var resultObj = JSON.parse(result);
-    utils.getFileByBase64Str("./data/super-resolution-demo-aksk.png", resultObj.result);
-});
-

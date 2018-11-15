@@ -1,5 +1,5 @@
 /**
- * 长语音识别服务的使用示例
+ * 长语音识别服务token请求方式的使用示例
  */
 var lsen = require("./ais_sdk/long_sentence");
 var token = require("./ais_sdk/gettoken");
@@ -15,10 +15,6 @@ demo_data_url = "https://ais-sample-data.obs.myhwclouds.com/lsr-1.mp3";
 var filepath = "./data/asr-sentence.wav";
 var data = utils.changeFileToBase64(filepath);
 
-/**
- * token 方式获取结果
- * @type {string}
- */
 token.getToken(username, domainname, password, regionName, function (token) {
 
     lsen.long_sentence(token, "", demo_data_url, "", function (result) {
@@ -28,20 +24,5 @@ token.getToken(username, domainname, password, regionName, function (token) {
     lsen.long_sentence(token, data, "", "", function (result) {
         console.log(result)
     })
-});
-
-/**
- * aksk 方式获取结果
- * @type {string}
- */
-var app_key = "*************";
-var app_secret = "************";
-
-lsen.long_sentence_aksk(app_key, app_secret, "", demo_data_url, "", function (result) {
-    console.log(result)
-});
-
-lsen.long_sentence_aksk(app_key, app_secret, data, "", "", function (result) {
-    console.log(result)
 });
 
