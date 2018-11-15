@@ -1,10 +1,15 @@
 <?php
 /**
- * 文本检测服务的示例
+ * 文本检测服务token 方式请求的示例
  */
 require "./ais_sdk/gettoken.php";
 require "./ais_sdk/moderation_text.php";
 require "./ais_sdk/utils.php";
+
+$username = "********";      // 配置用户名
+$password = "********";      // 密码
+$domainName = "*********";   // 配置用户名
+$regionName = "********";    // 配置区域信息
 
 $categories = array(
     array(
@@ -14,26 +19,9 @@ $categories = array(
 );
 
 $items = array("ad", "politics", "politics", "politics", "contraband", "contraband");
-/**
- * token 方式请求
- */
-$username = "********";      // 配置用户名
-$password = "********";      // 密码
-$domainName = "*********";   // 配置用户名
-$regionName = "********";    // 配置区域信息
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
 $result = moderation_text($token, $categories, $items);
-echo $result;
-
-/**
- * ak,sk 方式请求
- */
-
-$app_key = "*************";
-$app_secret = "*************";
-
-$result = moderation_text_aksk($app_key, $app_secret, $categories, $items);
 echo $result;
 

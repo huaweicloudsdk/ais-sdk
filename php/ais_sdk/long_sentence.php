@@ -150,7 +150,6 @@ function long_sentence_aksk($_ak, $_sk, $data, $url = "",$category="common")
         // 获取任务的执行结果
         $resultobj = get_result_aksk($signer, $job_id);
 
-        print_r($resultobj);
         if ($resultobj['status'] != 200) {
             return "Process the audio failed!";
         }

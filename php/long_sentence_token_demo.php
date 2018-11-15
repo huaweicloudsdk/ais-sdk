@@ -1,14 +1,11 @@
 <?php
 /**
- * 语音识别服务的使用示例
+ * 语音识别服务token 方式请求的使用示例
  */
 require "./ais_sdk/gettoken.php";
 require "./ais_sdk/long_sentence.php";
 require "./ais_sdk/utils.php";
 
-/**
- * token 方式请求
- */
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
@@ -24,23 +21,9 @@ $token = gettoken($username, $password, $domainName, $regionName);
 // obs的url方式请求
 $result = long_sentence($token, "", $data_url);
 echo $result;
+echo "\n";
 
 // base64 方式请求
 $result = long_sentence($token, $data, "");
-echo $result;
-
-/**
- * ak,sk 方式请求
- */
-
-$app_key = "*************";
-$app_secret = "*************";
-
-// base64 方式请求
-$result = long_sentence_aksk($app_key, $app_secret, $data, "");
-echo $result;
-
-// obs的url方式请求
-$result = long_sentence_aksk($app_key, $app_secret, "", $data_url);
 echo $result;
 

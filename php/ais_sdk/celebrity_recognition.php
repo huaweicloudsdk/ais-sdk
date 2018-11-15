@@ -4,16 +4,16 @@ require "signer.php";
 /**
  * token 方式
  */
-function image_defog($token, $data, $gamma, $natural_look)
+function celebrity_recognition($token, $data, $url, $threshold = 0.48)
 {
 
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/vision/defog";
+    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/celebrity-recognition";
 
     $data = array(
-        "image" => $data,                    // image: 图片信息 base64
-        "gamma" => $gamma,                   // gamma：矫正值
-        "natural_look" => $natural_look      // natural_look:可选 ，是否保持自然感官 true or false
+        "image" => $data,                   // 图片的base64信息，政治人物检测人脸部分不小于40*40像素
+        "url" => $url,                      // 图片的url地址信息，图片的URL路径，目前支持华为云上OBS提供的临时授权访问的URL，以及匿名公开授权的URL。
+        "threshold" => $threshold           // 置信度的阈值（0~1），低于此置信数的标签，将不会返回
     );
 
     $curl = curl_init();
@@ -41,9 +41,10 @@ function image_defog($token, $data, $gamma, $natural_look)
         if ($status == 200) {
             return $response;
         } else {
-            echo $response;
-            return "Process the iamge defog by token result failed!";
+            return "Process the celebrity recognition by token result failed!";
         }
+        echo $status . "\n";
+        echo $response;
     }
     curl_close($curl);
 
@@ -53,7 +54,7 @@ function image_defog($token, $data, $gamma, $natural_look)
 /**
  * ak,sk 方式
  */
-function image_defog_aksk($_ak, $_sk, $data, $gamma, $natural_look)
+function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -65,12 +66,12 @@ function image_defog_aksk($_ak, $_sk, $data, $gamma, $natural_look)
     $req->method = "POST";
     $req->scheme = "https";
     $req->host = "ais.cn-north-1.myhuaweicloud.com";
-    $req->uri = "/v1.0/vision/defog";
+    $req->uri = "/v1.0/image/celebrity-recognition";
 
     $data = array(
-        "image" => $data,                    // image: 图片信息 base64
-        "gamma" => $gamma,                   // gamma：矫正值
-        "natural_look" => $natural_look      // natural_look:可选 ，是否保持自然感官 true or false
+        "image" => $data,                   // 图片的base64信息，政治人物检测人脸部分不小于40*40像素
+        "url" => $url,                      // 图片的url地址信息，图片的URL路径，目前支持华为云上OBS提供的临时授权访问的URL，以及匿名公开授权的URL。
+        "threshold" => $threshold           // 置信度的阈值（0~1），低于此置信数的标签，将不会返回
     );
 
     $headers = array(
@@ -96,7 +97,7 @@ function image_defog_aksk($_ak, $_sk, $data, $gamma, $natural_look)
 
             echo $status . "\n";
             echo $response;
-            return "Process the iamge defog by ak,sk result failed!";
+            return "Process the celebrity recognition by aksk result failed!";
         }
 
     }
