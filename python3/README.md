@@ -1,7 +1,6 @@
 # 图像分析服务 python3.x SDK & Samples
 
 **目录说明**：
-+ **`sdk`** 仅使用python3标准库的SDK
-
-
++ **`ais_sdk`** python3.x版本SDK
++ **`data`** 样例代码中使用到的一些数据
 

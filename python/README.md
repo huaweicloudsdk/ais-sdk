@@ -1,7 +1,7 @@
-# AIS 服务 python2.6+ SDK & Samples
+# 图像分析服务 python2.6+ SDK & Samples
 
 **目录说明**：
-+ **`sdk`** 仅使用python标准库的SDK
-+ **`sdk-by-requests`** 使用requests库作为http client的SDK
-+ **`rest-client-samples`** 仅使用python标准库的一些代码标例
++ **`ais_sdk`** python2.6+版本SDK
++ **`data`** 样例代码中使用到的一些数据
+
 
