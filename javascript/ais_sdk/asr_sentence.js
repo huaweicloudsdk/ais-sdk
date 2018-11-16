@@ -1,17 +1,15 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 module.exports = {
     asr_scentence: function (token, data, url = "", encode_type = "wav", sample_rate = "16k", callback) {
 
         // 构建请求信息和请求参数信息
         var requestData = {"data": data, url: url, "encode_type": encode_type, "sample_rate": sample_rate};
-        var host = "ais.cn-north-1.myhuaweicloud.com";
-        var method = "POST";
-        var uri = "/v1.0/voice/asr/sentence";
         var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-        var options = utils.getHttpRequestEntityOptions(host, method, uri, headers);
+        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.ASR_SENTENCE, headers);
         var requestBody = JSON.stringify(requestData);
 
         var request = https.request(options, function (response) {
@@ -45,11 +43,9 @@ module.exports = {
 
         // 构建请求信息和请求参数信息
         var requestData = {"data": data, url: url, "encode_type": encode_type, "sample_rate": sample_rate};
-        var host = "ais.cn-north-1.myhuaweicloud.com";
         var _headers = {"Content-Type": "application/json"};
-        var uri = "/v1.0/voice/asr/sentence";
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, host, "POST", uri, "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.ASR_SENTENCE, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 

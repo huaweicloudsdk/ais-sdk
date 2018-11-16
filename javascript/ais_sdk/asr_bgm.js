@@ -1,18 +1,17 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 module.exports = {
     asr_bgm: function (token, url, callback) {
 
         // 构建请求信息
-        var host = "ais.cn-north-1.myhuaweicloud.com";
-        var uri = "/v1.0/bgm/recognition";
         var headers = {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         };
-        var options = utils.getHttpRequestEntityOptions(host, "POST", uri, headers);
+        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.ASR_BGM, headers);
         var requestBody = JSON.stringify({"url": url});
 
         var requset = https.request(options, function (response) {
@@ -44,10 +43,9 @@ module.exports = {
 
         // 构建请求信息和请求参数信息
         var requestData = {"url": _url};
-        var host = "ais.cn-north-1.myhuaweicloud.com";
         var _headers = {"Content-Type": "application/json"};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, host, "POST", "/v1.0/bgm/recognition", "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.ASR_BGM, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 

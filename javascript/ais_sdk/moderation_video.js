@@ -1,6 +1,7 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 function video(token, url, frame_interval, category, callback) {
     /**
@@ -12,11 +13,8 @@ function video(token, url, frame_interval, category, callback) {
     var requestData = {"url": url, "frame_interval": frame_interval, "category": category};
 
     // 构建请求信息
-    var host = "ais.cn-north-1.myhwclouds.com";
-    var method = "POST";
-    var uri = "/v1.0/moderation/video";
     var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-    var options = utils.getHttpRequestEntityOptions(host, method, uri, headers);
+    var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.MODERATION_VIDEO, headers);
 
     var request = https.request(options, function (response) {
 
@@ -49,7 +47,7 @@ function video(token, url, frame_interval, category, callback) {
 function get_result(job_id, resultsearch, token, callback) {
     // 构建请求参数和请求信息
     var requestData = {'job_id': job_id};
-    var options = utils.getHttpRequestEntityForGet("ais.cn-north-1.myhwclouds.com", "GET", "/v1.0/moderation/video", {
+    var options = utils.getHttpRequestEntityForGet(ais.ENDPOINT, "GET", ais.MODERATION_VIDEO, {
         "Content-Type": "application/json",
         "X-Auth-Token": token
     }, requestData);
@@ -103,10 +101,8 @@ function video_aksk(_ak, _sk, url, frame_interval, category, callback) {
     var requestData = {"url": url, "frame_interval": frame_interval, "category": category};
     var job_id = "";
     var req = new signer.HttpRequest();
-    var host = "ais.cn-north-1.myhwclouds.com";
-    var uri = "/v1.0/moderation/video";
     var header = {"Content-Type": "application/json"};
-    var options = utils.getHttpRequestEntity(sig, req, host, "POST", uri, "", header, requestData);
+    var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.MODERATION_VIDEO, "", header, requestData);
 
     var request = https.request(options, function (response) {
 
@@ -146,7 +142,7 @@ function get_result_aksk(sign, job_id, resultsearch, callback) {
 
     // 构建请求信息和参数信息
     var request = new signer.HttpRequest();
-    var options = utils.getHttpRequestEntity(sign, request, "ais.cn-north-1.myhwclouds.com", "GET", "/v1.0/moderation/video", {'job_id': job_id}, {"Content-Type": "application/json"}, "");
+    var options = utils.getHttpRequestEntity(sign, request, ais.ENDPOINT, "GET", ais.MODERATION_VIDEO, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
 
     // 轮询请求视频接口，获取结果信息
     var reqsearch = https.request(options, function (response) {

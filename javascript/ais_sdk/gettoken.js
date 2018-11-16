@@ -3,6 +3,7 @@
  */
 var https = require("https");   // 加载node.js内置的https的模块
 var utils = require("./utils");
+var ais = require("./ais");
 
 module.exports = {
 
@@ -10,8 +11,8 @@ module.exports = {
 
         // 构建获取token的请求信息
         var requestBody = utils.getRequestBodyForToken(username, password, domainname, regionName);
-        var host = "iam.cn-north-1.myhuaweicloud.com";
-        var uri = "/v3/auth/tokens";
+        var host = ais.IAM_ENPOINT;
+        var uri = ais.AIS_TOKEN;
         var options = utils.getHttpRequestEntityOptions(host, "POST", uri, {"Content-Type": "application/json"});
             var request = https.request(options, function (response) {
 

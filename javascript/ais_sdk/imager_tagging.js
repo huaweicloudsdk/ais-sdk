@@ -1,13 +1,11 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 module.exports = {
     image_tagging: function (token, data, url, threshold, language, limit, callback) {
 
-        // 构建请求信息和请求参数信息
-        var host = "ais.cn-north-1.myhwclouds.com";
-        var uri = "/v1.0/image/tagging";
         /**
          * image: 图片信息
          * url： 与image 二选一
@@ -18,7 +16,7 @@ module.exports = {
          */
         var requestData = {"image": data, "url": url, "threshold": threshold, "language": language, "limit": limit};
 
-        var options = utils.getHttpRequestEntityOptions(host, "POST", uri, {
+        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.IMAGE_TAGGING, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -63,7 +61,7 @@ module.exports = {
          */
         var requestData = {"image": data, "url": url, "threshold": threshold, "language": language, "limit": limit};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, "ais.cn-north-1.myhwclouds.com", "POST", "/v1.0/image/tagging", "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.IMAGE_TAGGING, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

@@ -1,18 +1,17 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 module.exports = {
     moderation_text: function (token, items, categories, callback) {
 
         // 构建请求信息和请求参数信息
-        var host = "ais.cn-north-1.myhwclouds.com";
-        var uri = "/v1.0/moderation/text";
         var requestData = {
             "categories": categories,       // 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
             "items": items                  // items: 待检测的文本列表  text 待检测文本 type 文本类型
         };
-        var options = utils.getHttpRequestEntityOptions(host, "POST", uri, {
+        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.MODERATION_TEXT, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -53,7 +52,7 @@ module.exports = {
             "items": items              // items: 待检测的文本列表  text 待检测文本 type 文本类型
         };
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, "ais.cn-north-1.myhwclouds.com", "POST", "/v1.0/moderation/text", "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.MODERATION_TEXT, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

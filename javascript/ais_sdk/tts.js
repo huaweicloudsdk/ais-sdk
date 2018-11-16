@@ -1,14 +1,12 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 module.exports = {
     tts: function (token, text, voice_name, volume, sample_rate, speech_speed, pitch_rate, callback) {
 
         // 构建请求信息和请求参数信息
-        var host = "ais.cn-north-1.myhwclouds.com";
-        var uri = "/v1.0/voice/tts";
-
         var requestData = {
             "text": text,                                // text :待合成的文本
             "voice_name": voice_name,                   // voice_name:合成的声音人员表示
@@ -17,7 +15,7 @@ module.exports = {
             "speech_speed": speech_speed,               // peech_speed：语速 [-500,500]
             "pitch_rate": pitch_rate                    // pitch_rate：音高 [-20,20]
         };
-        var options = utils.getHttpRequestEntityOptions(host, "POST", uri, {
+        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.TTS, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -68,7 +66,7 @@ module.exports = {
             "pitch_rate": pitch_rate                     // pitch_rate：音高 [-20,20]
         };
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, "ais.cn-north-1.myhwclouds.com", "POST", "/v1.0/voice/tts", "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.TTS, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

@@ -1,17 +1,15 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 module.exports = {
     clarity_detect: function (token, data, url, threshold, callback) {
 
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url, "threshold": threshold};
-        var host = "ais.cn-north-1.myhuaweicloud.com";
-        var method = "POST";
-        var uri = "/v1.0/moderation/image/clarity-detect";
         var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-        var options = utils.getHttpRequestEntityOptions(host, method, uri, headers);
+        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.IMAGE_CLARITY_DETECT, headers);
         var requestBody = JSON.stringify(requestData);
 
         var request = https.request(options, function (response) {
@@ -44,9 +42,9 @@ module.exports = {
 
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url, "threshold": threshold};
-        var host = "ais.cn-north-1.myhuaweicloud.com";
+        var host = ais.ENDPOINT;
         var _headers = {"Content-Type": "application/json"};
-        var uri = "/v1.0/moderation/image/clarity-detect";
+        var uri = ais.IMAGE_CLARITY_DETECT;
         var req = new signer.HttpRequest();
         var options = utils.getHttpRequestEntity(sig, req, host, "POST", uri, "", _headers, requestData);
 

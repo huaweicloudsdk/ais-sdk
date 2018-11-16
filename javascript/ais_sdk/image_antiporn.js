@@ -1,15 +1,16 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 module.exports = {
     image_antiporn: function (token, data, url, callback) {
 
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url};
-        var host = "ais.cn-north-1.myhuaweicloud.com";
+        var host = ais.ENDPOINT;
         var method = "POST";
-        var uri = "/v1.0/moderation/image/anti-porn";
+        var uri = ais.IMAGE_ANTI_PORN;
         var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
         var options = utils.getHttpRequestEntityOptions(host, method, uri, headers);
         var requestBody = JSON.stringify(requestData);
@@ -44,11 +45,9 @@ module.exports = {
 
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url};
-        var host = "ais.cn-north-1.myhuaweicloud.com";
         var _headers = {"Content-Type": "application/json"};
-        var uri = "/v1.0/moderation/image/anti-porn";
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, host, "POST", uri, "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.IMAGE_ANTI_PORN, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 

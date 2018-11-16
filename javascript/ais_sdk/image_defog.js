@@ -1,13 +1,11 @@
 var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
+var ais = require("./ais");
 
 module.exports = {
     defog: function (token, data, gamma, natural_look, callback) {
 
-        // 构建请求信息和请求参数信息
-        var host = "ais.cn-north-1.myhwclouds.com";
-        var uri = "/v1.0/vision/defog";
         /**
          *  构建请求信息
          * image: 图片信息 base64
@@ -17,7 +15,7 @@ module.exports = {
          * @type {string}
          */
         var requestData = {"image": data, "file": "", "gamma": gamma, "natural_look": natural_look};
-        var options = utils.getHttpRequestEntityOptions(host, "POST", uri, {
+        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.DEFOG, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -67,7 +65,7 @@ module.exports = {
          */
         var requestData = {"image": data, "file": "", "gamma": 1.5, "natural_look": true};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, "ais.cn-north-1.myhwclouds.com", "POST", "/v1.0/vision/defog", "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.DEFOG, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 
