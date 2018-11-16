@@ -1,5 +1,6 @@
 <?php
 require "signer.php";
+require "ais.php";
 
 /**
  * token 方式
@@ -8,7 +9,7 @@ function distortion_correct($token, $image, $url, $correction = true)
 {
 
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/distortion-correct";
+    $_url = "https://" . ENDPOINT . DISTORTION_CORRECT;
 
     $data = array(
         "image" => $image,                     // 图片的base64内容
@@ -64,8 +65,8 @@ function distortion_correct_aksk($_ak, $_sk, $image, $url, $correction = true)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = "ais.cn-north-1.myhuaweicloud.com";
-    $req->uri = "/v1.0/moderation/image/distortion-correct";
+    $req->host = ENDPOINT;
+    $req->uri = DISTORTION_CORRECT;
 
     $data = array(
         "image" => $image,                     // 图片的base64内容

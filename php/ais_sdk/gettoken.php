@@ -1,12 +1,11 @@
 <?php
-
 /**
  * 获取token 信息
  */
 function gettoken($username, $password, $domainName, $regionName)
 {
     $requestBody = requestBodyForGetToken($username, $password, $domainName, $regionName);
-    $_url = "https://iam.cn-north-1.myhuaweicloud.com/v3/auth/tokens";
+    $_url = "https://" . IAM_ENPOINT . AIS_TOKEN;;
     $curl = curl_init();
     $headers = array(
         "Content-Type" => "application/json",

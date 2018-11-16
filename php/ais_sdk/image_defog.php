@@ -1,5 +1,6 @@
 <?php
 require "signer.php";
+require "ais.php";
 
 /**
  * token 方式
@@ -8,7 +9,7 @@ function image_defog($token, $data, $gamma, $natural_look)
 {
 
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/vision/defog";
+    $_url = "https://" . ENDPOINT . DEFOG;
 
     $data = array(
         "image" => $data,                    // image: 图片信息 base64
@@ -64,8 +65,8 @@ function image_defog_aksk($_ak, $_sk, $data, $gamma, $natural_look)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = "ais.cn-north-1.myhuaweicloud.com";
-    $req->uri = "/v1.0/vision/defog";
+    $req->host = ENDPOINT;
+    $req->uri = DEFOG;
 
     $data = array(
         "image" => $data,                    // image: 图片信息 base64

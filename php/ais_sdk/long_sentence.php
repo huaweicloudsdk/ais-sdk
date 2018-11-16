@@ -1,5 +1,7 @@
 <?php
 require "signer.php";
+require "ais.php";
+
 /**
  * token 方式
  * @return stri
@@ -24,14 +26,12 @@ function long_sentence($token, $data, $url = "", $category = "common")
 
             return "Process the audio failed!";
 
-        }
-        // 任务处理完毕
+        } // 任务处理完毕
         elseif ($resultobj['result']['status_code'] == 2) {
 
             $words = $resultobj['result']['words'];
             break;
-        }
-        // 任务未完成处理，轮询请求接口处理
+        } // 任务未完成处理，轮询请求接口处理
         else {
             sleep(2);
             continue;
@@ -46,7 +46,7 @@ function long_sentence($token, $data, $url = "", $category = "common")
 function _long_sentence($token, $data, $url = "", $category = "common")
 {
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/long-sentence";
+    $_url = "https://" . ENDPOINT . LONG_SENTENCE;
 
     $data = array(
         "data" => $data,                        // data: 音频文件的base64
@@ -94,7 +94,7 @@ function _long_sentence($token, $data, $url = "", $category = "common")
  */
 function get_result($token, $job_id)
 {
-    $url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/long-sentence?job_id=".$job_id;
+    $url = "https://" . ENDPOINT . LONG_SENTENCE . "?job_id=" . $job_id;
 
     $headers = array(
         "Content-Type:application/json",
@@ -118,7 +118,7 @@ function get_result($token, $job_id)
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
 
-            $response = json_decode($response,true);
+            $response = json_decode($response, true);
             $response['status'] = $status;
             return $response;
         } else {
@@ -133,7 +133,7 @@ function get_result($token, $job_id)
 /**
  * ak,sk 方式
  */
-function long_sentence_aksk($_ak, $_sk, $data, $url = "",$category="common")
+function long_sentence_aksk($_ak, $_sk, $data, $url = "", $category = "common")
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -161,8 +161,7 @@ function long_sentence_aksk($_ak, $_sk, $data, $url = "",$category="common")
         } elseif ($resultobj['result']['status_code'] == 2) {
             $words = $resultobj['result']['words'];
             break;
-        }
-        // 任务处理未完成，轮询继续请求接口
+        } // 任务处理未完成，轮询继续请求接口
         else {
             sleep(5);
             continue;
@@ -187,8 +186,8 @@ function _long_sentence_aksk($signer, $data, $url = "", $category = "common")
     $req = new Request();
     $req->method = 'POST';
     $req->scheme = 'https';
-    $req->host = 'ais.cn-north-1.myhwclouds.com';
-    $req->uri = '/v1.0/voice/asr/long-sentence';
+    $req->host = ENDPOINT;
+    $req->uri = LONG_SENTENCE;
     $req->body = json_encode($data);
     $req->headers = array(
         'Content-Type' => 'application/json'
@@ -216,8 +215,6 @@ function _long_sentence_aksk($signer, $data, $url = "", $category = "common")
 }
 
 
-
-
 /**
  * 获取结果值
  * @param $token
@@ -229,8 +226,8 @@ function get_result_aksk($signer, $job_id)
     $req = new Request();
     $req->method = 'GET';
     $req->scheme = 'https';
-    $req->host = 'ais.cn-north-1.myhwclouds.com';
-    $req->uri = '/v1.0/voice/asr/long-sentence';
+    $req->host = ENDPOINT;
+    $req->uri = LONG_SENTENCE;
     $req->query = array(
         'job_id' => $job_id
     );
@@ -251,7 +248,7 @@ function get_result_aksk($signer, $job_id)
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
 
-            $response = json_decode($response,true);
+            $response = json_decode($response, true);
             $response['status'] = $status;
             return $response;
         } else {

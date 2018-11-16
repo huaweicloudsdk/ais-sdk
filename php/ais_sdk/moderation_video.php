@@ -1,5 +1,7 @@
 <?php
 require "signer.php";
+require "ais.php";
+
 /**
  * token 方式
  * @return stri
@@ -27,8 +29,7 @@ function moderation_video($token, $url, $frame_interval, $category)
         } // 任务处理完毕
         elseif ($resultobj['result']['status'] == "finish") {
             return $resultobj;
-        }
-        // 任务未完成处理，轮询请求接口处理
+        } // 任务未完成处理，轮询请求接口处理
         else {
             sleep(2);
             continue;
@@ -42,7 +43,7 @@ function moderation_video($token, $url, $frame_interval, $category)
 function _moderation_video($token, $url, $frame_interval, $category)
 {
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/video";
+    $_url = "https://" . ENDPOINT . MODERATION_VIDEO;
 
     $data = array(
         "url" => $url,                          // url：视频的URL路径
@@ -90,7 +91,7 @@ function _moderation_video($token, $url, $frame_interval, $category)
  */
 function get_result($token, $job_id)
 {
-    $url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/video?job_id=" . $job_id;
+    $url = "https://" . ENDPOINT . MODERATION_VIDEO . "?job_id=" . $job_id;
 
     $headers = array(
         "Content-Type:application/json",
@@ -156,8 +157,7 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
             // 任务处理成功，返回结果信息
         } elseif ($resultobj['result']['status'] == "finish") {
             return $resultobj;
-        }
-        // 任务处理未完成，轮询继续请求接口
+        } // 任务处理未完成，轮询继续请求接口
         else {
             sleep(5);
             continue;
@@ -181,8 +181,8 @@ function _moderation_video_aksk($signer, $url, $frame_interval, $category = "com
     $req = new Request();
     $req->method = 'POST';
     $req->scheme = 'https';
-    $req->host = 'ais.cn-north-1.myhwclouds.com';
-    $req->uri = '/v1.0/moderation/video';
+    $req->host = ENDPOINT;
+    $req->uri = MODERATION_VIDEO;
     $req->body = json_encode($data);
     $req->headers = array(
         'Content-Type' => 'application/json'
@@ -217,13 +217,12 @@ function _moderation_video_aksk($signer, $url, $frame_interval, $category = "com
  */
 function get_result_aksk($signer, $job_id)
 {
-    $url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/long-sentence";
 
     $req = new Request();
     $req->method = 'GET';
     $req->scheme = 'https';
-    $req->host = 'ais.cn-north-1.myhwclouds.com';
-    $req->uri = '/v1.0/moderation/video';
+    $req->host = ENDPOINT;
+    $req->uri = MODERATION_VIDEO;
     $req->query = array(
         'job_id' => $job_id
     );

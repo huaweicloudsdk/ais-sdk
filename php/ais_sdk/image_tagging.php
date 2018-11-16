@@ -1,5 +1,6 @@
 <?php
 require "signer.php";
+require "ais.php";
 
 /**
  * token 方式
@@ -8,7 +9,7 @@ function image_tagging($token, $data, $url, $threshold, $language, $limit = -1)
 {
 
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/tagging";
+    $_url = "https://" . ENDPOINT . IMAGE_TAGGING;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
@@ -68,8 +69,8 @@ function image_tagging_aksk($_ak, $_sk, $data, $url, $threshold, $language, $lim
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = "ais.cn-north-1.myhuaweicloud.com";
-    $req->uri = "/v1.0/image/tagging";
+    $req->host = ENDPOINT;
+    $req->uri = IMAGE_TAGGING;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串

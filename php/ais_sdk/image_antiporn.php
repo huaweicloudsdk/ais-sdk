@@ -1,5 +1,6 @@
 <?php
 require "signer.php";
+require "ais.php";
 
 /**
  * token 方式
@@ -8,7 +9,7 @@ function image_antiporn($token, $data, $url)
 {
 
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/anti-porn";
+    $_url = "https://" . ENDPOINT . IMAGE_ANTI_PORN;
 
     $data = array(
         "image" => $data,                   // 图片的base64信息
@@ -64,8 +65,8 @@ function image_antiporn_aksk($_ak, $_sk, $data, $url)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = "ais.cn-north-1.myhuaweicloud.com";
-    $req->uri = "/v1.0/moderation/image/anti-porn";
+    $req->host = ENDPOINT;
+    $req->uri = IMAGE_ANTI_PORN;
 
     $data = array(
         "image" => $data,                   // 图片的base64信息

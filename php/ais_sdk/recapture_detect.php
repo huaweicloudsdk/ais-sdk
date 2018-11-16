@@ -1,5 +1,6 @@
 <?php
 require "signer.php";
+require "ais.php";
 
 /**
  * token 方式
@@ -8,7 +9,7 @@ function recapture_detect($token, $data, $url, $threshold = 0.95, $scene)
 {
 
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/recapture-detect";
+    $_url = "https://" . ENDPOINT . RECAPTURE_DETECT;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
@@ -67,8 +68,8 @@ function recapture_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.95, $scen
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = "ais.cn-north-1.myhuaweicloud.com";
-    $req->uri = "/v1.0/image/recapture-detect";
+    $req->host = ENDPOINT;
+    $req->uri = RECAPTURE_DETECT;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串

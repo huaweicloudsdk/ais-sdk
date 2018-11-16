@@ -1,5 +1,6 @@
 <?php
 require "signer.php";
+require "ais.php";
 
 /**
  * token 方式
@@ -8,7 +9,7 @@ function celebrity_recognition($token, $data, $url, $threshold = 0.48)
 {
 
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/celebrity-recognition";
+    $_url = "https://" . ENDPOINT . CELEBRITY_RECOGNITION;
 
     $data = array(
         "image" => $data,                   // 图片的base64信息，政治人物检测人脸部分不小于40*40像素
@@ -65,8 +66,8 @@ function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = "ais.cn-north-1.myhuaweicloud.com";
-    $req->uri = "/v1.0/image/celebrity-recognition";
+    $req->host = ENDPOINT;
+    $req->uri = CELEBRITY_RECOGNITION;
 
     $data = array(
         "image" => $data,                   // 图片的base64信息，政治人物检测人脸部分不小于40*40像素

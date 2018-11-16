@@ -1,5 +1,6 @@
 <?php
 require "signer.php";
+require "ais.php";
 
 /**
  * token 方式
@@ -8,7 +9,7 @@ function moderation_text($token, $items, $categories)
 {
 
     // 构建请求信息
-    $_url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/text";
+    $_url = "https://" . ENDPOINT . MODERATION_TEXT;
 
     $data = array(
         "categories" => $categories,               // 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
@@ -66,8 +67,8 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = "ais.cn-north-1.myhuaweicloud.com";
-    $req->uri = "/v1.0/moderation/text";
+    $req->host = ENDPOINT;
+    $req->uri = MODERATION_TEXT;
 
     $data = array(
         "categories" => $categories,               // 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
