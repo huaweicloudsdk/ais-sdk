@@ -81,7 +81,7 @@ def tts_aksk(_ak, _sk, text, voice_name='xiaoyan', volume='0', sample_rate='16k'
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisSchemeUri.NOSCHEME
+    kreq.host = ais.AisEndpoint.ENDPOINT
     kreq.uri = ais.TtsURI.TTS
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

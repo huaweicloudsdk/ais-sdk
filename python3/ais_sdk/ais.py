@@ -5,20 +5,8 @@ class AisEndpoint:
     ENDPOINT = 'ais.cn-north-1.myhuaweicloud.com'
     IAM_ENPOINT = 'iam.cn-north-1.myhuaweicloud.com'
 
-class AisSchemeUri:
-    NOSCHEME = "ais.cn-north-1.myhuaweicloud.com"
 class TokenURI:
     AIS_TOKEN = '/v3/auth/tokens'
-
-class OcrURI:
-    OCR_FORM= '/v1.0/ocr/action/ocr_form'
-    OCR_VAT_INVOICE = '/v1.0/ocr/vat-invoice'
-    OCR_ID_CARD = '/v1.0/ocr/id-card'
-    OCR_GENERAL_TABLE = '/v1.0/ocr/general-table'
-    OCR_HANDWRITING = '/v1.0/ocr/handwriting'
-    OCR_DRIVER_LICENSE = '/v1.0/ocr/driver-license'
-    OCR_VEHICLE_LICENSE = '/v1.0/ocr/vehicle-license'
-    OCR_BANK_CARD='/v1.0/ocr/bank-card'
 
 class ImageURI:
     IMAGE_TAGGING = '/v1.0/image/tagging'
@@ -36,11 +24,3 @@ class AsrURI:
 
 class TtsURI:
     TTS = '/v1.0/voice/tts'
-
-class AisURI:
-    ocr_uri = OcrURI
-    image_uri = ImageURI
-    moderation_uri = ModerationURI
-    asr_uri = AsrURI
-    tts_uri = TtsURI
-    token_uri = TokenURI.AIS_TOKEN
