@@ -21,13 +21,10 @@ $token = gettoken($username, $password, $domainName, $regionName);
 // base64 方式请求
 $result = asr_sentence($token, $data, "", "wav", "16k");
 echo $result;
-$resultobj = json_decode($result, true);
-echo $resultobj["result"]["words"];
+echo "\n";
 
 // obs的url方式请求
 $result = asr_sentence($token, "", $data_url, "wav", "16k");
 echo $result;
-$resultobj = json_decode($result, true);
-echo $resultobj["result"]["words"];
 
 

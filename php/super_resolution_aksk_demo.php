@@ -2,7 +2,6 @@
 /**
  * 图像超分重建服务ak,sk 方式请求的示例
  */
-require "./ais_sdk/gettoken.php";
 require "./ais_sdk/super_resolution.php";
 require "./ais_sdk/utils.php";
 

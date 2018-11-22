@@ -40,7 +40,7 @@ function celebrity_recognition($token, $data, $url, $threshold = 0.48)
 
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
-            return $response;
+            return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
             return "Process the celebrity recognition by token result failed!";
         }
@@ -93,7 +93,7 @@ function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
 
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
-            return $response;
+            return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 
             echo $status . "\n";

@@ -40,7 +40,7 @@ function moderation_text($token, $items, $categories)
 
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
-            return $response;
+            return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
             echo $status . "\n";
             echo $response;
@@ -94,7 +94,7 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
 
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
-            return $response;
+            return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 
             echo $status . "\n";

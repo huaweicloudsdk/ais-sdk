@@ -37,7 +37,7 @@ function asr_bgm($token, $url)
 
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
-            return $response;
+            return json_encode(json_decode($response, true), JSON_UNESCAPED_UNICODE);
         } else {
             return "Process the background music by token result failed!";
         }
@@ -87,7 +87,7 @@ function asr_bgm_aksk($_ak, $_sk, $url)
 
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
-            return $response;
+            return json_encode(json_decode($response, true), JSON_UNESCAPED_UNICODE);
         } else {
 
             echo $status . "\n";

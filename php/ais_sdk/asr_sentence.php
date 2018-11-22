@@ -41,7 +41,7 @@ function asr_sentence($token, $data, $url = "", $encode_type = "wav", $sample_ra
 
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
-            return $response;
+            return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
             return "Process the asr sentence by token result failed!";
         }
@@ -95,7 +95,7 @@ function asr_sentence_aksk($_ak, $_sk, $data, $url = "", $encode_type = "wav", $
 
         // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
         if ($status == 200) {
-            return $response;
+            return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 
             echo $status . "\n";
