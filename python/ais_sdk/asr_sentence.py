@@ -52,7 +52,7 @@ def asr_sentence(token, data, url, encode_type='wav', sample_rate='8k'):
     else:
         status_code = r.code
         resp = r.read()
-    return resp
+    return resp.decode('unicode-escape').encode('utf-8')
 
 
 #
@@ -107,4 +107,4 @@ def asr_sentence_aksk(_ak, _sk, data, url, encode_type='wav', sample_rate='8k'):
     else:
         status_code = r.code
         resp = r.read()
-    return resp
+    return resp.decode('unicode-escape').encode('utf-8')

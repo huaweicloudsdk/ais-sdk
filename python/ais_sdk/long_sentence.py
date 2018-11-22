@@ -96,7 +96,7 @@ def _long_sentence(token, data, url):
     else:
         status_code = r.code
         resp = r.read()
-    return status_code, resp
+    return status_code, resp.decode('unicode-escape').encode('utf-8')
 
 
 #
@@ -279,4 +279,4 @@ def _get_result_aksk(sig, job_id):
     else:
         status_code = r.code
         resp = r.read()
-    return status_code, resp
+    return status_code, resp.decode('unicode-escape').encode('utf-8')

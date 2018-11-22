@@ -52,7 +52,7 @@ def moderation_text(token, text, type='content',
     else:
         status_code = r.code
         resp = r.read()
-    return resp
+    return resp.decode('unicode-escape').encode('utf-8')
 
 
 #
@@ -108,4 +108,4 @@ def moderation_text_aksk(_ak, _sk, text, type='content',
     else:
         status_code = r.code
         resp = r.read()
-    return resp
+    return resp.decode('unicode-escape').encode('utf-8')

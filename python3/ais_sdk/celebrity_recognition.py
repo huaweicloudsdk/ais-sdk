@@ -55,7 +55,7 @@ def celebrity_recognition(token, image, url, threshold=0.48):
     else:
         status_code = r.code
         resp = r.read()
-    return resp.decode('utf-8')
+    return resp.decode('unicode_escape')
 
 
 #
@@ -113,4 +113,4 @@ def celebrity_recognition_aksk(_ak, _sk, image, url, threshold=0.48):
     else:
         status_code = r.code
         resp = r.read()
-    return resp.decode('utf-8')
+    return resp.decode('unicode_escape')

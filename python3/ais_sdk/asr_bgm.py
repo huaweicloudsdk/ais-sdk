@@ -50,7 +50,7 @@ def asr_bgm(token, url):
     else:
         status_code = r.code
         resp = r.read()
-    return resp.decode('utf-8')
+    return resp.decode('unicode_escape')
 
 
 #
@@ -101,4 +101,4 @@ def asr_bgm_aksk(_ak, _sk, url):
     else:
         status_code = r.code
         resp = r.read()
-    return resp.decode('utf-8')
+    return resp.decode('unicode_escape')
