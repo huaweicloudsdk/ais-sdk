@@ -2,6 +2,7 @@ var https = require("https");
 var utils = require("./utils");
 var signer = require("./signer");
 var ais = require("./ais");
+var encoding = require("encoding");
 
 module.exports = {
     asr_scentence: function (token, data, url = "", encode_type = "wav", sample_rate = "16k", callback) {
@@ -22,7 +23,8 @@ module.exports = {
 
             // 处理结果信息，输入返回信息
             response.on("data", function (chunk) {
-                callback(chunk.toString())
+                var result = JSON.parse(chunk.toString());
+                callback(JSON.stringify(result));
             })
         });
 
@@ -55,7 +57,8 @@ module.exports = {
                 return;
             }
             response.on("data", function (chunk) {
-                callback(chunk.toString());
+                var result = JSON.parse(chunk.toString());
+                callback(JSON.stringify(result));
             })
         });
 

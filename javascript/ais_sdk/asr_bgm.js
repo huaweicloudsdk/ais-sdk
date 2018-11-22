@@ -23,7 +23,8 @@ module.exports = {
             }
 
             response.on("data", function (chunk) {
-                callback(chunk.toString());
+                var result = JSON.parse(chunk.toString());
+                callback(JSON.stringify(result));
             })
         });
 
@@ -60,7 +61,8 @@ module.exports = {
         });
 
         requset.on("error", function (err) {
-            console.log(err.message);
+            var result = JSON.parse(chunk.toString());
+            callback(JSON.stringify(result));
         });
 
         requset.write(req.body);

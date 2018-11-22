@@ -21,7 +21,8 @@ module.exports = {
             }
             // 处理结果信息，输入返回信息
             response.on("data", function (chunk) {
-                callback(chunk.toString())
+                var result = JSON.parse(chunk.toString());
+                callback(JSON.stringify(result));
             })
         });
 
@@ -54,7 +55,8 @@ module.exports = {
                 return;
             }
             response.on("data", function (chunk) {
-                callback(chunk.toString());
+                var result = JSON.parse(chunk.toString());
+                callback(JSON.stringify(result));
             })
         });
 

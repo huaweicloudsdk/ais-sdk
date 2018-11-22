@@ -18,12 +18,11 @@ token.getToken(username, domain_name, password, region_name, function (token) {
 
     sentence.asr_scentence(token, data, "", "wav", "16k", function (result) {
         console.log(result);
-        console.log(JSON.parse(result).result.words)
+
     });
 
     sentence.asr_scentence(token, "", obsUrl, "wav", "16k", function (result) {
-        console.log(result);
-        console.log(JSON.parse(result).result.words)
+        console.log(result.toString());
     })
 });
 
