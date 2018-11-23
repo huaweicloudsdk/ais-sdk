@@ -1,3 +1,0 @@
-http://www.a.com/a.jpg
-http://www.b.com/a.jpg
-http://www.c.com/a.jpg
