@@ -1,11 +1,15 @@
 package com.huawei.ais.demo.moderation;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.huawei.ais.demo.ClientContextUtils;
 import com.huawei.ais.demo.ResponseProcessUtils;
 import com.huawei.ais.sdk.AisAccess;
 import com.huawei.ais.sdk.AisAccessWithProxy;
+import com.huawei.ais.sdk.util.HttpClientUtils;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
@@ -67,12 +71,13 @@ public class ModerationTextContentDemo {
 			ResponseProcessUtils.processResponseStatus(response);
 
 			// 5.处理服务返回的字符流，输出识别结果。
-			ResponseProcessUtils.processResponse(response);
+			JSONObject jsonObject = JSON.parseObject(HttpClientUtils.convertStreamToString(response.getEntity().getContent()));
+			System.out.println(JSON.toJSONString(jsonObject, SerializerFeature.PrettyFormat));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 
-			// 6.使用完毕，关闭服务的客户端连接			
+			// 6.使用完毕，关闭服务的客户端连接
 			service.close();
 		}
 	}
