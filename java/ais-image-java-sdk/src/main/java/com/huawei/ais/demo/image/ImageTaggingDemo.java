@@ -1,10 +1,14 @@
 package com.huawei.ais.demo.image;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.huawei.ais.demo.ClientContextUtils;
 import com.huawei.ais.demo.ResponseProcessUtils;
 import com.huawei.ais.sdk.AisAccess;
 import com.huawei.ais.sdk.AisAccessWithProxy;
+import com.huawei.ais.sdk.util.HttpClientUtils;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
@@ -55,11 +59,12 @@ public class ImageTaggingDemo {
 			// 该参数主要通过JSON对象的方式传入, 使用POST方法调用服务
 			HttpResponse response = service.post(uri, stringEntity);
 			
-			// 4.验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。			
+			// 4.验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
 			ResponseProcessUtils.processResponseStatus(response);
 			
 			// 5.处理服务返回的字符流，输出识别结果。
-			ResponseProcessUtils.processResponse(response);
+			JSONObject jsonObject = JSON.parseObject(HttpClientUtils.convertStreamToString(response.getEntity().getContent()));
+			System.out.println(JSON.toJSONString(jsonObject, SerializerFeature.PrettyFormat));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
