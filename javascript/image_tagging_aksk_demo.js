@@ -1,7 +1,7 @@
 /**
  * 图像标签检测服务aksk请求方式的使用示例
  */
-var tagging = require("./ais_sdk/imager_tagging");
+var tagging = require("./ais_sdk/image_tagging");
 var utils = require("./ais_sdk/utils");
 
 var app_key = "*************";

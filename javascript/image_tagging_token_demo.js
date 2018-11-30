@@ -1,7 +1,7 @@
 /**
  * 图像标签检测服务token 方式请求的使用示例
  */
-var tagging = require("./ais_sdk/imager_tagging");
+var tagging = require("./ais_sdk/image_tagging");
 var token = require("./ais_sdk/gettoken");
 var utils = require("./ais_sdk/utils");
 

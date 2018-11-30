@@ -16,7 +16,7 @@ token.getToken(username, domain_name, password, region_name, function (token) {
             "text": "666666luo聊请+110亚砷酸钾六位qq，fuck666666666666666",
             "type": "content"
         }],
-        ["ad", "politics", "politics", "politics", "contraband", "contraband"], function (result) {
+        ["ad", "abuse", "politics", "porn", "contraband"], function (result) {
             console.log(result);
         })
 

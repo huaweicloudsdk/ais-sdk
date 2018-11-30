@@ -12,7 +12,7 @@ module.exports = {
             "voice_name": voice_name,                   // voice_name:合成的声音人员表示
             "volume": volume,                           // volume：音量
             "sample_rate": sample_rate,                 // sample_rate：语音的采样率，目前支持16k，代表16HZ
-            "speech_speed": speech_speed,               // peech_speed：语速 [-500,500]
+            "speech_speed": speech_speed,               // speech_speed：语速 [-500,500]
             "pitch_rate": pitch_rate                    // pitch_rate：音高 [-20,20]
         };
         var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.TTS, {
