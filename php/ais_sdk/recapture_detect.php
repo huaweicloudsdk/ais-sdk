@@ -45,7 +45,6 @@ function recapture_detect($token, $data, $url, $threshold = 0.95, $scene)
         } else {
             echo $status . "\n";
             echo $response;
-            return "Process the recapture detect by token result failed!";
         }
 
     }
@@ -101,7 +100,6 @@ function recapture_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.95, $scen
 
             echo $status . "\n";
             echo $response;
-            return "Process the recapture detect by ak,sk result failed!";
         }
 
     }

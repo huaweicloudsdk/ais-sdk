@@ -42,8 +42,8 @@ function clarity_detect($token, $data, $url, $threshold = 0.8)
         if ($status == 200) {
             return $response;
         } else {
+            echo $status . "\n";
             echo $response;
-            return "Process the clarity detect by token result failed!";
         }
     }
     curl_close($curl);
@@ -97,7 +97,6 @@ function clarity_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.8)
 
             echo $status . "\n";
             echo $response;
-            return "Process the clarity detect by akl,sk result failed!";
         }
 
     }

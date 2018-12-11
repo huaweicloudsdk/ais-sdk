@@ -42,10 +42,10 @@ function celebrity_recognition($token, $data, $url, $threshold = 0.48)
         if ($status == 200) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
-            return "Process the celebrity recognition by token result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 
@@ -98,7 +98,6 @@ function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
 
             echo $status . "\n";
             echo $response;
-            return "Process the celebrity recognition by aksk result failed!";
         }
 
     }

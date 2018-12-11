@@ -42,8 +42,8 @@ function distortion_correct($token, $image, $url, $correction = true)
         if ($status == 200) {
             return $response;
         } else {
+            echo $status . "\n";
             echo $response;
-            return "Process the distortion correct by token result failed!";
         }
     }
     curl_close($curl);
@@ -97,7 +97,6 @@ function distortion_correct_aksk($_ak, $_sk, $image, $url, $correction = true)
 
             echo $status . "\n";
             echo $response;
-            return "Process the distortion correct by ak,sk result failed!";
         }
 
     }

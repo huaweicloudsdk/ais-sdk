@@ -19,12 +19,11 @@ function moderation_video($token, $url, $frame_interval, $category)
         // 获取任务解析的结果
         $resultobj = get_result($token, $job_id);
         if ($resultobj['status'] != 200) {
-            return "Process the video failed!";
+            var_dump($resultobj);
         }
 
         if ($resultobj['result']['status'] == "failed") {
-
-            return "Process the video failed!";
+            var_dump($resultobj);
 
         } // 任务处理完毕
         elseif ($resultobj['result']['status'] == "finish") {
@@ -76,10 +75,10 @@ function _moderation_video($token, $url, $frame_interval, $category)
         if ($status == 200) {
             return $response;
         } else {
-            return "Process the asr video get jobId by token result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 }
@@ -119,10 +118,10 @@ function get_result($token, $job_id)
             $response['status'] = $status;
             return $response;
         } else {
-            return "Process the asr video get result by token result failed!";
+            echo $status . "\n";
+            echo $response;
+
         }
-        echo $status . "\n";
-        echo $response;
     }
     curl_close($curl);
 }
@@ -148,11 +147,11 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
         $resultobj = get_result_aksk($signer, $job_id);
 
         if ($resultobj['status'] != 200) {
-            return "Process the video failed!";
+            var_dump($resultobj);
         }
 
         if ($resultobj['result']['status'] == "failed") {
-            return "Process the video failed!";
+            var_dump($resultobj);
 
             // 任务处理成功，返回结果信息
         } elseif ($resultobj['result']['status'] == "finish") {
@@ -201,10 +200,10 @@ function _moderation_video_aksk($signer, $url, $frame_interval, $category = "com
         if ($status == 200) {
             return $response;
         } else {
-            return "Process the asr video get jobId by ak,sk result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 }
@@ -247,10 +246,10 @@ function get_result_aksk($signer, $job_id)
             $response['status'] = $status;
             return $response;
         } else {
-            return "Process the asr video get result by aksk result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 }

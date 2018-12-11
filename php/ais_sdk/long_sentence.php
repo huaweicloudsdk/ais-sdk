@@ -19,12 +19,12 @@ function long_sentence($token, $data, $url = "", $category = "common")
         // 获取任务解析的结果
         $resultobj = get_result($token, $job_id);
         if ($resultobj['status'] != 200) {
-            return "Process the audio failed!";
+            var_dump($resultobj);
         }
 
         if ($resultobj['result']['status_code'] == -1) {
 
-            return "Process the audio failed!";
+            var_dump($resultobj);
 
         } // 任务处理完毕
         elseif ($resultobj['result']['status_code'] == 2) {
@@ -79,10 +79,10 @@ function _long_sentence($token, $data, $url = "", $category = "common")
         if ($status == 200) {
             return $response;
         } else {
-            return "Process the asr long sentence get jobId by token result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 }
@@ -122,10 +122,10 @@ function get_result($token, $job_id)
             $response['status'] = $status;
             return $response;
         } else {
-            return "Process the asr long sentence get result by token result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 }
@@ -151,11 +151,11 @@ function long_sentence_aksk($_ak, $_sk, $data, $url = "", $category = "common")
         $resultobj = get_result_aksk($signer, $job_id);
 
         if ($resultobj['status'] != 200) {
-            return "Process the audio failed!";
+            var_dump($resultobj);
         }
 
         if ($resultobj['result']['status_code'] == -1) {
-            return "Process the audio failed!";
+            var_dump($resultobj);
 
             // 任务处理成功，返回结果信息
         } elseif ($resultobj['result']['status_code'] == 2) {
@@ -206,10 +206,10 @@ function _long_sentence_aksk($signer, $data, $url = "", $category = "common")
         if ($status == 200) {
             return $response;
         } else {
-            return "Process the asr long sentence get jobId by ak,sk result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 }
@@ -252,10 +252,10 @@ function get_result_aksk($signer, $job_id)
             $response['status'] = $status;
             return $response;
         } else {
-            return "Process the asr long sentence get result by aksk result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 }

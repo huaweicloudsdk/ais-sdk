@@ -45,7 +45,6 @@ function super_resolution($token, $data, $scale = 3, $model = "ESPCN")
         } else {
             echo $status . "\n";
             echo $response;
-            return "Process the super resolution by token result failed!";
         }
 
     }
@@ -101,7 +100,6 @@ function super_resolution_aksk($_ak, $_sk, $data, $scale = 3, $model = "ESPCN")
 
             echo $status . "\n";
             echo $response;
-            return "Process the super resolution by ak,sk result failed!";
         }
 
     }

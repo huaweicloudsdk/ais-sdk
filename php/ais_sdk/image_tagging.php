@@ -46,7 +46,6 @@ function image_tagging($token, $data, $url, $threshold, $language, $limit = -1)
         } else {
             echo $status . "\n";
             echo $response;
-            return "Process the image tagging by token result failed!";
         }
 
     }
@@ -103,7 +102,6 @@ function image_tagging_aksk($_ak, $_sk, $data, $url, $threshold, $language, $lim
 
             echo $status . "\n";
             echo $response;
-            return "Process the image tagging by ak,sk result failed!";
         }
 
     }

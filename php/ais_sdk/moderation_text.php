@@ -44,7 +44,6 @@ function moderation_text($token, $items, $categories)
         } else {
             echo $status . "\n";
             echo $response;
-            return "Process the moderation text by token result failed!";
         }
 
     }
@@ -99,7 +98,6 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
 
             echo $status . "\n";
             echo $response;
-            return "Process the moderation text by ak,sk result failed!";
         }
 
     }

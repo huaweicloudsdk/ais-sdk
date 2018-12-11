@@ -39,10 +39,10 @@ function asr_bgm($token, $url)
         if ($status == 200) {
             return json_encode(json_decode($response, true), JSON_UNESCAPED_UNICODE);
         } else {
-            return "Process the background music by token result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 
@@ -89,10 +89,8 @@ function asr_bgm_aksk($_ak, $_sk, $url)
         if ($status == 200) {
             return json_encode(json_decode($response, true), JSON_UNESCAPED_UNICODE);
         } else {
-
             echo $status . "\n";
             echo $response;
-            return "Process the background music by ak,sk result failed!";
         }
 
     }

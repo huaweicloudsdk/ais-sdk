@@ -41,10 +41,9 @@ function image_antiporn($token, $data, $url)
         if ($status == 200) {
             return $response;
         } else {
-            return "Process the background music by token result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
     }
     curl_close($curl);
 
@@ -96,7 +95,6 @@ function image_antiporn_aksk($_ak, $_sk, $data, $url)
 
             echo $status . "\n";
             echo $response;
-            return "Process the image antiporn by aksk result failed!";
         }
 
     }

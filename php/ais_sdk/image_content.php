@@ -14,8 +14,8 @@ function image_content($token, $data, $url, $categories, $threshold)
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
         "url" => $url,                         // 与image二选一 图片的URL路径
-        "categories" => $categories,           // 非必选 结果过滤门限
-        "threshold" => $threshold,             // 非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
+        "threshold" => $threshold,             // 非必选 结果过滤门限
+        "categories" => $categories,           // 非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
     );
 
     $curl = curl_init();
@@ -43,10 +43,10 @@ function image_content($token, $data, $url, $categories, $threshold)
         if ($status == 200) {
             return $response;
         } else {
-            return "Process the image content by token result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 
@@ -73,8 +73,8 @@ function image_content_aksk($_ak, $_sk, $data, $url, $categories, $threshold)
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
         "url" => $url,                         // 与image二选一 图片的URL路径
-        "categories" => $categories,           // 非必选 结果过滤门限
-        "threshold" => $threshold,             // 非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
+        "threshold" => $threshold,             // 非必选 结果过滤门限 过滤门限0-1 之间，检测结果与算法有关，与其他无关
+        "categories" => $categories,           // 非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
     );
 
     $headers = array(
@@ -100,7 +100,6 @@ function image_content_aksk($_ak, $_sk, $data, $url, $categories, $threshold)
 
             echo $status . "\n";
             echo $response;
-            return "Process the image content by ak,sk result failed!";
         }
 
     }

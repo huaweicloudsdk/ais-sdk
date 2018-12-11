@@ -43,10 +43,10 @@ function asr_sentence($token, $data, $url = "", $encode_type = "wav", $sample_ra
         if ($status == 200) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
-            return "Process the asr sentence by token result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 
@@ -100,7 +100,6 @@ function asr_sentence_aksk($_ak, $_sk, $data, $url = "", $encode_type = "wav", $
 
             echo $status . "\n";
             echo $response;
-            return "Process the asr sentence by ak,sk result failed!";
         }
 
     }

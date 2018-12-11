@@ -41,8 +41,8 @@ function dark_enhance($token, $image, $brightness = 0.9)
         if ($status == 200) {
             return $response;
         } else {
+            echo $status . "\n";
             echo $response;
-            return "Process the clarity detect by token result failed!";
         }
     }
     curl_close($curl);
@@ -95,7 +95,6 @@ function dark_enhance_aksk($_ak, $_sk, $image, $brightness = 0.9)
 
             echo $status . "\n";
             echo $response;
-            return "Process the clarity detect by ak,sk result failed!";
         }
 
     }

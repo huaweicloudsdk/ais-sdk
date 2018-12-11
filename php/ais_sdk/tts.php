@@ -45,10 +45,10 @@ function tts($token, $text, $voice_name = "xiaoyan", $volume = "0", $sample_rate
         if ($status == 200) {
             return $response;
         } else {
-            return "Process the tts result failed!";
+            echo $status . "\n";
+            echo $response;
         }
-        echo $status . "\n";
-        echo $response;
+
     }
     curl_close($curl);
 
@@ -103,7 +103,6 @@ function tts_aksk($_ak, $_sk, $text, $voice_name = "xiaoyan", $volume = "0", $sa
 
             echo $status . "\n";
             echo $response;
-            return "Process the tts result failed!";
         }
 
     }

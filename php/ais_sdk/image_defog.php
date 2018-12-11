@@ -42,8 +42,8 @@ function image_defog($token, $data, $gamma, $natural_look)
         if ($status == 200) {
             return $response;
         } else {
+            echo $status . "\n";
             echo $response;
-            return "Process the iamge defog by token result failed!";
         }
     }
     curl_close($curl);
@@ -97,7 +97,6 @@ function image_defog_aksk($_ak, $_sk, $data, $gamma, $natural_look)
 
             echo $status . "\n";
             echo $response;
-            return "Process the iamge defog by ak,sk result failed!";
         }
 
     }
