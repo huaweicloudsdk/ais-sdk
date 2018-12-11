@@ -12,7 +12,8 @@ function long_sentence($token, $data, $url = "", $category = "common")
     $jobResult = _long_sentence($token, $data, $url, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
-    sleep(1);
+    echo "Process job id is :" . $job_id
+
     $words = "";
     while (true) {
 
@@ -79,7 +80,7 @@ function _long_sentence($token, $data, $url = "", $category = "common")
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "The http status code for get jobId request failure: " . $status . "\n";
             echo $response;
         }
 
@@ -122,7 +123,7 @@ function get_result($token, $job_id)
             $response['status'] = $status;
             return $response;
         } else {
-            echo $status . "\n";
+            echo "The http status code for get result request failure: " . $status . "\n";
             echo $response;
         }
 
@@ -143,7 +144,8 @@ function long_sentence_aksk($_ak, $_sk, $data, $url = "", $category = "common")
     $jobResult = _long_sentence_aksk($signer, $data, $url, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
-    sleep(1);
+    echo "Process job id is :" . $job_id
+
     $words = "";
     while (true) {
 
@@ -206,7 +208,7 @@ function _long_sentence_aksk($signer, $data, $url = "", $category = "common")
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "The http status code for get jobId request failure: " . $status . "\n";
             echo $response;
         }
 
@@ -252,7 +254,7 @@ function get_result_aksk($signer, $job_id)
             $response['status'] = $status;
             return $response;
         } else {
-            echo $status . "\n";
+            echo "The http status code for get result request failure: " . $status . "\n";
             echo $response;
         }
 

@@ -15,27 +15,24 @@ def long_sentence(token, data, url=''):
     status, r = _long_sentence(token, data, url)
 
     if status != 200:
-        print ('Process long sentence asr failed: summit job failed.')
-        return ''
+        return r
 
     submit_result = json.loads(r)
     job_id = submit_result['result'].get('job_id', '')
-    print ("Process job id is :", job_id)
+    #print ("Process job id is :", job_id)
     words = ''
     time.sleep(1.0)
     try:
         while True:
             status, r = _get_result(token, job_id)
             if status != 200:
-                print ('Process long sentence asr failed: get result failed.')
-                break
+                return r
 
             rec_result = json.loads(r)
 
             process_status = rec_result["result"].get('status_code', 1)
             if process_status == -1:
-                print ('Process long sentence asr failed: get result failed.')
-                break
+                return r
 
             elif process_status == 2:
                 words = rec_result["result"].get('words', '')
@@ -154,27 +151,24 @@ def long_sentence_aksk(_ak,_sk, data, url=''):
     status, r = _long_sentence_aksk(sig, data, url)
 
     if status != 200:
-        print ('Process long sentence asr failed: summit job failed.')
-        return ''
+        return r
 
     submit_result = json.loads(r)
     job_id = submit_result['result'].get('job_id', '')
-    print ("Process job id is :", job_id)
+    #print ("Process job id is :", job_id)
     words = ''
     time.sleep(1.0)
     try:
         while True:
             status, r = _get_result_aksk(sig, job_id)
             if status != 200:
-                print ('Process long sentence asr failed: get result failed.')
-                break
+                return r
 
             rec_result = json.loads(r)
 
             process_status = rec_result["result"].get('status_code', 1)
             if process_status == -1:
-                print ('Process long sentence asr failed: get result failed.')
-                break
+                return r
 
             elif process_status == 2:
                 words = rec_result["result"].get('words', '')

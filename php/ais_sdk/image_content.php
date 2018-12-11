@@ -43,7 +43,7 @@ function image_content($token, $data, $url, $categories, $threshold)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -98,7 +98,7 @@ function image_content_aksk($_ak, $_sk, $data, $url, $categories, $threshold)
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

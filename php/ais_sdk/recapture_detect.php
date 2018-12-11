@@ -43,7 +43,7 @@ function recapture_detect($token, $data, $url, $threshold = 0.95, $scene)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -98,7 +98,7 @@ function recapture_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.95, $scen
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

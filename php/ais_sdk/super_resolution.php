@@ -43,7 +43,7 @@ function super_resolution($token, $data, $scale = 3, $model = "ESPCN")
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -98,7 +98,7 @@ function super_resolution_aksk($_ak, $_sk, $data, $scale = 3, $model = "ESPCN")
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

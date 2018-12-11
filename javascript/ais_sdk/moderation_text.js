@@ -21,13 +21,12 @@ module.exports = {
 
             // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             if (response.statusCode !== 200) {
-                console.log("Process the moderation text result failed!");
-                return;
+                console.log('Http status code is: ' + response.statusCode);
             }
 
             // 返回文本内容检测服务结果
             response.on("data", function (chunk) {
-
+                // 返回中文unicode处理
                 var result = JSON.parse(chunk.toString());
                 callback(JSON.stringify(result));
             })
@@ -60,12 +59,12 @@ module.exports = {
 
             // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             if (response.statusCode !== 200) {
-                console.log("Process the moderation text  result failed!");
-                return;
+                console.log('Http status code is: ' + response.statusCode);
             }
 
             // 返回图像内容检测服务结果信息
             response.on("data", function (chunk) {
+                // 返回中文unicode处理
                 var result = JSON.parse(chunk.toString());
                 callback(JSON.stringify(result));
             })

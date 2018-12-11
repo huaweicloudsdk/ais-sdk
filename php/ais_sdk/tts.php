@@ -45,7 +45,7 @@ function tts($token, $text, $voice_name = "xiaoyan", $volume = "0", $sample_rate
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -101,7 +101,7 @@ function tts_aksk($_ak, $_sk, $text, $voice_name = "xiaoyan", $volume = "0", $sa
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

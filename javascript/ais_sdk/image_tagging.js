@@ -26,8 +26,7 @@ module.exports = {
 
             // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             if (response.statusCode !== 200) {
-                console.log("Process the image tagging result failed!");
-                return;
+                console.log('Http status code is: ' + response.statusCode);
             }
 
             // 检测服务结果
@@ -67,8 +66,7 @@ module.exports = {
 
             // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             if (response.statusCode !== 200) {
-                console.log("Process the image tagging result failed!");
-                return;
+                console.log('Http status code is: ' + response.statusCode);
             }
 
             // 返回图像内容检测服务结果信息

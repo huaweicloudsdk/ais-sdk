@@ -41,7 +41,7 @@ function dark_enhance($token, $image, $brightness = 0.9)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
     }
@@ -93,7 +93,7 @@ function dark_enhance_aksk($_ak, $_sk, $image, $brightness = 0.9)
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

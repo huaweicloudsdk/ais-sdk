@@ -42,7 +42,7 @@ function moderation_text($token, $items, $categories)
         if ($status == 200) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -96,7 +96,7 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

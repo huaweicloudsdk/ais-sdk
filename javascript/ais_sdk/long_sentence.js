@@ -13,17 +13,18 @@ function long_sentence(token, data, url, category, callback) {
 
     var request = https.request(options, function (response) {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if (response.statusCode !== 200) {
-            console.log("Process the audio result failed!");
-            return;
-        }
         response.on("data", function (chunk) {
-            console.log(chunk.toString());
+            // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
+            if (response.statusCode !== 200) {
+                console.log('Http status code is: ' + response.statusCode);
+                console.log(chunk.toString());
+                return;
+            }
 
             // 获取job_id
             var result = JSON.parse(chunk);
             job_id = result.result.job_id;
+            console.log('Process job id is :' + job_id)
 
             // 根据job_id的结果,获取语音识别的信息获取语音识获取语音识别的信息
             var words = "";
@@ -56,7 +57,8 @@ function get_result(job_id, resultsearch, words, token, callback) {
 
             // 如果处理失败，直接退出
             if (resultsearch !== "" && resultsearch.result.status_code === -1) {
-                console.log("Process the audio failed!");
+                console.log('The processing job request failed');
+                console.log(chunk.toString());
                 return;
             }
 
@@ -100,18 +102,20 @@ function long_sentence_aksk(_ak, _sk, data, url, category, callback) {
 
     var request = https.request(options, function (response) {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if (response.statusCode !== 200) {
-            console.log("Process the audio result failed!");
-            return;
-        }
-
         response.on("data", function (chunk) {
-            console.log(chunk.toString());
+            // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
+            if (response.statusCode !== 200) {
+                console.log('Http status code is: ' + response.statusCode);
+                console.log(chunk.toString());
+                return;
+            }
+
 
             // 获取job_id 信息，获取长语音识别信息
             var result = JSON.parse(chunk);
             job_id = result.result.job_id;
+            console.log('Process job id is :' + job_id)
+
             var words = "";
             var results = "";
             get_result_aksk(sig, job_id, results, words, callback);
@@ -149,7 +153,8 @@ function get_result_aksk(sign, job_id, resultsearch, words, callback) {
 
             //  如果处理失败，直接退出
             if (resultsearch !== "" && resultsearch.result.status_code === -1) {
-                console.log("Process the audio failed!");
+                console.log('The processing job request failed');
+                console.log(chunk.toString());
                 return;
             }
 

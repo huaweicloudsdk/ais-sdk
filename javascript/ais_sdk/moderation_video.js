@@ -18,17 +18,19 @@ function video(token, url, frame_interval, category, callback) {
 
     var request = https.request(options, function (response) {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if (response.statusCode !== 200) {
-            console.log("Process the video result failed!");
-            return;
-        }
         response.on("data", function (chunk) {
-            console.log(chunk.toString());
+
+            // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
+            if (response.statusCode !== 200) {
+                console.log('Http status code is: ' + response.statusCode);
+                console.log(chunk.toString());
+                return;
+            }
 
             // 获取job_id
             var result = JSON.parse(chunk);
             job_id = result.result.job_id;
+            console.log('Process job id is :' + job_id)
 
             // 根据job_id的结果,获取视频审核胡信息的信息获取语音识获取语音识别的信息
             var results = "";
@@ -58,20 +60,21 @@ function get_result(job_id, resultsearch, token, callback) {
         res.on('data', function (chunk) {
             resultsearch = JSON.parse(chunk);
             if (res.statusCode !== 200) {
-                console.log("Process the video result failed!");
+                console.log('Http status code is: ' + response.statusCode);
+                console.log(chunk.toString());
                 return;
             }
 
             // 如果处理失败，直接退出
             if (resultsearch !== "" && resultsearch.result.status === "failed") {
+                console.log('The processing job request failed');
                 callback(resultsearch);
                 return;
             }
 
             // 任务处理成功
             if (resultsearch !== "" && resultsearch.result.status === "finish") {
-                callback(resultsearch);
-                return;
+                callback(JSON.stringify(resultsearch));
             }
             else {
 
@@ -106,18 +109,20 @@ function video_aksk(_ak, _sk, url, frame_interval, category, callback) {
 
     var request = https.request(options, function (response) {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if (response.statusCode !== 200) {
-            console.log("Process the video result failed!");
-            return;
-        }
-
         response.on("data", function (chunk) {
-            console.log(chunk.toString());
+
+            // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
+            if (response.statusCode !== 200) {
+                console.log('Http status code is: ' + response.statusCode);
+                console.log(chunk.toString());
+                return;
+            }
 
             // 获取job_id 信息，获取长语音识别信息
             var result = JSON.parse(chunk);
             job_id = result.result.job_id;
+            console.log('Process job id is :' + job_id)
+
             var results = "";
             get_result_aksk(sig, job_id, results, callback);
         })
@@ -151,20 +156,21 @@ function get_result_aksk(sign, job_id, resultsearch, callback) {
         response.on('data', function (chunk) {
             resultsearch = JSON.parse(chunk);
             if (response.statusCode !== 200) {
-                console.log("Process the video result failed!");
+                console.log('Http status code is: ' + response.statusCode);
+                console.log(chunk.toString());
                 return;
             }
 
             // 如果处理失败，直接退出
             if (resultsearch !== "" && resultsearch.result.status === "failed") {
+                console.log('The processing job request failed');
                 callback(resultsearch);
                 return;
             }
 
             // 任务处理成功
             if (resultsearch !== "" && resultsearch.result.status === "finish") {
-                callback(resultsearch);
-                return;
+                callback(JSON.stringify(resultsearch));
             }
             else {
 

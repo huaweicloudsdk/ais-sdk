@@ -16,28 +16,26 @@ def moderation_video(token, url, frame_interval=5, categories=['politics', 'terr
     status, r = _moderation_video(token, url, frame_interval, categories)
 
     if status != 200:
-        print 'Process moderation vedio asr failed: summit job failed.'
-        return ''
+        return r
 
     submit_result = json.loads(r)
     job_id = submit_result['result'].get('job_id', '')
-    print "Process job id is :", job_id
+    #print "Process job id is :", job_id
     time.sleep(1.0)
     try:
         while True:
             status, r = _get_result(token, job_id)
             if status != 200:
-                print 'Process moderation video asr failed: get result failed.'
-                break
+                return r
 
             rec_result = json.loads(r)
 
             process_status = rec_result["result"].get('status')
             if process_status == 'failed':
-                return r;
+                return r
 
             elif process_status == 'finish':
-                return r;
+                return r
 
             #
             # process_status == 0 || process_status == 1
@@ -146,19 +144,17 @@ def moderation_video_aksk(_ak, _sk, url, frame_interval=5, categories=['politics
     status, r = _moderation_video_aksk(sig, url, frame_interval, categories)
 
     if status != 200:
-        print 'Process moderation vedio asr failed: summit job failed.'
-        return ''
+        return r
 
     submit_result = json.loads(r)
     job_id = submit_result['result'].get('job_id', '')
-    print "Process job id is :", job_id
+    #print "Process job id is :", job_id
     time.sleep(1.0)
     try:
         while True:
             status, r = _get_result_aksk(sig, job_id)
             if status != 200:
-                print 'Process moderation video asr failed: get result failed.'
-                break
+                return r
 
             rec_result = json.loads(r)
 

@@ -9,8 +9,6 @@ function fileToBase64($file)
 {
     $base64data = "";
     if (file_exists($file)) {
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        finfo_close($finfo);
         $base64data = base64_encode(file_get_contents($file));
     }
     return $base64data;

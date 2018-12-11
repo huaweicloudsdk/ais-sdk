@@ -44,7 +44,7 @@ function image_tagging($token, $data, $url, $threshold, $language, $limit = -1)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -100,7 +100,7 @@ function image_tagging_aksk($_ak, $_sk, $data, $url, $threshold, $language, $lim
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

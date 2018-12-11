@@ -42,7 +42,7 @@ function distortion_correct($token, $image, $url, $correction = true)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
     }
@@ -95,7 +95,7 @@ function distortion_correct_aksk($_ak, $_sk, $image, $url, $correction = true)
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

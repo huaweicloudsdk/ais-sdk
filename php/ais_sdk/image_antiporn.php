@@ -41,7 +41,7 @@ function image_antiporn($token, $data, $url)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
     }
@@ -93,7 +93,7 @@ function image_antiporn_aksk($_ak, $_sk, $data, $url)
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

@@ -42,7 +42,7 @@ function image_defog($token, $data, $gamma, $natural_look)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
     }
@@ -95,7 +95,7 @@ function image_defog_aksk($_ak, $_sk, $data, $gamma, $natural_look)
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

@@ -43,7 +43,7 @@ function asr_sentence($token, $data, $url = "", $encode_type = "wav", $sample_ra
         if ($status == 200) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -98,7 +98,7 @@ function asr_sentence_aksk($_ak, $_sk, $data, $url = "", $encode_type = "wav", $
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

@@ -39,7 +39,7 @@ function asr_bgm($token, $url)
         if ($status == 200) {
             return json_encode(json_decode($response, true), JSON_UNESCAPED_UNICODE);
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -48,6 +48,7 @@ function asr_bgm($token, $url)
 
 
 }
+
 
 /**
  * ak,sk 方式
@@ -89,7 +90,7 @@ function asr_bgm_aksk($_ak, $_sk, $url)
         if ($status == 200) {
             return json_encode(json_decode($response, true), JSON_UNESCAPED_UNICODE);
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

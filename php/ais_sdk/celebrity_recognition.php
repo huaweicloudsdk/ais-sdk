@@ -42,7 +42,7 @@ function celebrity_recognition($token, $data, $url, $threshold = 0.48)
         if ($status == 200) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 
@@ -96,7 +96,7 @@ function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

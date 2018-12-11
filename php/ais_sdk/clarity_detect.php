@@ -42,7 +42,7 @@ function clarity_detect($token, $data, $url, $threshold = 0.8)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
     }
@@ -95,7 +95,7 @@ function clarity_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.8)
             return $response;
         } else {
 
-            echo $status . "\n";
+            echo "Http status is: " . $status . "\n";
             echo $response;
         }
 

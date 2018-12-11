@@ -12,8 +12,8 @@ function moderation_video($token, $url, $frame_interval, $category)
     $jobResult = _moderation_video($token, $url, $frame_interval, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
+    echo "Process job id is :" . $job_id
 
-    sleep(1);
     while (true) {
 
         // 获取任务解析的结果
@@ -75,7 +75,7 @@ function _moderation_video($token, $url, $frame_interval, $category)
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "The http status code for get jobId request failure: " . $status . "\n";
             echo $response;
         }
 
@@ -118,7 +118,7 @@ function get_result($token, $job_id)
             $response['status'] = $status;
             return $response;
         } else {
-            echo $status . "\n";
+            echo "The http status code for get result request failure:" . $status . "\n";
             echo $response;
 
         }
@@ -139,7 +139,7 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
     $jobResult = _moderation_video_aksk($signer, $url, $frame_interval, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
-    sleep(1);
+    echo "Process job id is :" . $job_id
 
     while (true) {
 
@@ -200,7 +200,7 @@ function _moderation_video_aksk($signer, $url, $frame_interval, $category = "com
         if ($status == 200) {
             return $response;
         } else {
-            echo $status . "\n";
+            echo "The http status code for get jobId request failure:" . $status . "\n";
             echo $response;
         }
 
@@ -246,7 +246,7 @@ function get_result_aksk($signer, $job_id)
             $response['status'] = $status;
             return $response;
         } else {
-            echo $status . "\n";
+            echo "The http status code for get result request failure:" . $status . "\n";
             echo $response;
         }
 

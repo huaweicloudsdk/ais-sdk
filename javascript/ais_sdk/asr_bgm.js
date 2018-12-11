@@ -18,11 +18,11 @@ module.exports = {
 
             // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             if (response.statusCode !== 200) {
-                console.log("Process the background music result failed!");
-                return;
+                console.log('Http status code is: ' + response.statusCode);
             }
 
             response.on("data", function (chunk) {
+                // 返回中文unicode处理
                 var result = JSON.parse(chunk.toString());
                 callback(JSON.stringify(result));
             })
@@ -52,8 +52,7 @@ module.exports = {
 
             // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             if (response.statusCode !== 200) {
-                console.log("Process the background music result failed!");
-                return;
+                console.log('Http status code is: ' + response.statusCode);
             }
             response.on("data", function (chunk) {
                 callback(chunk.toString());
@@ -61,6 +60,7 @@ module.exports = {
         });
 
         requset.on("error", function (err) {
+            // 返回中文unicode处理
             var result = JSON.parse(chunk.toString());
             callback(JSON.stringify(result));
         });

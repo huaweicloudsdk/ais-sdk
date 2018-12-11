@@ -26,8 +26,7 @@ module.exports = {
 
             // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             if (response.statusCode !== 200) {
-                console.log("Process the image defog  failed");
-                return;
+               console.log('Http status code is: ' + response.statusCode);
             }
 
             // 拼接返回结果的base64的字符串
@@ -71,8 +70,7 @@ module.exports = {
 
             // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             if (response.statusCode !== 200) {
-                console.log("Process the image defog  failed!");
-                return;
+                console.log('Http status code is: ' + response.statusCode);
             }
 
             var resultStr = "";
