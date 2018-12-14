@@ -62,4 +62,11 @@ define("MODERATION_TEXT", "/v1.0/moderation/text");
 // 视频审核服务的uri
 define("MODERATION_VIDEO", "/v1.0/moderation/video");
 
+// 图像内容审核批量异步uri
+define("IMAGE_CONTENT_BATCH_JOBS", "/v1.0/moderation/image/batch/jobs");
 
+// 图像内容审核批量异步结果uri
+define("IMAGE_CONTENT_BATCH_RESULT", "/v1.0/moderation/image/batch");
+
+// 图片内容审核服务批量的uri
+define("IMAGE_CONTENT_BATCH", "/v1.0/moderation/image/batch");

@@ -1,0 +1,15 @@
+<?php
+/**
+ * 图片内容检测批量异步服务ak,sk 方式请求的示例
+ */
+require "./ais_sdk/batch_jobs.php";
+require "./ais_sdk/utils.php";
+
+$app_key = "*************";
+$app_secret = "*************";
+
+$data_url1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";
+$data_url2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+
+$result = batch_jobs_aksk($app_key, $app_secret, array($data_url1,$data_url2), array("politics","terrorism","porn"));
+echo json_encode($result);

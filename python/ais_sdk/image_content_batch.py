@@ -9,14 +9,15 @@ import ais
 
 
 #
-# access image defog,post data by token
+# access moderation image content of batch,post data by token
 #
-def image_defog(token, image, gamama=1.5):
-    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.ENDPOINT
+def image_content_batch(token, urls, categories=None, threshold=None):
+    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.ENDPOINT
 
     _data = {
-        "image": image,
-        "gamma": gamama
+        "urls": urls,
+        "categories": categories,
+        "threshold": threshold,
     }
 
     kreq = urllib2.Request(url=_url)
@@ -54,24 +55,25 @@ def image_defog(token, image, gamama=1.5):
 
 
 #
-# access image defog,post data by ak,sk
+# access moderation image content of batch,post data by token
 #
-def image_defog_aksk(_ak, _sk, image, gamama=1.5):
-    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.ENDPOINT
+def image_content_batch_aksk(_ak, _sk, urls, categories=None, threshold=None):
+    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
     _data = {
-        "image": image,
-        "gamma": gamama
+        "urls": urls,
+        "categories": categories,
+        "threshold": threshold,
     }
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
     kreq.host = ais.AisEndpoint.ENDPOINT
-    kreq.uri = "/v1.0/vision/defog"
+    kreq.uri = "/v1.0/moderation/image/batch"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
     kreq.body = json.dumps(_data)

@@ -12,7 +12,7 @@ function long_sentence($token, $data, $url = "", $category = "common")
     $jobResult = _long_sentence($token, $data, $url, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
-    echo "Process job id is :" . $job_id
+    echo "Process job id is :" . $job_id;
 
     $words = "";
     while (true) {
@@ -144,7 +144,7 @@ function long_sentence_aksk($_ak, $_sk, $data, $url = "", $category = "common")
     $jobResult = _long_sentence_aksk($signer, $data, $url, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
-    echo "Process job id is :" . $job_id
+    echo "Process job id is :" . $job_id;
 
     $words = "";
     while (true) {

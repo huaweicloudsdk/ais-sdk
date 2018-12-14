@@ -1,29 +1,31 @@
 # -*- coding:utf-8 -*-
-
-import urllib2
-import json
 import ssl
-from urllib2 import HTTPError, URLError
-import signer
-import ais
+import ais_sdk.signer as signer
+from urllib.error import URLError, HTTPError
+import urllib.parse
+import urllib.request
+import json
+import ais_sdk.ais as ais
 
 
 #
-# access image defog,post data by token
+# access moderation image content of batch,post data by token
 #
-def image_defog(token, image, gamama=1.5):
-    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.ENDPOINT
+def moderation_image_batch(token, urls, categories=None, threshold=None):
+    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.ENDPOINT
 
     _data = {
-        "image": image,
-        "gamma": gamama
+        "urls": urls,
+        "categories": categories,
+        "threshold": threshold,
     }
 
-    kreq = urllib2.Request(url=_url)
-    kreq.add_header('Content-Type', 'application/json')
-    kreq.add_header('X-Auth-Token', token)
-    kreq.add_data(json.dumps(_data))
-
+    _headers = {
+        "Content-Type": "application/json",
+        "X-Auth-Token": token
+    }
+    data = json.dumps(_data).encode("utf-8")
+    kreq = urllib.request.Request(_url, data, _headers)
     resp = None
     status_code = None
     try:
@@ -32,46 +34,47 @@ def image_defog(token, image, gamama=1.5):
         # the client CA-validation have some problem, so we must do this.
         #
         _context = ssl._create_unverified_context()
-        r = urllib2.urlopen(kreq, context=_context)
+        r = urllib.request.urlopen(kreq, context=_context)
 
     #
-    # We use HTTPError and URLError，because urllib2 can't process the 4XX &
+    # We use HTTPError and URLError，because urllib can't process the 4XX &
     # 500 error in the single urlopen function.
     #
     # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests,
     # there is no this problem.
     #
-    except HTTPError, e:
+    except HTTPError as e:
         resp = e.read()
         status_code = e.code
-    except URLError, e:
+    except URLError as e:
         resp = e.read()
         status_code = e.code
     else:
         status_code = r.code
         resp = r.read()
-    return resp
+    return resp.decode('utf-8')
 
 
 #
-# access image defog,post data by ak,sk
+# access moderation image content of batch,post data by aksk
 #
-def image_defog_aksk(_ak, _sk, image, gamama=1.5):
-    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.ENDPOINT
+def moderation_image_batch_aksk(_ak, _sk, urls, categories=None, threshold=None):
+    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
     _data = {
-        "image": image,
-        "gamma": gamama
+        "urls": urls,
+        "categories": categories,
+        "threshold": threshold,
     }
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
     kreq.host = ais.AisEndpoint.ENDPOINT
-    kreq.uri = "/v1.0/vision/defog"
+    kreq.uri = "/v1.0/moderation/image/batch"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
     kreq.body = json.dumps(_data)
@@ -85,22 +88,22 @@ def image_defog_aksk(_ak, _sk, image, gamama=1.5):
         # the client CA-validation have some problem, so we must do this.
         #
         _context = ssl._create_unverified_context()
-        req = urllib2.Request(url=_url, data=kreq.body, headers=kreq.headers)
-        r = urllib2.urlopen(req, context=_context)
+        req = urllib.request.Request(url=_url, data=kreq.body, headers=kreq.headers)
+        r = urllib.request.urlopen(req, context=_context)
     #
-    # We use HTTPError and URLError，because urllib2 can't process the 4XX &
+    # We use HTTPError and URLError，because urllib can't process the 4XX &
     # 500 error in the single urlopen function.
     #
     # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests,
     # there is no this problem.
     #
-    except HTTPError, e:
+    except HTTPError as e:
         resp = e.read()
         status_code = e.code
-    except URLError, e:
+    except URLError as e:
         resp = e.read()
         status_code = e.code
     else:
         status_code = r.code
         resp = r.read()
-    return resp
+    return resp.decode('utf-8')

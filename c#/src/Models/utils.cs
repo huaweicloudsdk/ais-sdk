@@ -70,9 +70,18 @@ namespace Ais.Models
                 }
                 return result;
             }
-            catch (Exception e)
+            catch (WebException e)
             {
                 Console.WriteLine("The service of get {0} result is failed,cause by {1}", serviceName, e.Message);
+                HttpWebResponse response = (HttpWebResponse)e.Response;
+                    using (Stream data = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(data))
+                        {
+                            string text = reader.ReadToEnd();
+                            Console.WriteLine(text);
+                        }
+                    }
                 Console.ReadKey();
                 return null;
             }

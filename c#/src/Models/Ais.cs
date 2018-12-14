@@ -55,5 +55,14 @@ namespace Ais.Models
 
         // the uri for service of long sentence
         public static String LONG_SENTENCE = "/v1.0/voice/asr/long-sentence";
+
+        // the uri for service of image content batch result
+        public static String IMAGE_CONTENT_BATCH_RESULT = "/v1.0/moderation/image/batch";
+
+        // the uri for service of image content batch job id
+        public static String IMAGE_CONTENT_BATCH_JOBS = "/v1.0/moderation/image/batch/jobs";
+
+        // the uri for service of image content batch result
+        public static String IMAGE_CONTENT_BATCH = "/v1.0/moderation/image/batch";
     }
 }

@@ -1,5 +1,6 @@
 package com.huawei.ais.demo;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.ais.sdk.util.HttpClientUtils;
@@ -20,7 +21,8 @@ import java.net.URISyntaxException;
  * 使用Token认证方式访问服务
  */
 public class TokenDemo {
-
+	private static final String URL_TEMPLATE = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch?job_id=%s";
+	private static final long POLLING_INTERVAL = 2000L;
 	public static int connectionTimeout = 5000; //连接目标url超时限制参数
 	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
 	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
@@ -255,7 +257,7 @@ public class TokenDemo {
 			JSONObject json = new JSONObject();
 			json.put("image", fileBase64Str);
 			json.put("categories", new String[] {"politics"}); //检测内容
-			json.put("threshold", "");
+			json.put("threshold", 0);
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 			
 			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
@@ -269,14 +271,134 @@ public class TokenDemo {
 			e.printStackTrace();
 		}
 	}
+
+    /**
+     * 图像内容批量检测，使用obs对象方式，使用Token认证方式访问服务
+     * @param token
+     * 			token认证串
+     * @param urls
+     * 			obs 对象数组
+     * @throws IOException
+     */
+    public static void requestModerationImageContentBatch(String token, String[] urls) throws IOException {
+        String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch";
+        Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
+        try {
+            JSONObject json = new JSONObject();
+            json.put("urls", urls);
+            json.put("categories", new String[] {"politics"}); //检测内容
+            json.put("threshold", 0);
+            StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
+
+            HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+
+            System.out.println(response);
+            String content = IOUtils.toString(response.getEntity().getContent());
+            System.out.println(content);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 图像内容批量异步检测，使用obs对象方式，使用Token认证方式访问服务
+     * @param token
+     * 			token认证串
+     * @param urls
+     * 			obs 对象数组
+     * @throws IOException
+     */
+	public static void requestModerationImageContentBatchJobs(String token, String[] urls){
+		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch/jobs";
+		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
+		try {
+			JSONObject json = new JSONObject();
+			json.put("urls", urls);
+			json.put("categories", new String[] {"politics"}); //检测内容
+			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
+
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+
+			// 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
+			ResponseProcessUtils.processResponseStatus(response);
+			if(response.getStatusLine().getStatusCode() != 200 ){
+				System.out.println("Image content of batch jobs process is failed: submit the job failed!");
+				return;
+			}
+
+			String jobId = getJobId(response);
+			String uri = String.format(URL_TEMPLATE, jobId);
+			System.out.println(uri);
+
+			while(true){
+
+				// 发起请求
+				HttpResponse getResponse = HttpClientUtils.get(uri, headers);
+				String result = HttpClientUtils.convertStreamToString(getResponse.getEntity().getContent());
+				String status = getProcessStatus(result);
+
+				// 如果处理失败，直接退出
+				if(status.equals("failed"))
+				{
+					System.out.println("Image content of batch jobs process result failed!");
+					return;
+				}
+
+				// 任务处理成功
+				else if( status.equals("finish"))
+				{
+					System.out.println(result);
+					return;
+				}
+				// status == 0 || status == 1
+				else
+				{
+					// 6.1 如果没有返回，等待一段时间，继续进行轮询。
+					Thread.sleep(POLLING_INTERVAL);
+					continue;
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}
+	//
+	// 获取提交任务的任务ID
+	//
+	private static String getJobId(HttpResponse response) throws UnsupportedOperationException, IOException
+	{
+		String result = HttpClientUtils.convertStreamToString(response.getEntity().getContent());
+		JSONObject resp = JSON.parseObject(result);
+		JSONObject resultJson = (JSONObject)resp.get("result");
+		String jobId = (String)resultJson.get("job_id");
+
+		return jobId;
+	}
+
+	//
+	//  获取图像内容检测处理的结果状态
+	//
+	private static String getProcessStatus(String response) throws UnsupportedOperationException, IOException
+	{
+		JSONObject resp = JSON.parseObject(response);
+		JSONObject result = (JSONObject)resp.get("result");
+		String status = result.get("status").toString();
+
+		return status;
+	}
 	
 	/**
 	 * 调用主入口函数
 	 */
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
-		String username = "zhangsan";    // 此处，请输入用户名
-		String password = "***";	  // 此处，请输入对应用户名的密码
-		String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
+		String username = "zhangsan";    	// 此处，请输入用户名
+		String password = "***";	  		// 此处，请输入对应用户名的密码
+		String projectName = "cn-north-1"; 	// 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
+
 		String token = getToken(username, password, projectName);
 		System.out.println(token);
 		
@@ -286,7 +408,7 @@ public class TokenDemo {
 		socketTimeout = 5000;//获取服务器响应数据超时限制
 				
 		//运行图像反黄检测服务
-	    requestModerationAntiPornBase64(token, "data/moderation-demo-1.jpg");
+	    //requestModerationAntiPornBase64(token, "data/moderation-demo-1.jpg");
 		
 		//运行清晰度检测服务
 		//requestModerationClarityBase64(token, "data/moderation-demo-1.jpg");
@@ -299,6 +421,14 @@ public class TokenDemo {
 		
 		//运行图像内容检测服务
 		//requestModerationImageContentBase64(token, "data/moderation-demo-1.jpg");
+
+		//运行图像内容检测异步批量服务
+		String url1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";
+		String url2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+		requestModerationImageContentBatchJobs(token, new String[]{url1,url2});
+
+		//运行图像内容检测批量服务
+		//requestModerationImageContentBatch(token, new String[]{url1,url2});
 				
 	}
 

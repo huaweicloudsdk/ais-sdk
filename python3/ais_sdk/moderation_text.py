@@ -79,7 +79,7 @@ def moderation_text_aksk(_ak, _sk, text, type='content',
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = "ais.cn-north-1.myhuaweicloud.com"
+    kreq.host = ais.AisEndpoint.ENDPOINT
     kreq.uri = "/v1.0/moderation/text"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

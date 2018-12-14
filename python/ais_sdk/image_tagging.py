@@ -76,7 +76,7 @@ def image_tagging_aksk(_ak, _sk, image, url, languzge, limit=-1, threshold=0.0):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = "ais.cn-north-1.myhuaweicloud.com"
+    kreq.host = ais.AisEndpoint.ENDPOINT
     kreq.uri = "/v1.0/image/tagging"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

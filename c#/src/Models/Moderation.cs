@@ -12,7 +12,7 @@ namespace Ais.Models
     {
         public static String ClarityDetectToken(String token, String image, String url, float threshold, String endpoint)
         {
-            // reuqest data for image tagging
+            // reuqest data for image clarity detect
             JObject requestBody = new JObject();
             requestBody.Add("image", image);
             requestBody.Add("url", url);
@@ -65,7 +65,7 @@ namespace Ais.Models
 
         public static String ImageContentToken(String token, String image, String url, float threshold, JArray categories, String endpoint)
         {
-            // reuqest data for image anti porn
+            // reuqest data for image content detect
             JObject requestBody = new JObject();
             requestBody.Add("image", image);
             requestBody.Add("url", url);
@@ -75,6 +75,24 @@ namespace Ais.Models
             HttpWebRequest request = null;
             String result = null;
             String uri = new StringBuilder().Append("https://").Append(endpoint).Append(Ais.IMAGE_CONTENT).ToString();
+
+            String serviceName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            return utils.PostData(request, uri, token, requestBody, result, serviceName);
+
+        }
+
+        public static String ImageContentBatchToken(String token, JArray urls, float threshold, JArray categories, String endpoint)
+        {
+            // reuqest data for image content detect
+            JObject requestBody = new JObject();
+            requestBody.Add("urls", urls);
+            requestBody.Add("categories", categories);
+            requestBody.Add("threshold", threshold);
+
+            HttpWebRequest request = null;
+            String result = null;
+            String uri = new StringBuilder().Append("https://").Append(endpoint).Append(Ais.IMAGE_CONTENT_BATCH).ToString();
 
             String serviceName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 
@@ -161,5 +179,65 @@ namespace Ais.Models
 
         }
 
+        public static string ImageContentBatchJobsToken(string token, JArray urls, JArray categories, string endpoint)
+        {
+    
+            String jobId = GetImageContentJobId(token, urls, categories, endpoint);
+
+            return getImageContentResult(endpoint, jobId, token);
+        }
+
+
+        private static String GetImageContentJobId(String token, JArray urls, JArray categories, String endpoint)
+        {
+            // reuqest data for iamge content of batch jobs
+            JObject requestBody = new JObject();
+            requestBody.Add("categories", categories);
+            requestBody.Add("urls", urls);
+
+            HttpWebRequest request = null;
+            String result = null;
+            String uri = new StringBuilder().Append("https://").Append(endpoint).Append(Ais.IMAGE_CONTENT_BATCH_JOBS).ToString();
+
+            String serviceName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            result = utils.PostData(request, uri, token, requestBody, result, serviceName);
+            JObject joResult = (JObject)JsonConvert.DeserializeObject(result);
+
+            return joResult["result"]["job_id"].ToString();
+        }
+
+        private static String getImageContentResult(String endpoint, String jobId, String token)
+        {
+            String result = null;
+            String url = new StringBuilder().Append("https://").Append(endpoint).Append(Ais.IMAGE_CONTENT_BATCH_RESULT).Append("?job_id=").Append(jobId).ToString();
+
+            HttpWebRequest request = null;
+            String serviceName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+            while (true)
+            {
+                HttpWebResponse response = utils.getData(request, url, token, result, serviceName);
+                int httpStatus = (int)response.StatusCode;
+                if (httpStatus != 200)
+                {
+                    break;
+                }
+                result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+                JObject joResult = (JObject)JsonConvert.DeserializeObject(result);
+                if (joResult["result"]["status"].ToString() == "failed" || joResult["result"]["status"].ToString() == "finish")
+                {
+                    break;
+                }
+                else
+                {
+                    Thread.Sleep(3000);
+                    continue;
+                }
+
+            }
+            return result;
+
+        }
     }
 }

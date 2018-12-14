@@ -56,6 +56,8 @@ public class ModerationImageContentDemo {
 			JSONObject json = new JSONObject();
 			
 			json.put("image", fileBase64Str);
+			json.put("categories", new String[] {"politics"}); //检测内容
+			json.put("threshold", 0);
 			
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 
@@ -135,7 +137,7 @@ public class ModerationImageContentDemo {
 		byte[] imageBytes = tool.downloadUrl("http://moderation-demo.ei.huaweicloud.com/theme/images/imagga/image_tagging_04.jpg");
 		tool.imageContentCheck(imageBytes);
 		tool.imageAntiporn(imageBytes);
-		
+
 		imageBytes = FileUtils.readFileToByteArray(new File("data/moderation-demo-1.jpg"));
 		tool.imageContentCheck(imageBytes);
 		tool.imageAntiporn(imageBytes);

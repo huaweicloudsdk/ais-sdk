@@ -68,7 +68,7 @@ def request_moderation_url_aksk(sig, inner_path, image_str=None, url=None):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = "ais.cn-north-1.myhuaweicloud.com"
+    kreq.host = ais.AisEndpoint.ENDPOINT
     kreq.uri = inner_path
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

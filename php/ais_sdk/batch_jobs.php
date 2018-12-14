@@ -6,13 +6,13 @@ require "ais.php";
  * token 方式
  * @return stri
  */
-function moderation_video($token, $url, $frame_interval, $category)
+function batch_jobs($token, $urls, $categories)
 {
     // 获取任务信息
-    $jobResult = _moderation_video($token, $url, $frame_interval, $category);
+    $jobResult = _batch_jobs($token, $urls, $categories);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
-    echo "Process job id is :" . $job_id;
+    echo "Process job id is :" . $job_id . "\n";;
 
     while (true) {
 
@@ -39,15 +39,14 @@ function moderation_video($token, $url, $frame_interval, $category)
 }
 
 
-function _moderation_video($token, $url, $frame_interval, $category)
+function _batch_jobs($token, $urls, $categories)
 {
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . MODERATION_VIDEO;
+    $_url = "https://" . ENDPOINT . IMAGE_CONTENT_BATCH_JOBS;
 
     $data = array(
-        "url" => $url,                          // url：视频的URL路径
-        "frame_interval" => $frame_interval,    // frame_interval：非必选 截帧时间间隔。number
-        "category" => $category,                // categories：非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
+        "urls" => $urls,                          // url：视频的URL路径
+        "categories" => $categories               // categories：非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
     );
 
     $curl = curl_init();
@@ -90,7 +89,7 @@ function _moderation_video($token, $url, $frame_interval, $category)
  */
 function get_result($token, $job_id)
 {
-    $url = "https://" . ENDPOINT . MODERATION_VIDEO . "?job_id=" . $job_id;
+    $url = "https://" . ENDPOINT . IMAGE_CONTENT_BATCH_RESULT . "?job_id=" . $job_id;
 
     $headers = array(
         "Content-Type:application/json",
@@ -129,17 +128,17 @@ function get_result($token, $job_id)
 /**
  * ak,sk 方式
  */
-function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
+function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
 {
     // 构建ak，sk对象
     $signer = new Signer();
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $jobResult = _moderation_video_aksk($signer, $url, $frame_interval, $category);
+    $jobResult = _batch_jobs_aksk($signer, $urls, $categories);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
-    echo "Process job id is :" . $job_id;
+    echo "Process job id is :" . $job_id . "\n";
 
     while (true) {
 
@@ -168,20 +167,19 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
 /**
  * 获取任务信息
  */
-function _moderation_video_aksk($signer, $url, $frame_interval, $category = "common")
+function _batch_jobs_aksk($signer, $urls, $categories)
 {
     // 构建请求信息
     $data = array(
-        "url" => $url,                          // url：视频的URL路径
-        "frame_interval" => $frame_interval,    // frame_interval：非必选 截帧时间间隔。number
-        "category" => $category,                // categories：非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
+        "urls" => $urls,                          // urls：视频的URL路径，数组
+        "categories" => $categories               // categories：非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
     );
 
     $req = new Request();
     $req->method = 'POST';
     $req->scheme = 'https';
     $req->host = ENDPOINT;
-    $req->uri = MODERATION_VIDEO;
+    $req->uri = IMAGE_CONTENT_BATCH_JOBS;
     $req->body = json_encode($data);
     $req->headers = array(
         'Content-Type' => 'application/json'
@@ -221,7 +219,7 @@ function get_result_aksk($signer, $job_id)
     $req->method = 'GET';
     $req->scheme = 'https';
     $req->host = ENDPOINT;
-    $req->uri = MODERATION_VIDEO;
+    $req->uri = IMAGE_CONTENT_BATCH_RESULT;
     $req->query = array(
         'job_id' => $job_id
     );

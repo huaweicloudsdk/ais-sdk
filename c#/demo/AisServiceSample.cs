@@ -71,6 +71,12 @@ namespace AisDemo
             // long sentence service example
             LongSentence(token, ENDPOINT);
 
+            // image content batch jobs service example
+            ImageContentBatchJobs(token,ENDPOINT );
+
+            // image content batch service example
+            ImageContentBatch(token, ENDPOINT);
+
         }
 
         private static void ImageTagging(String token, String endpoint)
@@ -256,6 +262,48 @@ namespace AisDemo
 
             // post data by obs url
             reslut = Moderation.ImageContentToken(token, "", dataUrl, threshold, categories, endpoint);
+            Console.WriteLine(reslut);
+            Console.ReadKey();
+        }
+
+        private static void ImageContentBatch(String token, String endpoint)
+        {
+
+            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";                                                               // The obs url of file
+            String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+
+            JArray urls = new JArray();
+            urls.Add(dataUrl1);
+            urls.Add(dataUrl2);
+
+            float threshold = 0.6f;
+
+            JArray categories = new JArray();                                                   // The scene of detect 
+            categories.Add("politics");
+            categories.Add("terrorism");
+            categories.Add("porn");
+
+            String reslut = Moderation.ImageContentBatchToken(token, urls, threshold, categories, endpoint);
+            Console.WriteLine(reslut);
+            Console.ReadKey();
+        }
+
+        private static void ImageContentBatchJobs(String token, String endpoint)
+        {
+
+            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";                                                               // The obs url of file
+            String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";                                                               
+
+            JArray urls = new JArray();                                           
+            urls.Add(dataUrl1);
+            urls.Add(dataUrl2);
+
+            JArray categories = new JArray();                                                   // The scene of detect 
+            categories.Add("politics");
+            categories.Add("terrorism");
+            categories.Add("porn");
+
+            String reslut = Moderation.ImageContentBatchJobsToken(token, urls, categories, endpoint);
             Console.WriteLine(reslut);
             Console.ReadKey();
         }
