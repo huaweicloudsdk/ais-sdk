@@ -281,7 +281,7 @@ public class LongSentenceTokenDemo {
 		requestSentenceBase64(token, "data/sentence.wav");
 
 		// url方式访问服务
-		requestSentenceUrl(token, "https://ais-sample-data.obs.myhwclouds.com/lsr-1.mp3");
+		requestSentenceUrl(token, "https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3");
 
 	}
 

@@ -33,7 +33,7 @@ EOF
 #
 # Here, you should substitude the **username** **password** **domainname**
 #
-curl -X POST https://iam.cn-north-1.myhwclouds.com/v3/auth/tokens \
+curl -X POST https://iam.cn-north-1.myhuaweicloud.com/v3/auth/tokens \
     --header 'content-type: application/json' \
     -D headers \
     -d "@data.json"

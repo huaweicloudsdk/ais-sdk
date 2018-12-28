@@ -8,7 +8,7 @@ if __name__ == '__main__':
     app_key = '*************'
     app_secret = '************'
 
-    demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg'
 
     # call interface use the local file
     result = moderation_image_aksk(app_key, app_secret, encode_to_base64('data/moderation-terrorism.jpg'), "", ['politics','terrorism'], "")

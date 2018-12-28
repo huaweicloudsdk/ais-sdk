@@ -11,7 +11,7 @@ $app_secret = "*************";
 $filepath = "./data/super-resolution-demo.png";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg";
+$data_url = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 
 $result = super_resolution_aksk($app_key, $app_secret, $data, 3, "ESPCN");
 echo $result;

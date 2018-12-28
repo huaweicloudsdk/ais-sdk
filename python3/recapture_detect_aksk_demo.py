@@ -9,7 +9,7 @@ if __name__ == '__main__':
     app_key = '*************'
     app_secret = '************'
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg'
 
     # call interface use the file
     result = recapture_detect_aksk(app_key, app_secret, encode_to_base64('data/recapture-detect-demo.jpg'), "", 0.75, ["recapture"])

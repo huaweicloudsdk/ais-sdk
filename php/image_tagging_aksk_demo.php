@@ -11,7 +11,7 @@ $app_secret = "*************";
 $filepath = "./data/image-tagging-demo.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg";
+$data_url = "https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg";
 
 // 图片的base64 的方式请求接口
 $result = image_tagging_aksk($app_key, $app_secret, $data, "", 5, "en", 2);

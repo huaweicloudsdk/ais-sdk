@@ -13,7 +13,7 @@ var region_name = "cn-north-1";  // 配置区域信息
 var filepath = "./data/asr-sentence.wav";
 var data = utils.changeFileToBase64(filepath);
 
-obsUrl = "https://ais-sample-data.obs.myhwclouds.com/asr-sentence.wav";
+obsUrl = "https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav";
 token.getToken(username, domain_name, password, region_name, function (token) {
 
     sentence.asr_scentence(token, data, "", "wav", "16k", function (result) {

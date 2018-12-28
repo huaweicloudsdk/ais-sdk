@@ -12,7 +12,7 @@ $app_secret = "*************";
 $filepath = "./data/modeation-distortion.jpg";
 $image = fileToBase64($filepath);
 
-$demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg";
+$demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
 // ak,sk 方式图片的base64请求接口
 $result = distortion_correct_aksk($app_key, $app_secret, $image, "", true);

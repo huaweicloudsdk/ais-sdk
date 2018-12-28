@@ -9,7 +9,7 @@ curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/dist
   --header "X-Auth-Token: $TOKEN" -d'
  {
       "image":"",
-      "url":"https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg",
+      "url":"https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg",
       "correction": true,
 }'
 # if you want to use image paramter, change file to base64,please choose only one paramter in data or ur

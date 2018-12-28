@@ -10,7 +10,7 @@ var app_secret = "************";
 var filepath = "./data/celebrity-recognition.jpg";
 var data = utils.changeFileToBase64(filepath);
 
-demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhwclouds.com/celebrity-recognition.jpg';
+demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg';
 
 recognition.celebrity_recognition_aksk(app_key, app_secret, data, "", 0.48, function (result) {
     console.log(result);

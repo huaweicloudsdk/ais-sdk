@@ -13,7 +13,7 @@ $regionName = "********";    // 配置区域信息
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
-$data_url = "https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition";
+$data_url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
 
 $result = asr_bgm($token, $data_url);
 echo $result;

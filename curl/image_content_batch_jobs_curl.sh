@@ -1,7 +1,7 @@
 #!/bin/sh
 >data.json cat <<EOF
 {
-    "urls":["https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg","https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg"],
+    "urls":["https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg","https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg"],
     "categories":["terrorism", "porn", "politics"]
 }
 EOF

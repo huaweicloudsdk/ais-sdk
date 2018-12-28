@@ -14,7 +14,7 @@ $regionName = "********";    // 配置区域信息
 $filepath = "./data/moderation-antiporn.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+$data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
 $token = gettoken($username, $password, $domainName, $regionName);
 

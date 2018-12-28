@@ -6,7 +6,7 @@ var bgm = require("./ais_sdk/asr_bgm");
 var app_key = "**************";
 var app_secret = "************";
 
-obsUrl = "https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition";
+obsUrl = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
 
 bgm.asr_bgm_aksk(app_key, app_secret, obsUrl, function (result) {
     console.log(result);

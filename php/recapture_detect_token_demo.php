@@ -14,7 +14,7 @@ $regionName = "********";    // 配置区域信息
 $filepath = "./data/recapture-detect-demo.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg";
+$data_url = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 
 $token = gettoken($username, $password, $domainName, $regionName);
 

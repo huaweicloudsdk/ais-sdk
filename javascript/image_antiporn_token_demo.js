@@ -13,7 +13,7 @@ var region_name = "cn-north-1";  // 配置区域信息
 var filepath = "./data/moderation-antiporn.jpg";
 var data = utils.changeFileToBase64(filepath);
 
-demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg';
+demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg';
 token.getToken(username, domain_name, password, region_name, function (token) {
 
     antiporn.image_antiporn(token, data, "", function (result) {

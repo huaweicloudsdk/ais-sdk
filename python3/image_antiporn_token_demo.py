@@ -11,7 +11,7 @@ if __name__ == '__main__':
     password = '*******'
     account_name = '*******'  # the same as user_name in commonly use
 
-    demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg'
     token = get_token(user_name, password, account_name)
 
     # call interface use the url download

@@ -9,7 +9,7 @@ if __name__ == '__main__':
     app_key = '*************'
     app_secret = '************'
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg'
+    demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg'
 
     # call interface use the url
     result = image_tagging_aksk(app_key, app_secret, "", demo_data_url, 'zh', 5, 30)

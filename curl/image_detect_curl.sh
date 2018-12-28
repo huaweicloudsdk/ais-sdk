@@ -9,7 +9,7 @@ curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image \
   --header "X-Auth-Token: $TOKEN" -d'
  {
       "image":"",
-      "url":"https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg",
+      "url":"https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg",
       "categories": ["politics"],
       "threshold":""
 }'

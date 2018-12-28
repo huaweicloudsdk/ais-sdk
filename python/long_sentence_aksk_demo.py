@@ -9,7 +9,7 @@ if __name__ == '__main__':
     app_key = '*************'
     app_secret = '************'
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/lsr-1.mp3'
+    demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3'
     # call interface use the file
     result = long_sentence_aksk(app_key, app_secret, '', demo_data_url)
     print result

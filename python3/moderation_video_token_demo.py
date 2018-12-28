@@ -10,7 +10,7 @@ if __name__ == '__main__':
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
 
-    demo_data_url = 'https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition'
+    demo_data_url = 'https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition'
 
     token = get_token(user_name, password, account_name)
 

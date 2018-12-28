@@ -10,7 +10,7 @@ var domain_name = "*******";     // 配置用户名
 var password = "*******";        // 密码
 var region_name = "cn-north-1";  // 配置区域信息
 
-demo_data_url = "https://ais-sample-data.obs.myhwclouds.com/lsr-1.mp3";
+demo_data_url = "https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3";
 
 var filepath = "./data/asr-sentence.wav";
 var data = utils.changeFileToBase64(filepath);

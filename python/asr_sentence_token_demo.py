@@ -11,7 +11,7 @@ if __name__ == '__main__':
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
 
-    demo_data_url = 'https://ais-sample-data.obs.myhwclouds.com/asr-sentence.wav'
+    demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav'
     token = get_token(user_name, password, account_name)
 
     # call interface use the url

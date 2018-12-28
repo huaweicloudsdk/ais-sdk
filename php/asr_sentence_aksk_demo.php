@@ -11,7 +11,7 @@ $app_secret = "*************";
 $filepath = "./data/asr-sentence.wav";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.myhwclouds.com/asr-sentence.wav";
+$data_url = "https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav";
 
 // base64 方式请求
 $result = asr_sentence_aksk($app_key, $app_secret, $data, "", "wav", "16k");

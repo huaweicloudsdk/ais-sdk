@@ -14,7 +14,7 @@ $regionName = "********";    // 配置区域信息
 $filepath = "./data/moderation-clarity-detect.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg";
+$data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
 $token = gettoken($username, $password, $domainName, $regionName);
 

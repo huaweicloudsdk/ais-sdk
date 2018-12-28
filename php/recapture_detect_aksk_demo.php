@@ -11,7 +11,7 @@ $app_secret = "*************";
 $filepath = "./data/recapture-detect-demo.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg";
+$data_url = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 
 // 图片的base64 的方式请求接口
 $result = recapture_detect_aksk($app_key, $app_secret, $data, "", 0.99, array("recapture"));

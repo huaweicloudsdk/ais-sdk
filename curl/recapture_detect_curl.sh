@@ -10,7 +10,7 @@ curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/recapture-detec
   --header "X-Auth-Token: $TOKEN" -d '
  {
       "image":"",
-      "url":"https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg",
+      "url":"https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg",
       "threshold":0.99,
       "scene":"['recapture']"
 }'

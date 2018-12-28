@@ -10,8 +10,8 @@ var domain_name = "*******";     // 配置用户名
 var password = "*******";        // 密码
 var region_name = "cn-north-1";  // 配置区域信息
 
-url1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";
-url2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+url1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
+url2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
 token.getToken(username, domain_name, password, region_name, function (token) {
 

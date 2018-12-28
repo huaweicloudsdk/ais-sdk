@@ -10,7 +10,7 @@ var app_secret = "************";
 var filepath = "./data/moderation-clarity.jpg";
 var data = utils.changeFileToBase64(filepath);
 
-demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg";
+demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
 clarity.clarity_detect_aksk(app_key, app_secret, data, "", 0.8, function (result) {
     console.log(result);

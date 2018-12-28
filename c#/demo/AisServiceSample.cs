@@ -92,7 +92,7 @@ namespace AisDemo
             String reslut = Image.ImageTaggingToken(token, image, dataUrl, threshold, language, limit, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg";
+            dataUrl = "https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg";
 
             // post data by obs url
             reslut = Image.ImageTaggingToken(token, "", dataUrl, 60, "en", 5, endpoint);
@@ -103,7 +103,7 @@ namespace AisDemo
 
         private static void AsrBgm(String token, String endpoint)
         {
-            String dataUrl = "https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition"; // The obs url of file
+            String dataUrl = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition"; // The obs url of file
 
             // post data by obs url
             String reslut = Asr.AsrBgmToken(token, dataUrl, endpoint);
@@ -122,7 +122,7 @@ namespace AisDemo
             String reslut = Asr.AsrSentenceToken(token, data, dataUrl, encode_type, sample_rate, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.myhwclouds.com/asr-sentence.wav";
+            dataUrl = "https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav";
 
             // post data by obs url
             reslut = Asr.AsrSentenceToken(token, "", dataUrl, encode_type, sample_rate, endpoint);
@@ -141,7 +141,7 @@ namespace AisDemo
             String reslut = Image.CelebrityRecognitionToken(token, data, dataUrl, threshold, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/celebrity-recognition.jpg";
+            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg";
 
             // post data by obs url
             reslut = Image.CelebrityRecognitionToken(token, "", dataUrl, threshold, endpoint);
@@ -160,7 +160,7 @@ namespace AisDemo
             String reslut = Moderation.ClarityDetectToken(token, data, dataUrl, threshold, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg";
+            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
             // post data by obs url
             reslut = Moderation.ClarityDetectToken(token, "", dataUrl, threshold, endpoint);
@@ -204,7 +204,7 @@ namespace AisDemo
             }
 
 
-            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg";
+            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
             // post data by obs url
             reslut = Moderation.DistortionCorrectToken(token, "", dataUrl, correction, endpoint);
@@ -233,7 +233,7 @@ namespace AisDemo
             String reslut = Moderation.AntiPornToken(token, data, dataUrl, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
             // post data by obs url
             reslut = Moderation.AntiPornToken(token, "", dataUrl, endpoint);
@@ -258,7 +258,7 @@ namespace AisDemo
             String reslut = Moderation.ImageContentToken(token, data, dataUrl, threshold, categories, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";
+            dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
 
             // post data by obs url
             reslut = Moderation.ImageContentToken(token, "", dataUrl, threshold, categories, endpoint);
@@ -269,8 +269,8 @@ namespace AisDemo
         private static void ImageContentBatch(String token, String endpoint)
         {
 
-            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";                                                               // The obs url of file
-            String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";                                                               // The obs url of file
+            String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
             JArray urls = new JArray();
             urls.Add(dataUrl1);
@@ -291,8 +291,8 @@ namespace AisDemo
         private static void ImageContentBatchJobs(String token, String endpoint)
         {
 
-            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";                                                               // The obs url of file
-            String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";                                                               
+            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";                                                               // The obs url of file
+            String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
             JArray urls = new JArray();                                           
             urls.Add(dataUrl1);
@@ -356,7 +356,7 @@ namespace AisDemo
             String reslut = Image.RecaptureDetectToken(token, data, dataUrl, threshold, scene, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg";
+            dataUrl = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 
             // post data by obs url
             reslut = Image.RecaptureDetectToken(token, "", dataUrl, threshold, scene, endpoint);
@@ -406,7 +406,7 @@ namespace AisDemo
             categories.Add("porn");
             categories.Add("politics");
 
-            String url = "https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition";   // OBS URL of the video  
+            String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";   // OBS URL of the video
             int frame_interval = 5;                                                              // Frame time interval
 
             String reslut = Moderation.VideoToken(token, url, frame_interval, categories, endpoint);
@@ -425,7 +425,7 @@ namespace AisDemo
             String reslut = Asr.LongSentenceToken(token, data, dataUrl, categories, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.myhwclouds.com/lsr-1.mp3";
+            dataUrl = "https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3";
 
             // post data by obs url
             reslut = Asr.LongSentenceToken(token, "", dataUrl, categories, endpoint);

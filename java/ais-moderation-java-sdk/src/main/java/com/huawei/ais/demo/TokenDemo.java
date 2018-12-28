@@ -423,8 +423,8 @@ public class TokenDemo {
 		//requestModerationImageContentBase64(token, "data/moderation-demo-1.jpg");
 
 		//运行图像内容检测异步批量服务
-		String url1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";
-		String url2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+		String url1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
+		String url2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 		requestModerationImageContentBatchJobs(token, new String[]{url1,url2});
 
 		//运行图像内容检测批量服务

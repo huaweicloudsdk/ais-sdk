@@ -14,7 +14,7 @@ $regionName = "********";    // 配置区域信息
 $filepath = "./data/asr-sentence.wav";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.myhwclouds.com/lsr-1.mp3";
+$data_url = "https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3";
 
 $token = gettoken($username, $password, $domainName, $regionName);
 

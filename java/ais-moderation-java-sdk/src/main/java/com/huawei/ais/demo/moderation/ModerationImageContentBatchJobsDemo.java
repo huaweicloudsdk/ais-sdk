@@ -53,8 +53,8 @@ public class ModerationImageContentBatchJobsDemo {
 			//
 			String uri = "/v1.0/moderation/image/batch/jobs";
 
-			String url1 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";
-			String url2 = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+			String url1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
+			String url2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
 			JSONObject json = new JSONObject();
 			json.put("urls", new String[] {url1,url2}); 					//检测的obs对象数组，可自行添加

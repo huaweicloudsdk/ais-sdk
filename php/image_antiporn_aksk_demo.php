@@ -11,7 +11,7 @@ $app_secret = "*************";
 $filepath = "./data/moderation-antiporn.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg";
+$data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
 // 图片的base64 的方式请求接口
 $result = image_antiporn_aksk($app_key, $app_secret, $data, "");

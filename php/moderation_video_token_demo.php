@@ -11,7 +11,7 @@ $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
 $regionName = "********";    // 配置区域信息
 
-$demo_data_url = "https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition";
+$demo_data_url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
 
 $token = gettoken($username, $password, $domainName, $regionName);
 

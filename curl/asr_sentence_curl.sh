@@ -9,7 +9,7 @@ curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/sentence \
   --header "X-Auth-Token: $TOKEN" -d'
  {
       "data":"",
-      "url":"https://ais-sample-data.obs.myhwclouds.com/asr-sentence.wav",
+      "url":"https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav",
       "encode_type": "wav",
       "sample_rate": "16k"
 }'

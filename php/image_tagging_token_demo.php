@@ -14,7 +14,7 @@ $regionName = "********";    // 配置区域信息
 $filepath = "./data/image-tagging-demo.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.myhwclouds.com/tagging-normal.jpg";
+$data_url = "https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg";
 
 $token = gettoken($username, $password, $domainName, $regionName);
 

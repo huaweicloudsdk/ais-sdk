@@ -13,7 +13,7 @@ var region_name = "cn-north-1";  // 配置区域信息
 var filepath = "./data/modeation_distortion.jpg";
 var data = utils.changeFileToBase64(filepath);
 
-demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg";
+demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
 token.getToken(username, domain_name, password, region_name, function (token) {
 

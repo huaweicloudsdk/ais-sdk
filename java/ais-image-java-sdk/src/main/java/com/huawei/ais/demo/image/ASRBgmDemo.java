@@ -46,7 +46,7 @@ public class ASRBgmDemo {
 
             JSONObject json = new JSONObject();
             // 视频的OBS URL
-            String url = "https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition";
+            String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
             json.put("url", url);
 
             // 3.传入视频背景音乐识别服务对应的uri参数, 传入视频背景音乐识别服务需要的参数，

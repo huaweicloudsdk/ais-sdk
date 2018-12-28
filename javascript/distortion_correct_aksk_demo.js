@@ -10,7 +10,7 @@ var app_secret = "************";
 var filepath = "./data/modeation_distortion.jpg";
 var data = utils.changeFileToBase64(filepath);
 
-demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/vat-invoice.jpg";
+demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
 discor.distortion_correct_aksk(app_key, app_secret, data, "", true, function (result) {
     var resultObj = JSON.parse(result);

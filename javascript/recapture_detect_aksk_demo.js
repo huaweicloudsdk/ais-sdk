@@ -10,7 +10,7 @@ var app_secret = "************";
 var filepath = "./data/recapture-detect-demo.jpg";
 var data = utils.changeFileToBase64(filepath);
 
-demo_data_url = "https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg";
+demo_data_url = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 
 recapture.recapture_detect_aksk(app_key, app_secret, data, "", 0.99, ['recapture'], function (result) {
     console.log(result);

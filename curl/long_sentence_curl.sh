@@ -9,7 +9,7 @@ RESULT=$(curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/lo
   --header "X-Auth-Token: $TOKEN" -d '
  {
       "data":"",
-      "url":"https://ais-sample-data.obs.myhwclouds.com/lsr-1.mp3",
+      "url":"https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3",
       "category":"common"
 }')
 

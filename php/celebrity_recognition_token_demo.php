@@ -14,7 +14,7 @@ $regionName = "********";    // 配置区域信息
 $filepath = "./data/celebrity-recognition.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/celebrity-recognition.jpg";
+$data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg";
 
 $token = gettoken($username, $password, $domainName, $regionName);
 

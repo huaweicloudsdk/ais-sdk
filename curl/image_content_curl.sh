@@ -2,7 +2,7 @@
 >data.json cat <<EOF
 {
   "image":"",
-  "url":"https://ais-sample-data.obs.cn-north-1.myhwclouds.com/antiporn.jpg",
+  "url":"https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg",
   "categories":["politics", "terrorism", "porn"],
   "threshold":0
 }

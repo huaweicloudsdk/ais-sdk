@@ -8,7 +8,7 @@ RESULT=$(curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/v
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" -d '
  {
-      "url":"https://obs-test-llg.obs.cn-north-1.myhwclouds.com/bgm_recognition",
+      "url":"https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition",
       "frame_interval":5,
       "category":["terrorism", "porn", "politics"]
 }')

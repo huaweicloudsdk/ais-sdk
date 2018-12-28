@@ -11,7 +11,7 @@ $app_secret = "*************";
 $filepath = "./data/moderation-terrorism.jpg";
 $data = fileToBase64($filepath);
 
-$data_url = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/terrorism.jpg";
+$data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
 
 // 图片的base64 的方式请求接口
 $result = image_content_aksk($app_key, $app_secret, $data, "", array("politics"), 0);

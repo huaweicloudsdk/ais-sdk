@@ -13,7 +13,7 @@ var region_name = "cn-north-1";  // 配置区域信息
 var filepath = "./data/recapture-detect-demo.jpg";
 var data = utils.changeFileToBase64(filepath);
 
-demo_data_url = "https://ais-sample-data.obs.myhwclouds.com/recapture-detect.jpg";
+demo_data_url = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 
 token.getToken(username, domain_name, password, region_name, function (token) {
 
