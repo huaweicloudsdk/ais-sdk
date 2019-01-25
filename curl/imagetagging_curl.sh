@@ -5,12 +5,12 @@
 #
 TOKEN=''
 
-curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/tagging \
+curl -X POST https://image.cn-north-1.myhuaweicloud.com/v1.0/image/tagging \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" -d '
  {
       "image":"",
-      "url":"http://obs-hqq.obs.myhuaweicloud.com/tagging-normal",
+      "url":"https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg",
       "language": "zh",
       "limit": 5,
       "threshold": 30.0

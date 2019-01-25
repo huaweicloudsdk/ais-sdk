@@ -8,7 +8,7 @@ import json
 
 if __name__ == '__main__':
     #
-    # access ocr vat invoice,post data by token
+    # access text to speech,post data by token
     #
     user_name = '*****'
     password = '******'

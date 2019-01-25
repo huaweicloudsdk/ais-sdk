@@ -4,7 +4,7 @@
 # Here, if we get the token use the gettoken_curl.sh
 #
 TOKEN=''
-curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/clarity-detect \
+curl -X POST https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/clarity-detect \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" -d'
  {

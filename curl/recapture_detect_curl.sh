@@ -5,7 +5,7 @@
 #
 TOKEN=''
 
-curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/image/recapture-detect \
+curl -X POST https://image.cn-north-1.myhuaweicloud.com/v1.0/image/recapture-detect \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" -d '
  {

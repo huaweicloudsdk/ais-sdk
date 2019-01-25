@@ -6,7 +6,7 @@ import json
 
 if __name__ == '__main__':
     #
-    # access ocr vat invoice,post data by ak,sk
+    # access text to speech,post data by token
     #
     app_key = '*************'
     app_secret = '************'
