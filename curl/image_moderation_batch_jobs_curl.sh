@@ -10,7 +10,7 @@ EOF
 # Here, if we get the token use the gettoken_curl.sh
 #
 TOKEN=''
-RESULT=$(curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch/jobs \
+RESULT=$(curl -X POST https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch/jobs \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" \
   -d "@data.json")
@@ -23,7 +23,7 @@ rm -f headers data.json
 while true
 do
 
-RESULT_OBJ=$(curl https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch?job_id=$JOB_ID \
+RESULT_OBJ=$(curl https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch?job_id=$JOB_ID \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" )
 STATUS_CODE=`echo $RESULT_OBJ|awk -F ":" '{print $4}'|awk -F '"' '{print $2}'`

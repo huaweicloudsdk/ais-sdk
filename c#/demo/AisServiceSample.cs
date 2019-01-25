@@ -14,7 +14,13 @@ namespace AisDemo
             String domainName = "*******";
             String regionName = "cn-north-1";
 
-            // service domain name
+            // domain names for image service
+            String IMAGE_ENDPOINT = "image.cn-north-1.myhuaweicloud.com";
+
+            // domain names for moderation service
+            String MODERATION_ENDPOINT = "moderation.cn-north-1.myhuaweicloud.com";
+
+            // domain names for tts service an asr service
             String ENDPOINT = "ais.cn-north-1.myhuaweicloud.com";
 
             // get token domain name 
@@ -23,59 +29,58 @@ namespace AisDemo
             String token = Authentication.GetToken(username, domainName, password, regionName, IAM_ENPOINT);
 
             // image tagging service example
-            ImageTagging(token, ENDPOINT);
+            ImageTagging(token, IMAGE_ENDPOINT);
 
             // asr bgm service example
-            AsrBgm(token, ENDPOINT);
+            AsrBgm(token, IMAGE_ENDPOINT);
+
+            // celebrity recognition service example
+            CelebrityRecognition(token, IMAGE_ENDPOINT);
+
+            // dark enhance service example
+            DarkEnhance(token, IMAGE_ENDPOINT);
+
+            // image defog detect service example
+            ImageDefog(token, IMAGE_ENDPOINT);
+
+            // image recapture detect service example
+            RecaptureDetect(token, IMAGE_ENDPOINT);
+
+            // image super resolution service example
+            SuperResolution(token, IMAGE_ENDPOINT);
+
+            // distortion correction service example
+            DistortionCorrect(token, MODERATION_ENDPOINT);
+
+            // clarity detect service example
+            ClarityDetect(token, MODERATION_ENDPOINT);
+
+            // image anti porn service example
+            AntiPorn(token, MODERATION_ENDPOINT);
+
+            // image content detect service example
+            ImageContent(token, MODERATION_ENDPOINT);
+
+            // moderation text detect service example
+            ModerationText(token, MODERATION_ENDPOINT);
+
+            // moderation video service example
+            ModerationVideo(token, MODERATION_ENDPOINT);
+
+            // image content batch jobs service example
+            ImageContentBatchJobs(token, MODERATION_ENDPOINT);
+
+            // image content batch service example
+            ImageContentBatch(token, MODERATION_ENDPOINT);
 
             // asr sentence service example
             AsrSentence(token, ENDPOINT);
 
-            // celebrity recognition service example
-            CelebrityRecognition(token, ENDPOINT);
-
-            // clarity detect service example
-            ClarityDetect(token, ENDPOINT);
-
-            // dark enhance service example
-            DarkEnhance(token, ENDPOINT);
-
-            // distortion correction service example
-            DistortionCorrect(token, ENDPOINT);
-
-            // image anti porn service example
-            AntiPorn(token, ENDPOINT);
-
-            // image content detect service example
-            ImageContent(token, ENDPOINT);
-
-            // image content detect service example
-            ImageDefog(token, ENDPOINT);
-
-
-            // moderation text detect service example
-            ModerationText(token, ENDPOINT);
-
-            // image recapture detect service example
-            RecaptureDetect(token, ENDPOINT);
-
-            // image super resolution service example
-            SuperResolution(token, ENDPOINT);
-
             // text to speech service example
             Tts(token, ENDPOINT);
 
-            // moderation video service example
-            ModerationVideo(token, ENDPOINT);
-
             // long sentence service example
             LongSentence(token, ENDPOINT);
-
-            // image content batch jobs service example
-            ImageContentBatchJobs(token,ENDPOINT );
-
-            // image content batch service example
-            ImageContentBatch(token, ENDPOINT);
 
         }
 
@@ -294,7 +299,7 @@ namespace AisDemo
             String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";                                                               // The obs url of file
             String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
-            JArray urls = new JArray();                                           
+            JArray urls = new JArray();
             urls.Add(dataUrl1);
             urls.Add(dataUrl2);
 
@@ -333,7 +338,7 @@ namespace AisDemo
             categories.Add("contraband");
             categories.Add("ad");
 
-            JArray items = new JArray();                                             // The content of detect
+            JArray items = new JArray();                                                // The content of detect
             JObject content = new JObject();
             content.Add("text", "666666luo聊请+110亚砷酸钾六位qq，fuck666666666666666");
             content.Add("type", "content");
@@ -407,7 +412,7 @@ namespace AisDemo
             categories.Add("politics");
 
             String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";   // OBS URL of the video
-            int frame_interval = 5;                                                              // Frame time interval
+            int frame_interval = 5;                                                                 // Frame time interval
 
             String reslut = Moderation.VideoToken(token, url, frame_interval, categories, endpoint);
             Console.WriteLine(reslut);
