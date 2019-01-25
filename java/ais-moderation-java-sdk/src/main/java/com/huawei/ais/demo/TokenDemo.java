@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
  * 使用Token认证方式访问服务
  */
 public class TokenDemo {
-	private static final String URL_TEMPLATE = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch?job_id=%s";
+	private static final String URL_TEMPLATE = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch?job_id=%s";
 	private static final long POLLING_INTERVAL = 2000L;
 	public static int connectionTimeout = 5000; //连接目标url超时限制参数
 	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
@@ -128,7 +128,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationAntiPornBase64(String token, String formFile) throws IOException {
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.1/moderation/image/anti-porn";
+		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.1/moderation/image/anti-porn";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
@@ -151,7 +151,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationClarityBase64(String token, String formFile) throws IOException {
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/clarity-detect";
+		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/clarity-detect";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
@@ -179,7 +179,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationDistortionCorrectBase64(String token, String formFile) throws IOException {
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/distortion-correct";
+		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/distortion-correct";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
@@ -210,12 +210,12 @@ public class TokenDemo {
 	 * 文本内容检测，使用Base64编码后的文件方式，使用Token认证方式访问服务
 	 * @param token 
 	 * 			token认证串
-	 * @param formFile 
-	 * 			文件路径
+	 * @param textModeration
+	 * 			文本内容
 	 * @throws IOException
 	 */
 	public static void requestModerationTextContentBase64(String token, String textModeration) throws IOException {
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/text";
+		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/text";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			JSONObject json = new JSONObject();
@@ -249,7 +249,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationImageContentBase64(String token, String formFile) throws IOException {
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image";
+		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
@@ -281,7 +281,7 @@ public class TokenDemo {
      * @throws IOException
      */
     public static void requestModerationImageContentBatch(String token, String[] urls) throws IOException {
-        String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch";
+        String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch";
         Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
         try {
             JSONObject json = new JSONObject();
@@ -311,7 +311,7 @@ public class TokenDemo {
      * @throws IOException
      */
 	public static void requestModerationImageContentBatchJobs(String token, String[] urls){
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch/jobs";
+		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch/jobs";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			JSONObject json = new JSONObject();
@@ -395,9 +395,9 @@ public class TokenDemo {
 	 * 调用主入口函数
 	 */
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
-		String username = "zhangsan";    	// 此处，请输入用户名
-		String password = "***";	  		// 此处，请输入对应用户名的密码
-		String projectName = "cn-north-1"; 	// 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
+		String username = "zhangshan";		// 此处，请输入用户名
+		String password = "*******";		// 此处，请输入对应用户名的密码
+		String projectName = "cn-north-1";	// 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
 
 		String token = getToken(username, password, projectName);
 		System.out.println(token);

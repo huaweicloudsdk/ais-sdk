@@ -104,7 +104,7 @@ public class DeblurTokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestDarkEnhanceBase64(String token, String formFile) throws IOException {
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/vision/dark-enhance";
+		String url = "https://image.cn-north-1.myhuaweicloud.com/v1.0/vision/dark-enhance";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
