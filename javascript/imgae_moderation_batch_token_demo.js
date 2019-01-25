@@ -1,7 +1,7 @@
 /**
  * 图像内容批量检测服务token请求方式的使用示例
  */
-var content = require("./ais_sdk/image_content_batch");
+var content = require("./ais_sdk/image_moderation_batch");
 var token = require("./ais_sdk/gettoken");
 var utils = require("./ais_sdk/utils");
 

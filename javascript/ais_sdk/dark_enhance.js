@@ -7,7 +7,7 @@ module.exports = {
     dark_enhance: function (token, data, brightness, callback) {
 
         var requestData = {"image": data, "brightness": brightness};
-        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.DARK_ENHANCE, {
+        var options = utils.getHttpRequestEntityOptions(ais.IMAGE_ENDPOINT, "POST", ais.DARK_ENHANCE, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -49,7 +49,7 @@ module.exports = {
 
         var requestData = {"image": data, "brightness": brightness};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.DARK_ENHANCE, "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.IMAGE_ENDPOINT, "POST", ais.DARK_ENHANCE, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

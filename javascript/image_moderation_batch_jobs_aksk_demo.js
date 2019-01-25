@@ -1,7 +1,7 @@
 /**
  * 图像内容检测批量异步服务ak,sk请求方式的使用示例
  */
-var content = require("./ais_sdk/batch_jobs");
+var content = require("./ais_sdk/image_moderation_batch_jobs");
 var utils = require("./ais_sdk/utils");
 
 var app_key = "*************";

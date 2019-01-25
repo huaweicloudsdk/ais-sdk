@@ -1,7 +1,7 @@
 /**
  * 图像内容检测服务token请求方式的使用示例
  */
-var content = require("./ais_sdk/image_content");
+var content = require("./ais_sdk/image_moderation");
 var token = require("./ais_sdk/gettoken");
 var utils = require("./ais_sdk/utils");
 

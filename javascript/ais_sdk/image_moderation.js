@@ -15,7 +15,7 @@ module.exports = {
          */
         var requestData = {"image": data, url: url, "categories": categories, "threshold": threshold};
 
-        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.IMAGE_CONTENT_DETECT, {
+        var options = utils.getHttpRequestEntityOptions(ais.MODERATION_ENDPOINT, "POST", ais.IMAGE_CONTENT_DETECT, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -58,7 +58,7 @@ module.exports = {
          */
         var requestData = {"image": data, url: url, "categories": categories, "threshold": threshold};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.IMAGE_CONTENT_DETECT, "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.MODERATION_ENDPOINT, "POST", ais.IMAGE_CONTENT_DETECT, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

@@ -6,6 +6,12 @@ var ais = {
     // 服务请求域名
     ENDPOINT: 'ais.cn-north-1.myhuaweicloud.com',
 
+    // 服务请求域名
+    IMAGE_ENDPOINT: 'image.cn-north-1.myhuaweicloud.com',
+
+    // 服务请求域名
+    MODERATION_ENDPOINT: 'moderation.cn-north-1.myhuaweicloud.com',
+
     // token请求域名
     IAM_ENPOINT: 'iam.cn-north-1.myhuaweicloud.com',
 

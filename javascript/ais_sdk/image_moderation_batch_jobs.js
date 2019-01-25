@@ -14,7 +14,7 @@ function batch_jobs(token, urls, categories, callback) {
 
     // 构建请求信息
     var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-    var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.IMAGE_CONTENT_BATCH_JOBS, headers);
+    var options = utils.getHttpRequestEntityOptions(ais.MODERATION_ENDPOINT, "POST", ais.IMAGE_CONTENT_BATCH_JOBS, headers);
 
     var request = https.request(options, function (response) {
 
@@ -49,7 +49,7 @@ function batch_jobs(token, urls, categories, callback) {
 function get_result(job_id, resultsearch, token, callback) {
     // 构建请求参数和请求信息
     var requestData = {'job_id': job_id};
-    var options = utils.getHttpRequestEntityForGet(ais.ENDPOINT, "GET", ais.IMAGE_CONTENT_BATCH_RESULT, {
+    var options = utils.getHttpRequestEntityForGet(ais.MODERATION_ENDPOINT, "GET", ais.IMAGE_CONTENT_BATCH_RESULT, {
         "Content-Type": "application/json",
         "X-Auth-Token": token
     }, requestData);
@@ -105,7 +105,7 @@ function batch_jobs_aksk(_ak, _sk, urls, categories, callback) {
     var job_id = "";
     var req = new signer.HttpRequest();
     var header = {"Content-Type": "application/json"};
-    var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.IMAGE_CONTENT_BATCH_JOBS, "", header, requestData);
+    var options = utils.getHttpRequestEntity(sig, req, ais.MODERATION_ENDPOINT, "POST", ais.IMAGE_CONTENT_BATCH_JOBS, "", header, requestData);
 
     var request = https.request(options, function (response) {
 
@@ -147,7 +147,7 @@ function get_result_aksk(sign, job_id, resultsearch, callback) {
 
     // 构建请求信息和参数信息
     var request = new signer.HttpRequest();
-    var options = utils.getHttpRequestEntity(sign, request, ais.ENDPOINT, "GET", ais.IMAGE_CONTENT_BATCH_RESULT, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
+    var options = utils.getHttpRequestEntity(sign, request, ais.MODERATION_ENDPOINT, "GET", ais.IMAGE_CONTENT_BATCH_RESULT, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
 
     // 轮询图像内容审核接口，获取结果信息
     var reqsearch = https.request(options, function (response) {

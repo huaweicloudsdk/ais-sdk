@@ -8,7 +8,7 @@ module.exports = {
 
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url};
-        var host = ais.ENDPOINT;
+        var host = ais.MODERATION_ENDPOINT;
         var method = "POST";
         var uri = ais.IMAGE_ANTI_PORN;
         var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
@@ -46,7 +46,7 @@ module.exports = {
         var requestData = {"image": data, "url": url};
         var _headers = {"Content-Type": "application/json"};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.IMAGE_ANTI_PORN, "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.MODERATION_ENDPOINT, "POST", ais.IMAGE_ANTI_PORN, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 

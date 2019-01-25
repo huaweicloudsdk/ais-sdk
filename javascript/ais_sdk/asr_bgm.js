@@ -11,7 +11,7 @@ module.exports = {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         };
-        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.ASR_BGM, headers);
+        var options = utils.getHttpRequestEntityOptions(ais.IMAGE_ENDPOINT, "POST", ais.ASR_BGM, headers);
         var requestBody = JSON.stringify({"url": url});
 
         var requset = https.request(options, function (response) {
@@ -46,7 +46,7 @@ module.exports = {
         var requestData = {"url": _url};
         var _headers = {"Content-Type": "application/json"};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.ASR_BGM, "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.IMAGE_ENDPOINT, "POST", ais.ASR_BGM, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 

@@ -11,7 +11,7 @@ module.exports = {
             "categories": categories,       // 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
             "items": items                  // items: 待检测的文本列表  text 待检测文本 type 文本类型
         };
-        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.MODERATION_TEXT, {
+        var options = utils.getHttpRequestEntityOptions(ais.MODERATION_ENDPOINT, "POST", ais.MODERATION_TEXT, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -53,7 +53,7 @@ module.exports = {
             "items": items              // items: 待检测的文本列表  text 待检测文本 type 文本类型
         };
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.MODERATION_TEXT, "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.MODERATION_ENDPOINT, "POST", ais.MODERATION_TEXT, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

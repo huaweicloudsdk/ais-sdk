@@ -9,7 +9,7 @@ module.exports = {
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url, "threshold": threshold};
         var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.CELEBRITY_RECOGNITION, headers);
+        var options = utils.getHttpRequestEntityOptions(ais.IMAGE_ENDPOINT, "POST", ais.CELEBRITY_RECOGNITION, headers);
         var requestBody = JSON.stringify(requestData);
 
         var request = https.request(options, function (response) {
@@ -45,7 +45,7 @@ module.exports = {
         var requestData = {"image": data, "url": url};
         var _headers = {"Content-Type": "application/json"};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.CELEBRITY_RECOGNITION, "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.IMAGE_ENDPOINT, "POST", ais.CELEBRITY_RECOGNITION, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 

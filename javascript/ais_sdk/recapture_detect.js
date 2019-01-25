@@ -8,7 +8,7 @@ module.exports = {
 
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url, "threshold": threshold, "scene": scene};
-        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.RECAPTURE_DETECT, {
+        var options = utils.getHttpRequestEntityOptions(ais.IMAGE_ENDPOINT, "POST", ais.RECAPTURE_DETECT, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -44,7 +44,7 @@ module.exports = {
 
         var requestData = {"image": data, "url": url, "threshold": threshold, "scene": scene};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.RECAPTURE_DETECT, "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.IMAGE_ENDPOINT, "POST", ais.RECAPTURE_DETECT, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 
