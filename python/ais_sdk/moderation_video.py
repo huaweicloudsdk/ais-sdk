@@ -52,7 +52,7 @@ def moderation_video(token, url, frame_interval=5, categories=['politics', 'terr
 # moderation_video, post the data
 #
 def _moderation_video(token, url, frame_interval=5, categories=['politics', 'terrorism']):
-    _url = 'https://%s/v1.0/moderation/video' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/video' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     _data = {
         "url": url,
@@ -99,7 +99,7 @@ def _moderation_video(token, url, frame_interval=5, categories=['politics', 'ter
 #
 def _get_result(token, job_id):
     _url_tmpl = 'https://%s/v1.0/moderation/video?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.ENDPOINT, job_id)
+    _url = _url_tmpl % (ais.AisEndpoint.MODERATION_ENDPOINT, job_id)
     kreq = urllib2.Request(url=_url)
     kreq.add_header('X-Auth-Token', token)
     kreq.add_header('Content-Type', 'application/json')
@@ -180,7 +180,7 @@ def moderation_video_aksk(_ak, _sk, url, frame_interval=5, categories=['politics
 # moderation_video, post the data
 #
 def _moderation_video_aksk(sig, url, frame_interval=5, categories=['politics', 'terrorism']):
-    _url = 'https://%s/v1.0/moderation/video' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/video' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     _data = {
         "url": url,
@@ -190,7 +190,7 @@ def _moderation_video_aksk(sig, url, frame_interval=5, categories=['politics', '
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
     kreq.uri = "/v1.0/moderation/video"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
@@ -231,11 +231,11 @@ def _moderation_video_aksk(sig, url, frame_interval=5, categories=['politics', '
 #
 def _get_result_aksk(sig, job_id):
     _url_tmpl = 'https://%s/v1.0/moderation/video?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.ENDPOINT, job_id)
+    _url = _url_tmpl % (ais.AisEndpoint.MODERATION_ENDPOINT, job_id)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
     kreq.uri = "/v1.0/moderation/video"
     kreq.method = "GET"
     kreq.headers = {"Content-Type": "application/json"}

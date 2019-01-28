@@ -52,7 +52,7 @@ def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
 # image content batch jobs, post the data
 #
 def _image_batch_jobs(token, urls, categories=['politics', 'terrorism' ,'porn']):
-    _url = 'https://%s/v1.0/moderation/image/batch/jobs' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/image/batch/jobs' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     _data = {
         "urls": urls,
@@ -98,7 +98,7 @@ def _image_batch_jobs(token, urls, categories=['politics', 'terrorism' ,'porn'])
 #
 def _get_result(token, job_id):
     _url_tmpl = 'https://%s/v1.0/moderation/image/batch?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.ENDPOINT, job_id)
+    _url = _url_tmpl % (ais.AisEndpoint.MODERATION_ENDPOINT, job_id)
     kreq = urllib2.Request(url=_url)
     kreq.add_header('X-Auth-Token', token)
     kreq.add_header('Content-Type', 'application/json')
@@ -179,7 +179,7 @@ def image_batch_jobs_aksk(_ak, _sk, urls, categories=['politics', 'terrorism']):
 # image content of batch jobs, post the data
 #
 def _image_batch_jobs_aksk(sig, urls, categories=['politics', 'terrorism']):
-    _url = 'https://%s/v1.0/moderation/image/batch/jobs' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/image/batch/jobs' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     _data = {
         "urls": urls,
@@ -188,7 +188,7 @@ def _image_batch_jobs_aksk(sig, urls, categories=['politics', 'terrorism']):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
     kreq.uri = "/v1.0/moderation/image/batch/jobs"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
@@ -229,11 +229,11 @@ def _image_batch_jobs_aksk(sig, urls, categories=['politics', 'terrorism']):
 #
 def _get_result_aksk(sig, job_id):
     _url_tmpl = 'https://%s/v1.0/moderation/image/batch?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.ENDPOINT, job_id)
+    _url = _url_tmpl % (ais.AisEndpoint.MODERATION_ENDPOINT, job_id)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
     kreq.uri = "/v1.0/moderation/image/batch"
     kreq.method = "GET"
     kreq.headers = {"Content-Type": "application/json"}

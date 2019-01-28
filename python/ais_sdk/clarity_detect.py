@@ -12,7 +12,7 @@ import ais
 # access moderation detect,post data by token
 #
 def clarity_detect(token, image, url, threshold=0.8):
-    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     _data = {
         "image": image,
@@ -58,7 +58,7 @@ def clarity_detect(token, image, url, threshold=0.8):
 # access moderation detect,post data by ak,sk
 #
 def clarity_detect_aksk(_ak, _sk, image, url, threshold=0.8):
-    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -72,7 +72,7 @@ def clarity_detect_aksk(_ak, _sk, image, url, threshold=0.8):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
     kreq.uri = "/v1.0/moderation/image/clarity-detect"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

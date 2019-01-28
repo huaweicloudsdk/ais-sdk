@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from ais_sdk.gettoken import get_token
-from ais_sdk.image_batch_jobs import image_batch_jobs
+from ais_sdk.image_moderation_batch_jobs import image_batch_jobs
 
 if __name__ == '__main__':
     #

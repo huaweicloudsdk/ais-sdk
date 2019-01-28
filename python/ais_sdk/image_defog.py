@@ -12,7 +12,7 @@ import ais
 # access image defog,post data by token
 #
 def image_defog(token, image, gamama=1.5):
-    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.IMAGE_ENDPOINT
 
     _data = {
         "image": image,
@@ -57,7 +57,7 @@ def image_defog(token, image, gamama=1.5):
 # access image defog,post data by ak,sk
 #
 def image_defog_aksk(_ak, _sk, image, gamama=1.5):
-    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.IMAGE_ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -70,7 +70,7 @@ def image_defog_aksk(_ak, _sk, image, gamama=1.5):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
     kreq.uri = "/v1.0/vision/defog"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

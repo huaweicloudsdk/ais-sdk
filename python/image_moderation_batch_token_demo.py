@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from ais_sdk.gettoken import get_token
-from ais_sdk.image_content_batch import image_content_batch
+from ais_sdk.image_moderation_batch import image_content_batch
 
 if __name__ == '__main__':
     #
