@@ -9,7 +9,7 @@ function moderation_text($token, $items, $categories)
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . MODERATION_TEXT;
+    $_url = "https://" . MODERATION_ENDPOINT . MODERATION_TEXT;
 
     $data = array(
         "categories" => $categories,               // 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
@@ -66,7 +66,7 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = MODERATION_ENDPOINT;
     $req->uri = MODERATION_TEXT;
 
     $data = array(

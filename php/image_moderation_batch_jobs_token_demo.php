@@ -3,7 +3,7 @@
  * 图片内容检测服务token 方式请求的示例
  */
 require "./ais_sdk/gettoken.php";
-require "./ais_sdk/batch_jobs.php";
+require "./ais_sdk/image_moderation_batch_jobs.php";
 require "./ais_sdk/utils.php";
 
 $username = "********";      // 配置用户名

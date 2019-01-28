@@ -42,7 +42,7 @@ function batch_jobs($token, $urls, $categories)
 function _batch_jobs($token, $urls, $categories)
 {
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . IMAGE_CONTENT_BATCH_JOBS;
+    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_CONTENT_BATCH_JOBS;
 
     $data = array(
         "urls" => $urls,                          // url：视频的URL路径
@@ -89,7 +89,7 @@ function _batch_jobs($token, $urls, $categories)
  */
 function get_result($token, $job_id)
 {
-    $url = "https://" . ENDPOINT . IMAGE_CONTENT_BATCH_RESULT . "?job_id=" . $job_id;
+    $url = "https://" . MODERATION_ENDPOINT . IMAGE_CONTENT_BATCH_RESULT . "?job_id=" . $job_id;
 
     $headers = array(
         "Content-Type:application/json",
@@ -178,7 +178,7 @@ function _batch_jobs_aksk($signer, $urls, $categories)
     $req = new Request();
     $req->method = 'POST';
     $req->scheme = 'https';
-    $req->host = ENDPOINT;
+    $req->host = MODERATION_ENDPOINT;
     $req->uri = IMAGE_CONTENT_BATCH_JOBS;
     $req->body = json_encode($data);
     $req->headers = array(
@@ -218,7 +218,7 @@ function get_result_aksk($signer, $job_id)
     $req = new Request();
     $req->method = 'GET';
     $req->scheme = 'https';
-    $req->host = ENDPOINT;
+    $req->host = MODERATION_ENDPOINT;
     $req->uri = IMAGE_CONTENT_BATCH_RESULT;
     $req->query = array(
         'job_id' => $job_id

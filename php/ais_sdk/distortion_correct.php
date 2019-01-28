@@ -9,7 +9,7 @@ function distortion_correct($token, $image, $url, $correction = true)
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . DISTORTION_CORRECT;
+    $_url = "https://" . MODERATION_ENDPOINT . DISTORTION_CORRECT;
 
     $data = array(
         "image" => $image,                     // 图片的base64内容
@@ -65,7 +65,7 @@ function distortion_correct_aksk($_ak, $_sk, $image, $url, $correction = true)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = MODERATION_ENDPOINT;
     $req->uri = DISTORTION_CORRECT;
 
     $data = array(

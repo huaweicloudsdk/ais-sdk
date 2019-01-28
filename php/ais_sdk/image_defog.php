@@ -9,7 +9,7 @@ function image_defog($token, $data, $gamma, $natural_look)
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . DEFOG;
+    $_url = "https://" . IMAGE_ENDPOINT . DEFOG;
 
     $data = array(
         "image" => $data,                    // image: 图片信息 base64
@@ -65,7 +65,7 @@ function image_defog_aksk($_ak, $_sk, $data, $gamma, $natural_look)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = IMAGE_ENDPOINT;
     $req->uri = DEFOG;
 
     $data = array(

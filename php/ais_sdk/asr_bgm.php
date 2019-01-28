@@ -8,7 +8,7 @@ function asr_bgm($token, $url)
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . ASR_BGM;
+    $_url = "https://" . IMAGE_ENDPOINT . ASR_BGM;
 
     $data = array(
         "url" => $url                      // 背景音乐的url链接，目前只支持obs
@@ -64,7 +64,7 @@ function asr_bgm_aksk($_ak, $_sk, $url)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = IMAGE_ENDPOINT;
     $req->uri = ASR_BGM;
 
     $data = array(

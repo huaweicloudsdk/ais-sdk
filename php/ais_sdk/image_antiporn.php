@@ -9,7 +9,7 @@ function image_antiporn($token, $data, $url)
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . IMAGE_ANTI_PORN;
+    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_ANTI_PORN;
 
     $data = array(
         "image" => $data,                   // 图片的base64信息
@@ -64,7 +64,7 @@ function image_antiporn_aksk($_ak, $_sk, $data, $url)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = MODERATION_ENDPOINT;
     $req->uri = IMAGE_ANTI_PORN;
 
     $data = array(

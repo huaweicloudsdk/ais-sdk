@@ -9,7 +9,7 @@ function super_resolution($token, $data, $scale = 3, $model = "ESPCN")
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . SURPER_RESOLUTION;
+    $_url = "https://" . IMAGE_ENDPOINT . SURPER_RESOLUTION;
 
     $data = array(
         "image" => $data,                     // 图片文件BASE64编码字符串
@@ -67,7 +67,7 @@ function super_resolution_aksk($_ak, $_sk, $data, $scale = 3, $model = "ESPCN")
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = IMAGE_ENDPOINT;
     $req->uri = SURPER_RESOLUTION;
 
     $data = array(

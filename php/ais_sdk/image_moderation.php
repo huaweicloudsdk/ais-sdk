@@ -5,14 +5,15 @@ require "ais.php";
 /**
  * token 方式
  */
-function image_content_batch($token, $urls, $categories, $threshold)
+function image_content($token, $data, $url, $categories, $threshold)
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . IMAGE_CONTENT_BATCH;
+    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_CONTENT_DETECT;
 
     $data = array(
-        "urls" => $urls,                       // 图片对象的obs数组
+        "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
+        "url" => $url,                         // 与image二选一 图片的URL路径
         "threshold" => $threshold,             // 非必选 结果过滤门限
         "categories" => $categories,           // 非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
     );
@@ -48,12 +49,14 @@ function image_content_batch($token, $urls, $categories, $threshold)
 
     }
     curl_close($curl);
+
+
 }
 
 /**
  * ak,sk 方式
  */
-function image_content_batch_aksk($_ak, $_sk, $urls, $categories, $threshold)
+function image_content_aksk($_ak, $_sk, $data, $url, $categories, $threshold)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -64,14 +67,14 @@ function image_content_batch_aksk($_ak, $_sk, $urls, $categories, $threshold)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
-    $req->uri = IMAGE_CONTENT_BATCH;
+    $req->host = MODERATION_ENDPOINT;
+    $req->uri = IMAGE_CONTENT_DETECT;
 
     $data = array(
-        "urls" => $urls,                       // 图片的obs数组
+        "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
+        "url" => $url,                         // 与image二选一 图片的URL路径
         "threshold" => $threshold,             // 非必选 结果过滤门限 过滤门限0-1 之间，检测结果与算法有关，与其他无关
         "categories" => $categories,           // 非必选 检测场景 array politics：是否涉及政治人物的检测。terrorism：是否包含暴恐元素的检测。porn：是否包含涉黄内容元素的检测
-
     );
 
     $headers = array(

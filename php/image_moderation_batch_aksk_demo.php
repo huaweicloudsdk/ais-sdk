@@ -2,7 +2,7 @@
 /**
  * 图片内容检测批量服务ak,sk 方式请求的示例
  */
-require "./ais_sdk/image_content_batch.php";
+require "./ais_sdk/image_moderation_batch.php";
 require "./ais_sdk/utils.php";
 
 $app_key = "*************";

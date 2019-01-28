@@ -9,7 +9,7 @@ function recapture_detect($token, $data, $url, $threshold = 0.95, $scene)
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . RECAPTURE_DETECT;
+    $_url = "https://" . IMAGE_ENDPOINT . RECAPTURE_DETECT;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
@@ -67,7 +67,7 @@ function recapture_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.95, $scen
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = IMAGE_ENDPOINT;
     $req->uri = RECAPTURE_DETECT;
 
     $data = array(

@@ -8,6 +8,13 @@
  */
 // 服务请求域名
 define("ENDPOINT", "ais.cn-north-1.myhuaweicloud.com");
+
+// 图像服务请求域名
+define("IMAGE_ENDPOINT", "image.cn-north-1.myhuaweicloud.com");
+
+// 内容审核服务请求域名
+define("MODERATION_ENDPOINT", "moderation.cn-north-1.myhuaweicloud.com");
+
 // token请求域名
 define("IAM_ENPOINT", "iam.cn-north-1.myhuaweicloud.com");
 

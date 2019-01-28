@@ -9,7 +9,7 @@ function image_tagging($token, $data, $url, $threshold, $language, $limit = -1)
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . IMAGE_TAGGING;
+    $_url = "https://" . IMAGE_ENDPOINT . IMAGE_TAGGING;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
@@ -68,7 +68,7 @@ function image_tagging_aksk($_ak, $_sk, $data, $url, $threshold, $language, $lim
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = IMAGE_ENDPOINT;
     $req->uri = IMAGE_TAGGING;
 
     $data = array(
