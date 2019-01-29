@@ -12,7 +12,7 @@ import ais
 # access ocr vat invoice,post data by token
 #
 def tts(token, text, voice_name='xiaoyan', volume='0', sample_rate='16k', speech_speed='0', pitch_rate='0'):
-    _url = 'https://%s/v1.0/voice/tts' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/voice/tts' % ais.AisEndpoint.TTS_ENDPOINT
 
     _data = {
         "text": text,
@@ -61,7 +61,7 @@ def tts(token, text, voice_name='xiaoyan', volume='0', sample_rate='16k', speech
 # access ocr vat invoice,post data by ak,sk
 #
 def tts_aksk(_ak, _sk, text, voice_name='xiaoyan', volume='0', sample_rate='16k', speech_speed='0', pitch_rate='0'):
-    _url = 'https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/tts'
+    _url = 'https://%s/v1.0/voice/tts' % ais.AisEndpoint.TTS_ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -78,7 +78,7 @@ def tts_aksk(_ak, _sk, text, voice_name='xiaoyan', volume='0', sample_rate='16k'
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.TTS_ENDPOINT
     kreq.uri = "/v1.0/voice/tts"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

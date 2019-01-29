@@ -12,7 +12,7 @@ import ais
 # access moderation image content of batch,post data by token
 #
 def image_content_batch(token, urls, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     _data = {
         "urls": urls,
@@ -58,7 +58,7 @@ def image_content_batch(token, urls, categories=None, threshold=None):
 # access moderation image content of batch,post data by token
 #
 def image_content_batch_aksk(_ak, _sk, urls, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -72,7 +72,7 @@ def image_content_batch_aksk(_ak, _sk, urls, categories=None, threshold=None):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
     kreq.uri = "/v1.0/moderation/image/batch"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

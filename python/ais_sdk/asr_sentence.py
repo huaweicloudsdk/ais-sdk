@@ -12,7 +12,7 @@ import ais
 # access asr, asr_sentence,post data by token
 #
 def asr_sentence(token, data, url, encode_type='wav', sample_rate='8k'):
-    _url = 'https://%s/v1.0/voice/asr/sentence' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/voice/asr/sentence' % ais.AisEndpoint.ASR_ENDPOINT
 
     _data = {
         "url": url,
@@ -59,7 +59,7 @@ def asr_sentence(token, data, url, encode_type='wav', sample_rate='8k'):
 # access asr, asr_sentence,post data by ak,sk
 #
 def asr_sentence_aksk(_ak, _sk, data, url, encode_type='wav', sample_rate='8k'):
-    _url = "https://%s/v1.0/voice/asr/sentence" % ais.AisEndpoint.ENDPOINT
+    _url = "https://%s/v1.0/voice/asr/sentence" % ais.AisEndpoint.ASR_ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -74,7 +74,7 @@ def asr_sentence_aksk(_ak, _sk, data, url, encode_type='wav', sample_rate='8k'):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.ASR_ENDPOINT
     kreq.uri = "/v1.0/voice/asr/sentence"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
