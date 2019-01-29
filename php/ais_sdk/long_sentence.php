@@ -47,7 +47,7 @@ function long_sentence($token, $data, $url = "", $category = "common")
 function _long_sentence($token, $data, $url = "", $category = "common")
 {
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . LONG_SENTENCE;
+    $_url = "https://" . ASR_ENDPOINT . LONG_SENTENCE;
 
     $data = array(
         "data" => $data,                        // data: 音频文件的base64
@@ -95,7 +95,7 @@ function _long_sentence($token, $data, $url = "", $category = "common")
  */
 function get_result($token, $job_id)
 {
-    $url = "https://" . ENDPOINT . LONG_SENTENCE . "?job_id=" . $job_id;
+    $url = "https://" . ASR_ENDPOINT . LONG_SENTENCE . "?job_id=" . $job_id;
 
     $headers = array(
         "Content-Type:application/json",
@@ -188,7 +188,7 @@ function _long_sentence_aksk($signer, $data, $url = "", $category = "common")
     $req = new Request();
     $req->method = 'POST';
     $req->scheme = 'https';
-    $req->host = ENDPOINT;
+    $req->host = ASR_ENDPOINT;
     $req->uri = LONG_SENTENCE;
     $req->body = json_encode($data);
     $req->headers = array(
@@ -228,7 +228,7 @@ function get_result_aksk($signer, $job_id)
     $req = new Request();
     $req->method = 'GET';
     $req->scheme = 'https';
-    $req->host = ENDPOINT;
+    $req->host = ASR_ENDPOINT;
     $req->uri = LONG_SENTENCE;
     $req->query = array(
         'job_id' => $job_id

@@ -42,7 +42,7 @@ function moderation_video($token, $url, $frame_interval, $category)
 function _moderation_video($token, $url, $frame_interval, $category)
 {
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . MODERATION_VIDEO;
+    $_url = "https://" . MODERATION_ENDPOINT . MODERATION_VIDEO;
 
     $data = array(
         "url" => $url,                          // url：视频的URL路径
@@ -90,7 +90,7 @@ function _moderation_video($token, $url, $frame_interval, $category)
  */
 function get_result($token, $job_id)
 {
-    $url = "https://" . ENDPOINT . MODERATION_VIDEO . "?job_id=" . $job_id;
+    $url = "https://" . MODERATION_ENDPOINT . MODERATION_VIDEO . "?job_id=" . $job_id;
 
     $headers = array(
         "Content-Type:application/json",
@@ -180,7 +180,7 @@ function _moderation_video_aksk($signer, $url, $frame_interval, $category = "com
     $req = new Request();
     $req->method = 'POST';
     $req->scheme = 'https';
-    $req->host = ENDPOINT;
+    $req->host = MODERATION_ENDPOINT;
     $req->uri = MODERATION_VIDEO;
     $req->body = json_encode($data);
     $req->headers = array(
@@ -220,7 +220,7 @@ function get_result_aksk($signer, $job_id)
     $req = new Request();
     $req->method = 'GET';
     $req->scheme = 'https';
-    $req->host = ENDPOINT;
+    $req->host = MODERATION_ENDPOINT;
     $req->uri = MODERATION_VIDEO;
     $req->query = array(
         'job_id' => $job_id

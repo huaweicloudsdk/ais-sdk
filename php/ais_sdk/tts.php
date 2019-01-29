@@ -9,7 +9,7 @@ function tts($token, $text, $voice_name = "xiaoyan", $volume = "0", $sample_rate
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . TTS;
+    $_url = "https://" . TTS_ENDPOINT . TTS;
 
     $data = array(
         "text" => $text,                        // text :待合成的文本
@@ -69,7 +69,7 @@ function tts_aksk($_ak, $_sk, $text, $voice_name = "xiaoyan", $volume = "0", $sa
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = TTS_ENDPOINT;
     $req->uri = TTS;
 
     $data = array(

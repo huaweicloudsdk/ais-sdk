@@ -9,7 +9,7 @@ function asr_sentence($token, $data, $url = "", $encode_type = "wav", $sample_ra
 {
 
     // 构建请求信息
-    $_url = "https://" . ENDPOINT . ASR_SENTENCE;
+    $_url = "https://" . ASR_ENDPOINT . ASR_SENTENCE;
 
     $data = array(
         "data" => $data,                        // data: 音频文件的base64
@@ -67,7 +67,7 @@ function asr_sentence_aksk($_ak, $_sk, $data, $url = "", $encode_type = "wav", $
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = ENDPOINT;
+    $req->host = ASR_ENDPOINT;
     $req->uri = ASR_SENTENCE;
 
     $data = array(
