@@ -13,7 +13,7 @@ import ais_sdk.ais as ais
 # access ocr vat invoice,post data by token
 #
 def tts(token, text, voice_name='xiaoyan', volume='0', sample_rate='16k', speech_speed='0', pitch_rate='0'):
-    _url = 'https://%s' % (ais.AisEndpoint.ENDPOINT + ais.TtsURI.TTS)
+    _url = 'https://%s' % (ais.AisEndpoint.TTS_ENDPOINT + ais.TtsURI.TTS)
     _data = {
         "text": text,
         "voice_name": voice_name,
@@ -64,7 +64,7 @@ def tts(token, text, voice_name='xiaoyan', volume='0', sample_rate='16k', speech
 # access ocr vat invoice,post data by ak,sk
 #
 def tts_aksk(_ak, _sk, text, voice_name='xiaoyan', volume='0', sample_rate='16k', speech_speed='0', pitch_rate='0'):
-    _url = 'https://%s' % (ais.AisEndpoint.ENDPOINT + ais.TtsURI.TTS)
+    _url = 'https://%s' % (ais.AisEndpoint.TTS_ENDPOINT + ais.TtsURI.TTS)
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -81,7 +81,7 @@ def tts_aksk(_ak, _sk, text, voice_name='xiaoyan', volume='0', sample_rate='16k'
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.TTS_ENDPOINT
     kreq.uri = ais.TtsURI.TTS
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

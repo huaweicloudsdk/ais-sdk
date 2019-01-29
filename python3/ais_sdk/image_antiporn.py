@@ -9,7 +9,7 @@ import ais_sdk.ais as ais
 
 
 def request_moderation_url(token, inner_path, image_str=None, url=None):
-    _url = 'https://%s' % (ais.AisEndpoint.ENDPOINT + inner_path)
+    _url = 'https://%s' % (ais.AisEndpoint.MODERATION_ENDPOINT + inner_path)
 
     if image_str != '':
         image_str = image_str.decode("utf-8")
@@ -63,7 +63,7 @@ def image_antiporn(token, image_str=None, url=None):
 
 
 def request_moderation_url_aksk(sig, inner_path, image_str=None, url=None):
-    _url = 'https://%s' % (ais.AisEndpoint.ENDPOINT + inner_path)
+    _url = 'https://%s' % (ais.AisEndpoint.MODERATION_ENDPOINT + inner_path)
 
     if image_str != '':
         image_str = image_str.decode('utf-8')
@@ -75,7 +75,7 @@ def request_moderation_url_aksk(sig, inner_path, image_str=None, url=None):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
     kreq.uri = inner_path
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

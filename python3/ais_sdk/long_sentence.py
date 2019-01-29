@@ -54,7 +54,7 @@ def long_sentence(token, data, url=''):
 # long_sentence, post the data
 #
 def _long_sentence(token, data, url):
-    _url = 'https://%s/v1.0/voice/asr/long-sentence'%ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/voice/asr/long-sentence'%ais.AisEndpoint.ASR_ENDPOINT
 
     if data !='':
         data = data.decode("utf-8")
@@ -103,7 +103,7 @@ def _long_sentence(token, data, url):
 #
 def _get_result(token, job_id):
     _url_tmpl = 'https://%s/v1.0/voice/asr/long-sentence?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.ENDPOINT,job_id)
+    _url = _url_tmpl % (ais.AisEndpoint.ASR_ENDPOINT,job_id)
 
     _headers = {
         "Content-Type": "application/json",
@@ -190,7 +190,7 @@ def long_sentence_aksk(_ak,_sk, data, url=''):
 # long_sentence, post the data
 #
 def _long_sentence_aksk(sig, data, url):
-    _url = 'https://%s/v1.0/voice/asr/long-sentence'%ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/voice/asr/long-sentence'%ais.AisEndpoint.ASR_ENDPOINT
     if data != '':
          data = data.decode("utf-8")
 
@@ -201,7 +201,7 @@ def _long_sentence_aksk(sig, data, url):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.ASR_ENDPOINT
     kreq.uri = "/v1.0/voice/asr/long-sentence"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
@@ -242,11 +242,11 @@ def _long_sentence_aksk(sig, data, url):
 #
 def _get_result_aksk(sig, job_id):
     _url_tmpl = 'https://%s/v1.0/voice/asr/long-sentence?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.ENDPOINT,job_id)
+    _url = _url_tmpl % (ais.AisEndpoint.ASR_ENDPOINT,job_id)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.ASR_ENDPOINT
     kreq.uri = "/v1.0/voice/asr/long-sentence"
     kreq.method = "GET"
     kreq.headers = {"Content-Type": "application/json"}

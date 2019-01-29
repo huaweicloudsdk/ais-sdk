@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 
 class AisEndpoint:
-    ENDPOINT = 'ais.cn-north-1.myhuaweicloud.com'
+    TTS_ENDPOINT = 'ais.cn-north-1.myhuaweicloud.com'
+    ASR_ENDPOINT = 'ais.cn-north-1.myhuaweicloud.com'
+    IMAGE_ENDPOINT = 'image.cn-north-1.myhuaweicloud.com'
+    MODERATION_ENDPOINT = 'moderation.cn-north-1.myhuaweicloud.com'
     IAM_ENPOINT = 'iam.cn-north-1.myhuaweicloud.com'
 
 class TokenURI:

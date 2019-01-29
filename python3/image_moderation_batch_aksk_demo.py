@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from ais_sdk.image_content_batch import moderation_image_batch_aksk
+from ais_sdk.image_moderation_batch import moderation_image_batch_aksk
 
 if __name__ == '__main__':
     #

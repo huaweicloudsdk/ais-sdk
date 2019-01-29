@@ -12,7 +12,7 @@ import ais_sdk.ais as ais
 # access asr, asr_bgm,post data by token
 #
 def asr_bgm(token, url):
-    _url = 'https://%s/v1.0/bgm/recognition' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/bgm/recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
 
     _data = {
         "url": url,
@@ -57,7 +57,7 @@ def asr_bgm(token, url):
 # access asr, asr_bgm,post data by ak,sk
 #
 def asr_bgm_aksk(_ak, _sk, url):
-    _url = 'https://%s/v1.0/bgm/recognition' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/bgm/recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -68,7 +68,7 @@ def asr_bgm_aksk(_ak, _sk, url):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
     kreq.uri = "/v1.0/bgm/recognition"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

@@ -11,7 +11,7 @@ import ais_sdk.ais as ais
 # access moderation image,post data by token
 #
 def moderation_image(token, image, url, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image'%ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/image'%ais.AisEndpoint.MODERATION_ENDPOINT
 
     if image != '':
         image = image.decode("utf-8")
@@ -60,7 +60,7 @@ def moderation_image(token, image, url, categories=None, threshold=None):
 # access moderation image,post data by token
 #
 def moderation_image_aksk(_ak, _sk, image, url, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/moderation/image' % ais.AisEndpoint.MODERATION_ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -78,7 +78,7 @@ def moderation_image_aksk(_ak, _sk, image, url, categories=None, threshold=None)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = "ais.cn-north-1.myhuaweicloud.com"
+    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
     kreq.uri = "/v1.0/moderation/image"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

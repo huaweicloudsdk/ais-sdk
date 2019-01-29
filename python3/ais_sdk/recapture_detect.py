@@ -13,7 +13,7 @@ import ais_sdk.ais as ais
 # access image recapture detect
 #
 def recapture_detect(token, image, url, threshold=0.95, scene=None):
-    _url = 'https://%s/v1.0/image/recapture-detect' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/image/recapture-detect' % ais.AisEndpoint.IMAGE_ENDPOINT
 
     if image != '':
         image = image.decode('utf-8')
@@ -66,7 +66,7 @@ def recapture_detect(token, image, url, threshold=0.95, scene=None):
 # access image recapture detect ,post data by aksk
 #
 def recapture_detect_aksk(_ak, _sk, image, url, threshold=0.95, scene=None):
-    _url = 'https://%s/v1.0/image/recapture-detect' % ais.AisEndpoint.ENDPOINT
+    _url = 'https://%s/v1.0/image/recapture-detect' % ais.AisEndpoint.IMAGE_ENDPOINT
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -84,7 +84,7 @@ def recapture_detect_aksk(_ak, _sk, image, url, threshold=0.95, scene=None):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.ENDPOINT
+    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
     kreq.uri = "/v1.0/image/recapture-detect"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
