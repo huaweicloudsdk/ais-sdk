@@ -9,7 +9,7 @@ function long_sentence(token, data, url, category, callback) {
 
     // 构建请求信息
     var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-    var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.LONG_SENTENCE, headers);
+    var options = utils.getHttpRequestEntityOptions(ais.ASR_ENDPOINT, "POST", ais.LONG_SENTENCE, headers);
 
     var request = https.request(options, function (response) {
 
@@ -44,7 +44,7 @@ function long_sentence(token, data, url, category, callback) {
 function get_result(job_id, resultsearch, words, token, callback) {
     // 构建请求参数和请求信息
     var requestData = {'job_id': job_id};
-    var options = utils.getHttpRequestEntityForGet(ais.ENDPOINT, "GET", ais.LONG_SENTENCE, {
+    var options = utils.getHttpRequestEntityForGet(ais.ASR_ENDPOINT, "GET", ais.LONG_SENTENCE, {
         "Content-Type": "application/json",
         "X-Auth-Token": token
     }, requestData);
@@ -98,7 +98,7 @@ function long_sentence_aksk(_ak, _sk, data, url, category, callback) {
     var job_id = "";
     var req = new signer.HttpRequest();
     var header = {"Content-Type": "application/json"};
-    var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.LONG_SENTENCE, "", header, requestData);
+    var options = utils.getHttpRequestEntity(sig, req, ais.ASR_ENDPOINT, "POST", ais.LONG_SENTENCE, "", header, requestData);
 
     var request = https.request(options, function (response) {
 
@@ -142,7 +142,7 @@ function get_result_aksk(sign, job_id, resultsearch, words, callback) {
 
     // 构建请求信息和参数信息
     var request = new signer.HttpRequest();
-    var options = utils.getHttpRequestEntity(sign, request, ais.ENDPOINT, "GET", ais.LONG_SENTENCE, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
+    var options = utils.getHttpRequestEntity(sign, request, ais.ASR_ENDPOINT, "GET", ais.LONG_SENTENCE, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
 
     // 轮询请求长语音接口，获取结果信息
     var reqsearch = https.request(options, function (response) {

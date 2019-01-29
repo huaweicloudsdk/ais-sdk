@@ -8,14 +8,14 @@ module.exports = {
 
         // 构建请求信息和请求参数信息
         var requestData = {
-            "text": text,                                // text :待合成的文本
+            "text": text,                               // text :待合成的文本
             "voice_name": voice_name,                   // voice_name:合成的声音人员表示
             "volume": volume,                           // volume：音量
             "sample_rate": sample_rate,                 // sample_rate：语音的采样率，目前支持16k，代表16HZ
             "speech_speed": speech_speed,               // speech_speed：语速 [-500,500]
             "pitch_rate": pitch_rate                    // pitch_rate：音高 [-20,20]
         };
-        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.TTS, {
+        var options = utils.getHttpRequestEntityOptions(ais.TTS_ENDPOINT, "POST", ais.TTS, {
             "Content-Type": "application/json",
             "X-Auth-Token": token
         });
@@ -65,7 +65,7 @@ module.exports = {
             "pitch_rate": pitch_rate                     // pitch_rate：音高 [-20,20]
         };
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.TTS, "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.TTS_ENDPOINT, "POST", ais.TTS, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

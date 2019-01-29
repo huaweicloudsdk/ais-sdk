@@ -11,7 +11,7 @@ module.exports = {
         var requestData = {"data": data, url: url, "encode_type": encode_type, "sample_rate": sample_rate};
 
         var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-        var options = utils.getHttpRequestEntityOptions(ais.ENDPOINT, "POST", ais.ASR_SENTENCE, headers);
+        var options = utils.getHttpRequestEntityOptions(ais.ASR_ENDPOINT, "POST", ais.ASR_SENTENCE, headers);
         var requestBody = JSON.stringify(requestData);
 
         var request = https.request(options, function (response) {
@@ -48,7 +48,7 @@ module.exports = {
         var requestData = {"data": data, url: url, "encode_type": encode_type, "sample_rate": sample_rate};
         var _headers = {"Content-Type": "application/json"};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.ENDPOINT, "POST", ais.ASR_SENTENCE, "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, ais.ASR_ENDPOINT, "POST", ais.ASR_SENTENCE, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 
