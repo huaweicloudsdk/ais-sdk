@@ -20,8 +20,11 @@ namespace AisDemo
             // domain names for moderation service
             String MODERATION_ENDPOINT = "moderation.cn-north-1.myhuaweicloud.com";
 
-            // domain names for tts service an asr service
-            String ENDPOINT = "ais.cn-north-1.myhuaweicloud.com";
+            // domain names for tts service 
+            String TTS_ENDPOINT = "ais.cn-north-1.myhuaweicloud.com";
+
+            // domain names for asr service
+            String ASR_ENDPOINT = "ais.cn-north-1.myhuaweicloud.com";
 
             // get token domain name 
             String IAM_ENPOINT = "iam.cn-north-1.myhuaweicloud.com";
@@ -74,13 +77,13 @@ namespace AisDemo
             ImageContentBatch(token, MODERATION_ENDPOINT);
 
             // asr sentence service example
-            AsrSentence(token, ENDPOINT);
-
-            // text to speech service example
-            Tts(token, ENDPOINT);
+            AsrSentence(token, ASR_ENDPOINT);
 
             // long sentence service example
-            LongSentence(token, ENDPOINT);
+            LongSentence(token, ASR_ENDPOINT);
+
+            // text to speech service example
+            Tts(token, TTS_ENDPOINT); 
 
         }
 
