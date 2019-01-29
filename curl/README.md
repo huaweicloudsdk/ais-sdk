@@ -33,9 +33,15 @@
 curl -X POST https://iam.cn-north-1.myhuaweicloud.com/v3/auth/tokens --header 'content-type: application/json'  -d "@data.json"
 ```
 ## 2.申请开通服务
-https://support.huaweicloud.com/api-image/image_03_0018.html  图像识别服务申请参考链接
-https://support.huaweicloud.com/api-moderation/moderation_03_0013.html  内容审核服务申请参考链接
-... ...
+
+图像识别服务申请参考链接
+
+https://support.huaweicloud.com/api-image/image_03_0018.html 
+ 
+内容审核服务申请参考链接
+ 
+https://support.huaweicloud.com/api-moderation/moderation_03_0013.html  
+
 ## 3.访问图像标签服务
 ### 3.1 图像标签服务
 
