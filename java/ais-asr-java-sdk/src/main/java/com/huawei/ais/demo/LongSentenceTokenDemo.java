@@ -24,7 +24,7 @@ public class LongSentenceTokenDemo {
 	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
 	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
 
-	private static final String ENDPOINT_HOST = "https://ais.cn-north-1.myhuaweicloud.com";
+	private static final String ENDPOINT_HOST = "https://sis.cn-north-1.myhuaweicloud.com";
 	private static final String URL_TEMPLATE = "/v1.0/voice/asr/long-sentence?job_id=%s";
 	private static final long POLLING_INTERVAL = 2000L;
 

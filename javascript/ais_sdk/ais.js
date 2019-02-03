@@ -4,10 +4,10 @@
  */
 var ais = {
     // tts服务请求域名
-    TTS_ENDPOINT: 'ais.cn-north-1.myhuaweicloud.com',
+    TTS_ENDPOINT: 'sis.cn-north-1.myhuaweicloud.com',
 
     // asr服务请求域名
-    ASR_ENDPOINT: 'ais.cn-north-1.myhuaweicloud.com',
+    ASR_ENDPOINT: 'sis.cn-north-1.myhuaweicloud.com',
 
     // 服务请求域名
     IMAGE_ENDPOINT: 'image.cn-north-1.myhuaweicloud.com',

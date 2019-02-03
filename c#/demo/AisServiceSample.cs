@@ -21,10 +21,10 @@ namespace AisDemo
             String MODERATION_ENDPOINT = "moderation.cn-north-1.myhuaweicloud.com";
 
             // domain names for tts service 
-            String TTS_ENDPOINT = "ais.cn-north-1.myhuaweicloud.com";
+            String TTS_ENDPOINT = "sis.cn-north-1.myhuaweicloud.com";
 
             // domain names for asr service
-            String ASR_ENDPOINT = "ais.cn-north-1.myhuaweicloud.com";
+            String ASR_ENDPOINT = "sis.cn-north-1.myhuaweicloud.com";
 
             // get token domain name 
             String IAM_ENPOINT = "iam.cn-north-1.myhuaweicloud.com";

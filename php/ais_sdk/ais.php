@@ -7,10 +7,10 @@
  * Time: 10:44
  */
 // tts服务请求域名
-define("TTS_ENDPOINT", "ais.cn-north-1.myhuaweicloud.com");
+define("TTS_ENDPOINT", "sis.cn-north-1.myhuaweicloud.com");
 
 // asr服务请求域名
-define("ASR_ENDPOINT", "ais.cn-north-1.myhuaweicloud.com");
+define("ASR_ENDPOINT", "sis.cn-north-1.myhuaweicloud.com");
 
 // 图像服务请求域名
 define("IMAGE_ENDPOINT", "image.cn-north-1.myhuaweicloud.com");

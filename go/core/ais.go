@@ -2,10 +2,11 @@ package core
 
 const (
 	// domain name for asr service
-	ASR_ENDPOINT string = "ais.cn-north-1.myhuaweicloud.com"
+	ASR_ENDPOINT string = "sis.cn-north-1.myhuaweicloud.com"
+    
 	// domain name for tts service 
-	TTS_ENDPOINT string = "ais.cn-north-1.myhuaweicloud.com"
-	
+	TTS_ENDPOINT string = "sis.cn-north-1.myhuaweicloud.com"
+    
 	// domain name for image service
 	IMAGE_ENDPOINT string = "image.cn-north-1.myhuaweicloud.com"
 	

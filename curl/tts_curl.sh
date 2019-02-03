@@ -5,7 +5,7 @@
 #
 TOKEN=''
 
-curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/tts \
+curl -X POST https://sis.cn-north-1.myhuaweicloud.com/v1.0/voice/tts \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" -d '
  {

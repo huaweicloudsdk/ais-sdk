@@ -4,7 +4,7 @@
 # Here, if we get the token use the gettoken_curl.sh
 #
 TOKEN=''
-RESULT=$(curl -X POST https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/long-sentence \
+RESULT=$(curl -X POST https://sis.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/long-sentence \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" -d '
  {
@@ -18,7 +18,7 @@ JOB_ID=`echo $RESULT|awk -F ":" '{print $3}'|awk -F '"' '{print $2}'`
 WORDS=''
 while true
 do
-RESULT_OBJ=$(curl https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/long-sentence?job_id=$JOB_ID \
+RESULT_OBJ=$(curl https://sis.cn-north-1.myhuaweicloud.com/v1.0/voice/asr/long-sentence?job_id=$JOB_ID \
   --header 'Content-Type: application/json' \
   --header "X-Auth-Token: $TOKEN" )
 

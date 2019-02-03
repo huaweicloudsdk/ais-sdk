@@ -101,7 +101,7 @@ public class TtsTokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestTts(String token, String filePath) throws IOException {
-		String url = "https://ais.cn-north-1.myhuaweicloud.com/v1.0/voice/tts";
+		String url = "https://sis.cn-north-1.myhuaweicloud.com/v1.0/voice/tts";
 		Header[] headers = new Header[]{new BasicHeader("X-Auth-Token", token), new BasicHeader("Content-Type", "application/json")};
 		String requestBody = toTtsHttpBody();
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
