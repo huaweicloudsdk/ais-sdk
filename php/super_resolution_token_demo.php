@@ -16,7 +16,7 @@ $data = fileToBase64($filepath);
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
-$result = super_resolution($token, $data, 4, "ESPCN");
+$result = super_resolution($regionName, $token, $data, 4, "ESPCN");
 echo $result;
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"];

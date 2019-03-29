@@ -8,6 +8,7 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*************";
 $app_secret = "*************";
+$regionName = "*************";
 
 $filepath = "./data/modeation-distortion.jpg";
 $image = fileToBase64($filepath);
@@ -15,7 +16,7 @@ $image = fileToBase64($filepath);
 $demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
 // ak,sk 方式图片的base64请求接口
-$result = distortion_correct_aksk($app_key, $app_secret, $image, "", true);
+$result = distortion_correct_aksk($regionName, $app_key, $app_secret, $image, "", true);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"]['data'];
@@ -24,7 +25,7 @@ if ($basestr != "") {
 }
 
 // ak,sk 方式图片的url方式请求接口
-$result = distortion_correct_aksk($app_key, $app_secret, "", $demo_data_url, true);
+$result = distortion_correct_aksk($regionName, $app_key, $app_secret, "", $demo_data_url, true);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"]['data'];

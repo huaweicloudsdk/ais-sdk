@@ -6,10 +6,11 @@ require "ais.php";
  * token 方式
  * @return stri
  */
-function moderation_video($token, $url, $frame_interval, $category)
+function moderation_video($regionName, $token, $url, $frame_interval, $category)
 {
+    $endPoint = strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     // 获取任务信息
-    $jobResult = _moderation_video($token, $url, $frame_interval, $category);
+    $jobResult = _moderation_video($endPoint, $token, $url, $frame_interval, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id;
@@ -17,7 +18,7 @@ function moderation_video($token, $url, $frame_interval, $category)
     while (true) {
 
         // 获取任务解析的结果
-        $resultobj = get_result($token, $job_id);
+        $resultobj = get_result($endPoint, $token, $job_id);
         if ($resultobj['status'] != 200) {
             var_dump($resultobj);
         }
@@ -39,10 +40,10 @@ function moderation_video($token, $url, $frame_interval, $category)
 }
 
 
-function _moderation_video($token, $url, $frame_interval, $category)
+function _moderation_video($endPoint, $token, $url, $frame_interval, $category)
 {
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . MODERATION_VIDEO;
+    $_url = "https://" . $endPoint . MODERATION_VIDEO;
 
     $data = array(
         "url" => $url,                          // url：视频的URL路径
@@ -88,9 +89,9 @@ function _moderation_video($token, $url, $frame_interval, $category)
  * @param $token
  * @param $job_id
  */
-function get_result($token, $job_id)
+function get_result($endPoint, $token, $job_id)
 {
-    $url = "https://" . MODERATION_ENDPOINT . MODERATION_VIDEO . "?job_id=" . $job_id;
+    $url = "https://" . $endPoint . MODERATION_VIDEO . "?job_id=" . $job_id;
 
     $headers = array(
         "Content-Type:application/json",
@@ -129,14 +130,15 @@ function get_result($token, $job_id)
 /**
  * ak,sk 方式
  */
-function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
+function moderation_video_aksk($regionName, $_ak, $_sk, $url, $frame_interval, $category)
 {
+    $endPoint = strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     // 构建ak，sk对象
     $signer = new Signer();
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $jobResult = _moderation_video_aksk($signer, $url, $frame_interval, $category);
+    $jobResult = _moderation_video_aksk($endPoint, $signer, $url, $frame_interval, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id;
@@ -144,7 +146,7 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
     while (true) {
 
         // 获取任务的执行结果
-        $resultobj = get_result_aksk($signer, $job_id);
+        $resultobj = get_result_aksk($endPoint, $signer, $job_id);
 
         if ($resultobj['status'] != 200) {
             var_dump($resultobj);
@@ -168,7 +170,7 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
 /**
  * 获取任务信息
  */
-function _moderation_video_aksk($signer, $url, $frame_interval, $category = "common")
+function _moderation_video_aksk($endPoint, $signer, $url, $frame_interval, $category = "common")
 {
     // 构建请求信息
     $data = array(
@@ -180,7 +182,7 @@ function _moderation_video_aksk($signer, $url, $frame_interval, $category = "com
     $req = new Request();
     $req->method = 'POST';
     $req->scheme = 'https';
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = MODERATION_VIDEO;
     $req->body = json_encode($data);
     $req->headers = array(
@@ -214,13 +216,13 @@ function _moderation_video_aksk($signer, $url, $frame_interval, $category = "com
  * @param $token
  * @param $job_id
  */
-function get_result_aksk($signer, $job_id)
+function get_result_aksk($endPoint, $signer, $job_id)
 {
 
     $req = new Request();
     $req->method = 'GET';
     $req->scheme = 'https';
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = MODERATION_VIDEO;
     $req->query = array(
         'job_id' => $job_id

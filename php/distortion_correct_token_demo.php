@@ -19,7 +19,7 @@ $demo_data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-i
 $token = gettoken($username, $password, $domainName, $regionName);
 
 // token方式 图片base64请求接口
-$result = distortion_correct($token, $image, "", true);
+$result = distortion_correct($regionName, $token, $image, "", true);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"]['data'];
@@ -28,7 +28,7 @@ if ($basestr != "") {
 }
 
 // token 方式图片的url请求接口
-$result = distortion_correct($token, "", $demo_data_url, true);
+$result = distortion_correct($regionName, $token, "", $demo_data_url, true);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"]['data'];

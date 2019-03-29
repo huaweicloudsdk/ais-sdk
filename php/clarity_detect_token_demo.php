@@ -20,11 +20,11 @@ $token = gettoken($username, $password, $domainName, $regionName);
 
 
 // base64 方式请求
-$result = clarity_detect($token, $data, "", 0.8);
+$result = clarity_detect($regionName, $token, $data, "", 0.8);
 echo $result;
 
 // obs的url方式请求
-$result = clarity_detect($token, "", $data_url, 0.9);
+$result = clarity_detect($regionName, $token, "", $data_url, 0.9);
 echo $result;
 
 

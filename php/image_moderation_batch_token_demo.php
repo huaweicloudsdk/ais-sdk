@@ -16,5 +16,5 @@ $data_url2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
-$result = image_content_batch($token, array($data_url1, $data_url2), array("politics", "terrorism", "porn"), 0);
+$result = image_content_batch($regionName, $token, array($data_url1, $data_url2), array("politics", "terrorism", "porn"), 0);
 echo $result;

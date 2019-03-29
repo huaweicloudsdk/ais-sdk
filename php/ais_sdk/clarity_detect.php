@@ -5,11 +5,11 @@ require "ais.php";
 /**
  * token 方式
  */
-function clarity_detect($token, $data, $url, $threshold = 0.8)
+function clarity_detect($regionName, $token, $data, $url, $threshold = 0.8)
 {
 
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_CLARITY_DETECT;
+    $_url = "https://" . strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . IMAGE_CLARITY_DETECT;
 
     $data = array(
         "image" => $data,                    // 图片的base64内容，与url二选一
@@ -54,7 +54,7 @@ function clarity_detect($token, $data, $url, $threshold = 0.8)
 /**
  * ak,sk 方式
  */
-function clarity_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.8)
+function clarity_detect_aksk($regionName, $_ak, $_sk, $data, $url, $threshold = 0.8)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -65,7 +65,7 @@ function clarity_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.8)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = IMAGE_CLARITY_DETECT;
 
     $data = array(

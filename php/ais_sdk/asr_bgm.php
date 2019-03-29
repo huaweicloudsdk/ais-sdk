@@ -4,11 +4,11 @@ require "ais.php";
 /**
  * token 方式
  */
-function asr_bgm($token, $url)
+function asr_bgm($regionName, $token, $url)
 {
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . ASR_BGM;
+    $_url = "https://" . strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . ASR_BGM;
 
     $data = array(
         "url" => $url                      // 背景音乐的url链接，目前只支持obs
@@ -53,7 +53,7 @@ function asr_bgm($token, $url)
 /**
  * ak,sk 方式
  */
-function asr_bgm_aksk($_ak, $_sk, $url)
+function asr_bgm_aksk($regionName, $_ak, $_sk, $url)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -64,7 +64,7 @@ function asr_bgm_aksk($_ak, $_sk, $url)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = ASR_BGM;
 
     $data = array(

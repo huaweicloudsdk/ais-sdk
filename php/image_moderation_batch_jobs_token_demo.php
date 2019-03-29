@@ -16,5 +16,5 @@ $data_url2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
-$result = batch_jobs($token, array($data_url1,$data_url2), array("politics", "terrorism", "porn"));
+$result = batch_jobs($regionName, $token, array($data_url1,$data_url2), array("politics", "terrorism", "porn"));
 echo json_encode($result);

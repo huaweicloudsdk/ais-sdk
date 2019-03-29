@@ -5,18 +5,24 @@ require "ais.php";
 /**
  * token 方式
  */
-function recapture_detect($token, $data, $url, $threshold = 0.95, $scene)
+function recapture_detect($regionName, $token, $image, $url, $threshold = 0.95, $scene)
 {
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . RECAPTURE_DETECT;
+    $_url = "https://" . strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . RECAPTURE_DETECT;
 
     $data = array(
-        "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
-        "url" => $url,                         // 与image二选一 图片的URL路径
         "threshold" => $threshold,             // 判断图片真实或虚假的阈值，默认值为0.95，取值范围：0-1
         "scene" => $scene,                     // 检测场景，当前仅支持翻拍照片场景： recapture
     );
+
+    if($image != ""){
+        $data["image"] = $image;               // 与url二选一 图片文件Base64编码字符串
+    }
+
+    if($url != ""){
+        $data["url"] = $url;                   // 与image二选一 图片的URL路径
+    }
 
     $curl = curl_init();
     $headers = array(
@@ -56,7 +62,7 @@ function recapture_detect($token, $data, $url, $threshold = 0.95, $scene)
 /**
  * ak,sk 方式
  */
-function recapture_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.95, $scene)
+function recapture_detect_aksk($regionName, $_ak, $_sk, $image, $url, $threshold = 0.95, $scene)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -67,15 +73,21 @@ function recapture_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.95, $scen
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = RECAPTURE_DETECT;
 
     $data = array(
-        "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
-        "url" => $url,                         // 与image二选一 图片的URL路径
         "threshold" => $threshold,             // 判断图片真实或虚假的阈值，默认值为0.95，取值范围：0-1
         "scene" => $scene,                     // 检测场景，当前仅支持翻拍照片场景： recapture
     );
+
+    if($image != ""){
+        $data["image"] = $image;               // 与url二选一 图片文件Base64编码字符串
+    }
+
+    if($url != ""){
+        $data["url"] = $url;                   // 与image二选一 图片的URL路径
+    }
 
     $headers = array(
         "Content-Type" => "application/json",

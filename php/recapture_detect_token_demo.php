@@ -19,9 +19,9 @@ $data_url = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg"
 $token = gettoken($username, $password, $domainName, $regionName);
 
 // 图片base64方式请求接口
-$result = recapture_detect($token, $data, "", 0.99, array("recapture"));
+$result = recapture_detect($regionName, $token, $data, "", 0.99, array("recapture"));
 echo $result;
 
 // 图片的obs 的url方式请求接口
-$result = recapture_detect($token, "", $data_url, 0.99, array("recapture"));
+$result = recapture_detect($regionName, $token, "", $data_url, 0.99, array("recapture"));
 echo $result;
