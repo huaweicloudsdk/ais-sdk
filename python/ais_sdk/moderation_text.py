@@ -6,14 +6,16 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
+from utils import get_region_endponit
 
 
 #
 # access moderation text enhance,posy data by token
 #
-def moderation_text(token, text, type='content',
-                    categories=["ad", "politics", "politics", "politics", "contraband", "contraband"]):
-    _url = 'https://%s/v1.0/moderation/text' % ais.AisEndpoint.MODERATION_ENDPOINT
+def moderation_text(region_name, token, text, type='content',
+                    categories=["ad", "porn", "abuse", "politics", "contraband", "flood"]):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/text' % endponit
 
     _data = {
         "categories": categories,  # 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
@@ -58,9 +60,10 @@ def moderation_text(token, text, type='content',
 #
 # access moderation text enhance,posy data by ak,sk
 #
-def moderation_text_aksk(_ak, _sk, text, type='content',
-                         categories=["ad", "politics", "politics", "politics", "contraband", "contraband"]):
-    _url = 'https://%s/v1.0/moderation/text' % ais.AisEndpoint.MODERATION_ENDPOINT
+def moderation_text_aksk(region_name, _ak, _sk, text, type='content',
+                         categories=["ad", "porn", "abuse", "politics", "contraband", "flood"]):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/text' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -75,7 +78,7 @@ def moderation_text_aksk(_ak, _sk, text, type='content',
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/moderation/text"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

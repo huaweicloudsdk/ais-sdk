@@ -3,7 +3,7 @@ import json
 import ais
 
 
-def get_token(username, password, domain):
+def get_token(username, password, domain, region_name):
     auth_data = {
         "auth": {
             "identity": {
@@ -23,7 +23,7 @@ def get_token(username, password, domain):
             },
             "scope": {
                 "project": {
-                    "name": "cn-north-1"
+                    "name": region_name
                 }
             }
         }

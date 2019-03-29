@@ -6,13 +6,15 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
+from utils import get_region_endponit
 
 
 #
 # access image super resolution,post data by token
 #
-def super_resolution(token, image, scale=3, model="ESPCN"):
-    _url = 'https://%s/v1.0/vision/super-resolution' % ais.AisEndpoint.IMAGE_ENDPOINT
+def super_resolution(region_name, token, image, scale=3, model="ESPCN"):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/vision/super-resolution' % endponit
 
     _data = {
         "image": image,
@@ -57,8 +59,9 @@ def super_resolution(token, image, scale=3, model="ESPCN"):
 #
 # access image super resolution enhance,post data by sk,sk
 #
-def super_resolution_aksk(_ak, _sk, image, scale=3, model="ESPCN"):
-    _url = 'https://%s/v1.0/vision/super-resolution' % ais.AisEndpoint.IMAGE_ENDPOINT
+def super_resolution_aksk(region_name, _ak, _sk, image, scale=3, model="ESPCN"):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/vision/super-resolution' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -72,7 +75,7 @@ def super_resolution_aksk(_ak, _sk, image, scale=3, model="ESPCN"):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/vision/super-resolution"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

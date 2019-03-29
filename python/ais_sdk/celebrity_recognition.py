@@ -5,19 +5,24 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
+from utils import get_region_endponit
 
 
 #
-# access image tagging
+# access celebrity recognition
 #
-def celebrity_recognition(token, image, url, threshold=4.8):
-    _url = 'https://%s/v1.0/image/celebrity-recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
+def celebrity_recognition(region_name, token, image, url, threshold=4.8):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/image/celebrity-recognition' % endponit
 
     _data = {
-        "image": image,
-        "url": url,
         "threshold": threshold
     }
+    if image != '':
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
 
     kreq = urllib2.Request(url=_url)
     kreq.add_header('Content-Type', 'application/json')
@@ -54,24 +59,28 @@ def celebrity_recognition(token, image, url, threshold=4.8):
 
 
 #
-# access image tagging ，post data by ak,sk
+# access celebrity recognition ，post data by ak,sk
 #
-def celebrity_recognition_aksk(_ak, _sk, image, url, threshold=4.8):
-    _url = 'https://%s/v1.0/image/celebrity-recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
+def celebrity_recognition_aksk(region_name, _ak, _sk, image, url, threshold=4.8):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/image/celebrity-recognition' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
     _data = {
-        "image": image,
-        "url": url,
         "threshold": threshold,
     }
+    if image != '':
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/image/celebrity-recognition"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

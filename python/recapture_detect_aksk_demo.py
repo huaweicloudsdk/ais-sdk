@@ -8,13 +8,14 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    region_name = '**********'
 
-    demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg'
+    demo_data_url = 'https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/recapture-detect'
 
     # call interface use the file
-    result = recapture_detect_aksk(app_key, app_secret, encode_to_base64('data/recapture-detect-demo.jpg'), "", 0.75, ["recapture"])
+    result = recapture_detect_aksk(region_name, app_key, app_secret, encode_to_base64('data/recapture-detect-demo.jpg'), "", 0.75, ["recapture"])
     print result
 
     # call interface use the url (token, image, url, threshold=0.95, scene=None)
-    result = recapture_detect_aksk(app_key, app_secret, "", demo_data_url, 0.75, ["recapture"])
+    result = recapture_detect_aksk(region_name, app_key, app_secret, "", demo_data_url, 0.75, ["recapture"])
     print result

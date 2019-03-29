@@ -6,19 +6,24 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
+from utils import get_region_endponit
 
 
 #
 # access moderation detect,post data by token
 #
-def clarity_detect(token, image, url, threshold=0.8):
-    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.MODERATION_ENDPOINT
+def clarity_detect(region_name, token, image, url, threshold=0.8):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % endponit
 
     _data = {
-        "image": image,
-        "url": url,
         "threshold": threshold
     }
+    if image != '':
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
 
     kreq = urllib2.Request(url=_url)
     kreq.add_header('Content-Type', 'application/json')
@@ -57,22 +62,27 @@ def clarity_detect(token, image, url, threshold=0.8):
 #
 # access moderation detect,post data by ak,sk
 #
-def clarity_detect_aksk(_ak, _sk, image, url, threshold=0.8):
-    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.MODERATION_ENDPOINT
+def clarity_detect_aksk(region_name, _ak, _sk, image, url, threshold=0.8):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
     _data = {
-        "image": image,
-        "url": url,
         "threshold": threshold
     }
 
+    if image != '':
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
+
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/moderation/image/clarity-detect"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

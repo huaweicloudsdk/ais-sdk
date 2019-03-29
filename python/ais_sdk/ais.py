@@ -4,10 +4,7 @@
 class AisEndpoint:
     TTS_ENDPOINT = 'sis.cn-north-1.myhuaweicloud.com'
     ASR_ENDPOINT = 'sis.cn-north-1.myhuaweicloud.com'
-    IMAGE_ENDPOINT = 'image.cn-north-1.myhuaweicloud.com'
-    MODERATION_ENDPOINT = 'moderation.cn-north-1.myhuaweicloud.com'
     IAM_ENPOINT = 'iam.cn-north-1.myhuaweicloud.com'
-
 
 
 class ImageURI:
@@ -25,4 +22,12 @@ class ModerationURI:
 
 class AsrURI:
     ASR_SENTENCE = '/v1.0/voice/asr/sentence'
+
+
+class AisService:
+    IMAGE_SERVICE = 'image'
+    MODERATION_SERVICE = 'moderation'
+    TTS_SERVICE = 'tts'
+    ASR_SERVICE = 'asr'
+
 

@@ -9,12 +9,13 @@ if __name__ == '__main__':
     user_name = '*****'
     password = '*****'
     account_name = '*****'  # the same as user_name in commonly use
+    region_name = '******'
 
     demo_data_url1 = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg'
     demo_data_url2 = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg'
 
-    token = get_token(user_name, password, account_name)
+    token = get_token(user_name, password, account_name, region_name)
 
     # call interface use the url (token, urls, categories )
-    result = image_content_batch(token, [demo_data_url1, demo_data_url2], ['politics', 'terrorism'], 0)
+    result = image_content_batch(region_name, token, [demo_data_url1, demo_data_url2], ['politics', 'terrorism'], 0)
     print result

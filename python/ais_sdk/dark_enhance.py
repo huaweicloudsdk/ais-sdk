@@ -6,13 +6,15 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
+from utils import get_region_endponit
 
 
 #
 # access image dark enhance,post data by token
 #
-def dark_enhance(token, image, brightness=0.9):
-    _url = 'https://%s/v1.0/vision/dark-enhance' % ais.AisEndpoint.IMAGE_ENDPOINT
+def dark_enhance(region_name, token, image, brightness=0.9):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/vision/dark-enhance' % endponit
 
     _data = {
         "image": image,
@@ -56,8 +58,9 @@ def dark_enhance(token, image, brightness=0.9):
 #
 # access image dark enhance by ak,sk
 #
-def dark_enhance_aksk(_ak, _sk, image, brightness=0.9):
-    _url = 'https://%s/v1.0/vision/dark-enhance' % ais.AisEndpoint.IMAGE_ENDPOINT
+def dark_enhance_aksk(region_name, _ak, _sk, image, brightness=0.9):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/vision/dark-enhance' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -70,7 +73,7 @@ def dark_enhance_aksk(_ak, _sk, image, brightness=0.9):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/vision/dark-enhance"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

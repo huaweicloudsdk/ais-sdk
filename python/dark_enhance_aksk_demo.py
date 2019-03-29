@@ -10,10 +10,9 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
-
-
+    region_name = '************'
 
     # call interface use base64 file
-    result = dark_enhance_aksk(app_key,app_secret, encode_to_base64('data/dark-enhance-demo.bmp'), '0.95')
+    result = dark_enhance_aksk(region_name, app_key,app_secret, encode_to_base64('data/dark-enhance-demo.bmp'), '0.95')
     result_obj = json.loads(result)
     decode_to_wave_file(result_obj['result'], 'data/dark-enhance-demo-aksk.bmp')
