@@ -7,13 +7,15 @@ import urllib.request
 import json
 import time
 import ais_sdk.ais as ais
+from ais_sdk.utils import get_region_endponit
 
 
 #
 # access asr, long_sentence，post data by token
 #
-def moderation_video(token, url, frame_interval=5, categories=['politics', 'terrorism']):
-    status, r = _moderation_video(token, url, frame_interval, categories)
+def moderation_video(region_name, token, url, frame_interval=5, categories=['politics', 'terrorism']):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    status, r = _moderation_video(endponit, token, url, frame_interval, categories)
 
     if status != 200:
         return r
@@ -24,7 +26,7 @@ def moderation_video(token, url, frame_interval=5, categories=['politics', 'terr
     time.sleep(1.0)
     try:
         while True:
-            status, r = _get_result(token, job_id)
+            status, r = _get_result(endponit, token, job_id)
             if status != 200:
                 return r
 
@@ -51,8 +53,8 @@ def moderation_video(token, url, frame_interval=5, categories=['politics', 'terr
 #
 # moderation_video, post the data
 #
-def _moderation_video(token, url, frame_interval=5, categories=['politics', 'terrorism']):
-    _url = 'https://%s/v1.0/moderation/video' % ais.AisEndpoint.MODERATION_ENDPOINT
+def _moderation_video(endponit, token, url, frame_interval=5, categories=['politics', 'terrorism']):
+    _url = 'https://%s/v1.0/moderation/video' % endponit
 
     _data = {
         "url": url,
@@ -98,9 +100,9 @@ def _moderation_video(token, url, frame_interval=5, categories=['politics', 'ter
 #
 # access asr, moderation vedio, get the result
 #
-def _get_result(token, job_id):
+def _get_result(endponit, token, job_id):
     _url_tmpl = 'https://%s/v1.0/moderation/video?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.MODERATION_ENDPOINT, job_id)
+    _url = _url_tmpl % (endponit, job_id)
     _headers = {
         "Content-Type": "application/json",
         "X-Auth-Token": token
@@ -138,12 +140,13 @@ def _get_result(token, job_id):
 #
 # access asr, long_sentence，post data by ak,sk
 #
-def moderation_video_aksk(_ak, _sk, url, frame_interval=5, categories=['politics', 'terrorism']):
+def moderation_video_aksk(region_name, _ak, _sk, url, frame_interval=5, categories=['politics', 'terrorism']):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
-    status, r = _moderation_video_aksk(sig, url, frame_interval, categories)
+    status, r = _moderation_video_aksk(endponit, sig, url, frame_interval, categories)
 
     if status != 200:
         return r
@@ -154,7 +157,7 @@ def moderation_video_aksk(_ak, _sk, url, frame_interval=5, categories=['politics
     time.sleep(1.0)
     try:
         while True:
-            status, r = _get_result_aksk(sig, job_id)
+            status, r = _get_result_aksk(endponit, sig, job_id)
             if status != 200:
                 return r
 
@@ -181,8 +184,8 @@ def moderation_video_aksk(_ak, _sk, url, frame_interval=5, categories=['politics
 #
 # moderation_video, post the data
 #
-def _moderation_video_aksk(sig, url, frame_interval=5, categories=['politics', 'terrorism']):
-    _url = 'https://%s/v1.0/moderation/video' % ais.AisEndpoint.MODERATION_ENDPOINT
+def _moderation_video_aksk(endponit, sig, url, frame_interval=5, categories=['politics', 'terrorism']):
+    _url = 'https://%s/v1.0/moderation/video' % endponit
 
     _data = {
         "url": url,
@@ -192,7 +195,7 @@ def _moderation_video_aksk(sig, url, frame_interval=5, categories=['politics', '
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/moderation/video"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
@@ -231,13 +234,13 @@ def _moderation_video_aksk(sig, url, frame_interval=5, categories=['politics', '
 #
 # access asr, moderation vedio, get the result
 #
-def _get_result_aksk(sig, job_id):
+def _get_result_aksk(endponit, sig, job_id):
     _url_tmpl = 'https://%s/v1.0/moderation/video?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.MODERATION_ENDPOINT, job_id)
+    _url = _url_tmpl % (endponit, job_id)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/moderation/video"
     kreq.method = "GET"
     kreq.headers = {"Content-Type": "application/json"}

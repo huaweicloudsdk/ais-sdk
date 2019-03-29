@@ -10,8 +10,9 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    region_name = '************'
 
     # call interface use base64 file
-    result = super_resolution_aksk(app_key, app_secret, encode_to_base64('data/super-resolution-demo.png'), 3)
+    result = super_resolution_aksk(region_name, app_key, app_secret, encode_to_base64('data/super-resolution-demo.png'), 3)
     result_obj = json.loads(result)
     decode_to_wave_file(result_obj['result'], 'data/super-resolution-demo-aksk.png')

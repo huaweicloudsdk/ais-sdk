@@ -7,22 +7,25 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
+from ais_sdk.utils import get_region_endponit
 
 
 #
 # access moderation distortion correct.post data by token
 #
-def distortion_correct(token, image, url, correction=True):
-    _url = 'https://%s/v1.0/moderation/image/distortion-correct' % ais.AisEndpoint.MODERATION_ENDPOINT
-
-    if image != '':
-        image = image.decode("utf-8")
+def distortion_correct(region_name, token, image, url, correction=True):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image/distortion-correct' % endponit
 
     _data = {
-        "image": image,
-        "url": url,
         "correction": correction
     }
+    if image != '':
+        image = image.decode("utf-8")
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
 
     _headers = {
         "Content-Type": "application/json",
@@ -62,25 +65,27 @@ def distortion_correct(token, image, url, correction=True):
 #
 # access moderation distortion correct.post data by ak,sk
 #
-def distortion_correct_aksk(_ak, _sk, image, url, correction=True):
-    _url = 'https://%s/v1.0/moderation/image/distortion-correct' % ais.AisEndpoint.MODERATION_ENDPOINT
+def distortion_correct_aksk(region_name, _ak, _sk, image, url, correction=True):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image/distortion-correct' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
-    if image != '':
-        image = image.decode('utf-8')
-
     _data = {
-        "image": image,
-        "url": url,
         "correction": correction
     }
+    if image != '':
+        image = image.decode("utf-8")
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/moderation/image/distortion-correct"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

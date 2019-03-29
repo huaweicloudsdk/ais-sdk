@@ -13,10 +13,11 @@ if __name__ == '__main__':
     user_name = '*****'
     password = '******'
     account_name = '*****'  # the same as user_name in commonly use
+    region_name = '******'
 
-    token = get_token(user_name, password, account_name)
+    token = get_token(user_name, password, account_name, region_name)
 
     # call interface use base64 file
-    result = dark_enhance(token, encode_to_base64('data/dark-enhance-demo.bmp'), '0.95')
+    result = dark_enhance(region_name, token, encode_to_base64('data/dark-enhance-demo.bmp'), '0.95')
     result_obj = json.loads(result)
     decode_to_wave_file(result_obj['result'], 'data/dark-enhance-token.bmp')

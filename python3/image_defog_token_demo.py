@@ -12,11 +12,12 @@ if __name__ == '__main__':
     user_name = '*****'
     password = '******'
     account_name = '*****'  # the same as user_name in commonly use
+    region_name = '******'
 
-    token = get_token(user_name, password, account_name)
+    token = get_token(user_name, password, account_name, region_name)
 
     # call interface use base64 file
-    result = image_defog(token, encode_to_base64('data/defog-demo.png'), '1.5')
+    result = image_defog(region_name, token, encode_to_base64('data/defog-demo.png'), '1.5')
     result_obj = json.loads(result)
     decode_to_wave_file(result_obj['result'], 'data/defog-demo-token.png')
 

@@ -7,23 +7,27 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
+from ais_sdk.utils import get_region_endponit
 
 
 #
 # access image recapture detect
 #
-def recapture_detect(token, image, url, threshold=0.95, scene=None):
-    _url = 'https://%s/v1.0/image/recapture-detect' % ais.AisEndpoint.IMAGE_ENDPOINT
-
-    if image != '':
-        image = image.decode('utf-8')
+def recapture_detect(region_name, token, image, url, threshold=0.95, scene=None):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/image/recapture-detect' % endponit
 
     _data = {
-        "image": image,
-        "url": url,
         "threshold": threshold,
         "scene": scene,
     }
+
+    if image != '':
+        image = image.decode('utf-8')
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
 
     _headers = {
         "Content-Type": "application/json",
@@ -65,26 +69,29 @@ def recapture_detect(token, image, url, threshold=0.95, scene=None):
 #
 # access image recapture detect ,post data by aksk
 #
-def recapture_detect_aksk(_ak, _sk, image, url, threshold=0.95, scene=None):
-    _url = 'https://%s/v1.0/image/recapture-detect' % ais.AisEndpoint.IMAGE_ENDPOINT
+def recapture_detect_aksk(region_name, _ak, _sk, image, url, threshold=0.95, scene=None):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/image/recapture-detect' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
-    if image != '':
-        image = image.decode('utf-8')
-
     _data = {
-        "image": image,
-        "url": url,
         "threshold": threshold,
         "scene": scene,
     }
 
+    if image != '':
+        image = image.decode('utf-8')
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
+
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/image/recapture-detect"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

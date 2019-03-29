@@ -6,13 +6,15 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
+from ais_sdk.utils import get_region_endponit
 
 
 #
 # access asr, asr_bgm,post data by token
 #
-def asr_bgm(token, url):
-    _url = 'https://%s/v1.0/bgm/recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
+def asr_bgm(region_name, token, url):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/bgm/recognition' % endponit
 
     _data = {
         "url": url,
@@ -56,8 +58,9 @@ def asr_bgm(token, url):
 #
 # access asr, asr_bgm,post data by ak,sk
 #
-def asr_bgm_aksk(_ak, _sk, url):
-    _url = 'https://%s/v1.0/bgm/recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
+def asr_bgm_aksk(region_name, _ak, _sk, url):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/bgm/recognition' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -68,7 +71,7 @@ def asr_bgm_aksk(_ak, _sk, url):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/bgm/recognition"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

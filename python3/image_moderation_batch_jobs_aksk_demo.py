@@ -7,12 +7,13 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    region_name = '************'
 
     demo_data_url1 = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg'
     demo_data_url2 = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg'
 
     # call interface use the url
-    result = image_batch_jobs_aksk(app_key, app_secret, [demo_data_url1, demo_data_url2], ['politics','terrorism','porn'])
+    result = image_batch_jobs_aksk(region_name, app_key, app_secret, [demo_data_url1, demo_data_url2], ['politics','terrorism','porn'])
     print(result)
 
 

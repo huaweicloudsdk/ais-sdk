@@ -14,10 +14,11 @@ if __name__ == '__main__':
     user_name = '******'
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
+    region_name = '******'
 
     demo_data_url = 'https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition'
-    token = get_token(user_name, password, account_name)
+    token = get_token(user_name, password, account_name, region_name)
 
     # call interface use the url
-    result = asr_bgm(token, demo_data_url)
+    result = asr_bgm(region_name, token, demo_data_url)
     print (result)
