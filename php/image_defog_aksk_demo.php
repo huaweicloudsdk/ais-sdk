@@ -7,11 +7,12 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*************";
 $app_secret = "*************";
+$regionName = "*************";
 
 $filepath = "./data/defog-demo.png";
 $image = fileToBase64($filepath);
 
-$result = image_defog_aksk($app_key, $app_secret, $image, 1.5, true);
+$result = image_defog_aksk($regionName, $app_key, $app_secret, $image, 1.5, true);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"];

@@ -5,11 +5,11 @@ require "ais.php";
 /**
  * token 方式
  */
-function moderation_text($token, $items, $categories)
+function moderation_text($regionName, $token, $items, $categories)
 {
 
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . MODERATION_TEXT;
+    $_url = "https://" . strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . MODERATION_TEXT;
 
     $data = array(
         "categories" => $categories,               // 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
@@ -55,7 +55,7 @@ function moderation_text($token, $items, $categories)
 /**
  * ak,sk 方式
  */
-function moderation_text_aksk($_ak, $_sk, $items, $categories)
+function moderation_text_aksk($regionName, $_ak, $_sk, $items, $categories)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -66,7 +66,7 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = MODERATION_TEXT;
 
     $data = array(

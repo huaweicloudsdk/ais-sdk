@@ -16,7 +16,7 @@ $image = fileToBase64($filepath);
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
-$result = dark_enhance($token, $image, 0.9);
+$result = dark_enhance($regionName, $token, $image, 0.9);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"];

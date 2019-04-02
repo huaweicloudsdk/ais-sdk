@@ -7,6 +7,7 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*********";
 $app_secret = "*********";
+$regionName = "*************";
 
 $categories = array(
     array(
@@ -16,6 +17,6 @@ $categories = array(
 );
 
 $items = array("ad", "abuse", "politics", "porn", "contraband");
-$result = moderation_text_aksk($app_key, $app_secret, $categories, $items);
+$result = moderation_text_aksk($regionName, $app_key, $app_secret, $categories, $items);
 echo $result;
 

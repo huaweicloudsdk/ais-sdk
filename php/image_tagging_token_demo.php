@@ -19,9 +19,9 @@ $data_url = "https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg";
 $token = gettoken($username, $password, $domainName, $regionName);
 
 // 图片base64方式请求接口
-$result = image_tagging($token, $data, "", 5, "en", 2);
+$result = image_tagging($regionName, $token, $data, "", 5, "en", 2);
 echo $result;
 
 // 图片的obs 的url方式请求接口
-$result = image_tagging($token, "", $data_url, 5, "en", 2);
+$result = image_tagging($regionName, $token, "", $data_url, 5, "en", 2);
 echo $result;

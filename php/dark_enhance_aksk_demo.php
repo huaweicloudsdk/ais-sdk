@@ -8,11 +8,12 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*************";
 $app_secret = "*************";
+$regionName = "*************";
 
 $filepath = "./data/dark-enhance-demo.bmp";
 $image = fileToBase64($filepath);
 
-$result = dark_enhance_aksk($app_key, $app_secret, $image, 0.9);
+$result = dark_enhance_aksk($regionName, $app_key, $app_secret, $image, 0.9);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"];

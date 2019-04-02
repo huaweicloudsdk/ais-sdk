@@ -19,10 +19,10 @@ $data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-
 $token = gettoken($username, $password, $domainName, $regionName);
 
 // 图片base64方式请求接口
-$result = celebrity_recognition($token, $data, "");
+$result = celebrity_recognition($regionName, $token, $data, "");
 echo $result;
 
 // 图片的obs 的url方式请求接口
-$result = celebrity_recognition($token, "", $data_url);
+$result = celebrity_recognition($regionName, $token, "", $data_url);
 echo $result;
 

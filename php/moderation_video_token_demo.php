@@ -15,6 +15,5 @@ $demo_data_url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_reco
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
-$result = moderation_video($token, $demo_data_url, 5, array("terrorism", "porn", "politics"));
+$result = moderation_video($regionName, $token, $demo_data_url, 5, array("terrorism", "porn", "politics"));
 echo json_encode($result);
-

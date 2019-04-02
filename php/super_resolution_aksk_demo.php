@@ -7,13 +7,14 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*************";
 $app_secret = "*************";
+$regionName = "*************";
 
 $filepath = "./data/super-resolution-demo.png";
 $data = fileToBase64($filepath);
 
 $data_url = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 
-$result = super_resolution_aksk($app_key, $app_secret, $data, 3, "ESPCN");
+$result = super_resolution_aksk($regionName, $app_key, $app_secret, $data, 3, "ESPCN");
 echo $result;
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"];

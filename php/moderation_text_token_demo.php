@@ -22,6 +22,6 @@ $items = array("ad", "politics", "politics", "politics", "contraband", "contraba
 
 $token = gettoken($username, $password, $domainName, $regionName);
 
-$result = moderation_text($token, $categories, $items);
+$result = moderation_text($regionName, $token, $categories, $items);
 echo $result;
 

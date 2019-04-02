@@ -5,19 +5,25 @@ require "ais.php";
 /**
  * token 方式
  */
-function image_tagging($token, $data, $url, $threshold, $language, $limit = -1)
+function image_tagging($regionName, $token, $image, $url, $threshold, $language, $limit = -1)
 {
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . IMAGE_TAGGING;
+    $_url = "https://" . strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . IMAGE_TAGGING;
 
     $data = array(
-        "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
-        "url" => $url,                         // 与image二选一 图片的URL路径
         "language" => $language,               // 返回标签的语言类型为zh，中文
         "threshold" => $threshold,             // 置信度的阈值（0~100），低于此置信数的标签，将不会返回。默认值：0
         "limit" => $limit,                     // tag数，默认值： -1，表示返回所有
     );
+
+    if($image != ""){
+        $data["image"] = $image;               // 与url二选一 图片文件Base64编码字符串
+    }
+
+    if($url != ""){
+        $data["url"] = $url;                   // 与image二选一 图片的URL路径
+    }
 
     $curl = curl_init();
     $headers = array(
@@ -57,7 +63,7 @@ function image_tagging($token, $data, $url, $threshold, $language, $limit = -1)
 /**
  * ak,sk 方式
  */
-function image_tagging_aksk($_ak, $_sk, $data, $url, $threshold, $language, $limit = -1)
+function image_tagging_aksk($regionName, $_ak, $_sk, $image, $url, $threshold, $language, $limit = -1)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -68,16 +74,23 @@ function image_tagging_aksk($_ak, $_sk, $data, $url, $threshold, $language, $lim
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = IMAGE_TAGGING;
 
     $data = array(
-        "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
-        "url" => $url,                         // 与image二选一 图片的URL路径
         "language" => $language,               // 返回标签的语言类型为zh，中文
         "threshold" => $threshold,             // 置信度的阈值（0~100），低于此置信数的标签，将不会返回。默认值：0
         "limit" => $limit,                     // tag数，默认值： -1，表示返回所有
     );
+
+    if($image != ""){
+        $data["image"] = $image;               // 与url二选一 图片文件Base64编码字符串
+    }
+
+    if($url != ""){
+        $data["url"] = $url;                   // 与image二选一 图片的URL路径
+    }
+
 
     $headers = array(
         "Content-Type" => "application/json",

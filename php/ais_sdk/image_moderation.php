@@ -5,11 +5,11 @@ require "ais.php";
 /**
  * token 方式
  */
-function image_content($token, $data, $url, $categories, $threshold)
+function image_content($regionName, $token, $data, $url, $categories, $threshold)
 {
 
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_CONTENT_DETECT;
+    $_url = "https://" . strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . IMAGE_CONTENT_DETECT;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
@@ -56,7 +56,7 @@ function image_content($token, $data, $url, $categories, $threshold)
 /**
  * ak,sk 方式
  */
-function image_content_aksk($_ak, $_sk, $data, $url, $categories, $threshold)
+function image_content_aksk($regionName, $_ak, $_sk, $data, $url, $categories, $threshold)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -67,7 +67,7 @@ function image_content_aksk($_ak, $_sk, $data, $url, $categories, $threshold)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = IMAGE_CONTENT_DETECT;
 
     $data = array(

@@ -5,11 +5,11 @@ require "ais.php";
 /**
  * token 方式
  */
-function image_content_batch($token, $urls, $categories, $threshold)
+function image_content_batch($regionName, $token, $urls, $categories, $threshold)
 {
 
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_CONTENT_BATCH;
+    $_url = "https://" . strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . IMAGE_CONTENT_BATCH;
 
     $data = array(
         "urls" => $urls,                       // 图片对象的obs数组
@@ -53,7 +53,7 @@ function image_content_batch($token, $urls, $categories, $threshold)
 /**
  * ak,sk 方式
  */
-function image_content_batch_aksk($_ak, $_sk, $urls, $categories, $threshold)
+function image_content_batch_aksk($regionName, $_ak, $_sk, $urls, $categories, $threshold)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -64,7 +64,7 @@ function image_content_batch_aksk($_ak, $_sk, $urls, $categories, $threshold)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = strtr(MODERATION_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = IMAGE_CONTENT_BATCH;
 
     $data = array(

@@ -13,10 +13,13 @@ define("TTS_ENDPOINT", "sis.cn-north-1.myhuaweicloud.com");
 define("ASR_ENDPOINT", "sis.cn-north-1.myhuaweicloud.com");
 
 // 图像服务请求域名
-define("IMAGE_ENDPOINT", "image.cn-north-1.myhuaweicloud.com");
+define("IMAGE_ENDPOINT", "image.REGION.myhuaweicloud.com");
 
 // 内容审核服务请求域名
-define("MODERATION_ENDPOINT", "moderation.cn-north-1.myhuaweicloud.com");
+define("MODERATION_ENDPOINT", "moderation.REGION.myhuaweicloud.com");
+
+// 域名替换常量
+define("REPLACE_ENDPOINT", "REGION");
 
 // token请求域名
 define("IAM_ENPOINT", "iam.cn-north-1.myhuaweicloud.com");

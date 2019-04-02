@@ -19,10 +19,10 @@ $data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.
 $token = gettoken($username, $password, $domainName, $regionName);
 
 // 图片base64方式请求接口
-$result = image_content($token, $data, "", array("politics"), 0);
+$result = image_content($regionName, $token, $data, "", array("politics"), 0);
 echo $result;
 echo "\n";
 
 // 图片的obs 的url方式请求接口
-$result = image_content($token, "", $data_url, array("politics"), 0);
+$result = image_content($regionName, $token, "", $data_url, array("politics"), 0);
 echo $result;

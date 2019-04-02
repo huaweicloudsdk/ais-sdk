@@ -15,7 +15,7 @@ $token = gettoken($username, $password, $domainName, $regionName);
 
 $data_url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
 
-$result = asr_bgm($token, $data_url);
+$result = asr_bgm($regionName, $token, $data_url);
 echo $result;
 $resultobj = json_decode($result, true);
 echo $resultobj["result"]["audio_name"];

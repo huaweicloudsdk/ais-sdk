@@ -5,18 +5,22 @@ require "ais.php";
 /**
  * token 方式
  */
-function celebrity_recognition($token, $data, $url, $threshold = 0.48)
+function celebrity_recognition($regionName, $token, $image, $url, $threshold = 0.48)
 {
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . CELEBRITY_RECOGNITION;
+    $_url = "https://" . strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . CELEBRITY_RECOGNITION;
 
     $data = array(
-        "image" => $data,                   // 图片的base64信息，政治人物检测人脸部分不小于40*40像素
-        "url" => $url,                      // 图片的url地址信息，图片的URL路径，目前支持华为云上OBS提供的临时授权访问的URL，以及匿名公开授权的URL。
         "threshold" => $threshold           // 置信度的阈值（0~1），低于此置信数的标签，将不会返回
     );
+    if($image != ""){
+        $data['image'] = $image;            // 图片的base64信息，政治人物检测人脸部分不小于40*40像素
+    }
 
+    if($url != ""){
+        $data['url'] = $url;                // 图片的url地址信息，图片的URL路径，目前支持华为云上OBS提供的临时授权访问的URL，以及匿名公开授权的URL。
+    }
     $curl = curl_init();
     $headers = array(
         "Content-Type:application/json",
@@ -55,7 +59,7 @@ function celebrity_recognition($token, $data, $url, $threshold = 0.48)
 /**
  * ak,sk 方式
  */
-function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
+function celebrity_recognition_aksk($regionName, $_ak, $_sk, $image, $url, $threshold = 0.48)
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -66,14 +70,20 @@ function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = CELEBRITY_RECOGNITION;
 
     $data = array(
-        "image" => $data,                   // 图片的base64信息，政治人物检测人脸部分不小于40*40像素
-        "url" => $url,                      // 图片的url地址信息，图片的URL路径，目前支持华为云上OBS提供的临时授权访问的URL，以及匿名公开授权的URL。
         "threshold" => $threshold           // 置信度的阈值（0~1），低于此置信数的标签，将不会返回
     );
+
+    if($image != ""){
+        $data['image'] = $image;            // 图片的base64信息，政治人物检测人脸部分不小于40*40像素
+    }
+
+    if($url != ""){
+        $data['url'] = $url;                // 图片的url地址信息，图片的URL路径，目前支持华为云上OBS提供的临时授权访问的URL，以及匿名公开授权的URL。
+    }
 
     $headers = array(
         "Content-Type" => "application/json",

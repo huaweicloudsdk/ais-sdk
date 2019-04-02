@@ -5,11 +5,11 @@ require "ais.php";
 /**
  * token 方式
  */
-function super_resolution($token, $data, $scale = 3, $model = "ESPCN")
+function super_resolution($regionName, $token, $data, $scale = 3, $model = "ESPCN")
 {
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . SURPER_RESOLUTION;
+    $_url = "https://" . strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName)) . SURPER_RESOLUTION;
 
     $data = array(
         "image" => $data,                     // 图片文件BASE64编码字符串
@@ -56,7 +56,7 @@ function super_resolution($token, $data, $scale = 3, $model = "ESPCN")
 /**
  * ak,sk 方式
  */
-function super_resolution_aksk($_ak, $_sk, $data, $scale = 3, $model = "ESPCN")
+function super_resolution_aksk($regionName, $_ak, $_sk, $data, $scale = 3, $model = "ESPCN")
 {
     // 构建ak，sk对象
     $signer = new Signer();
@@ -67,7 +67,7 @@ function super_resolution_aksk($_ak, $_sk, $data, $scale = 3, $model = "ESPCN")
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = strtr(IMAGE_ENDPOINT, array(REPLACE_ENDPOINT => $regionName));
     $req->uri = SURPER_RESOLUTION;
 
     $data = array(

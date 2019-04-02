@@ -19,10 +19,10 @@ $data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.j
 $token = gettoken($username, $password, $domainName, $regionName);
 
 // 图片base64方式请求接口
-$result = image_antiporn($token, $data, "");
+$result = image_antiporn($regionName, $token, $data, "");
 echo $result;
 
 // 图片的obs 的url方式请求接口
-$result = image_antiporn($token, "", $data_url);
+$result = image_antiporn($regionName, $token, "", $data_url);
 echo $result;
 
