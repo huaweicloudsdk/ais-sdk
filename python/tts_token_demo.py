@@ -13,8 +13,9 @@ if __name__ == '__main__':
     user_name = '*****'
     password = '******'
     account_name = '*****'  # the same as user_name in commonly use
+    region_name = '******'
 
-    token = get_token(user_name, password, account_name)
+    token = get_token(user_name, password, account_name, region_name)
 
     # call interface use the default config
     result = tts(token, '语音合成为你的业务增加交互的能力.')

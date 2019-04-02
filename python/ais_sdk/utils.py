@@ -1,8 +1,10 @@
 # -*- coding:utf-8 -*-
 import base64
-import os
 import urllib
+import ConfigParser
+import os
 
+conf = None
 
 def encode_to_base64(filename):
     """
@@ -30,3 +32,15 @@ def decode_to_wave_file(base64_encoded_str, filename):
     wf = open(filename, 'wb')
     wf.write(wave_data)
     wf.close()
+
+
+def get_region_endponit(service_name, region_name):
+    global conf
+    if conf is None:
+        configpath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "endpoints.ini")
+        conf = ConfigParser.ConfigParser()
+        conf.read(configpath)
+        return conf.get(service_name, region_name)
+    else:
+        return conf.get(service_name, region_name)
+

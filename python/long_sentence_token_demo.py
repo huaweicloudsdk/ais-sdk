@@ -11,9 +11,10 @@ if __name__ == '__main__':
     user_name = '******'
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
+    region_name = '******'
 
     demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3'
-    token = get_token(user_name, password, account_name)
+    token = get_token(user_name, password, account_name, region_name)
 
     # call interface use the url
     result = long_sentence(token, '', demo_data_url)

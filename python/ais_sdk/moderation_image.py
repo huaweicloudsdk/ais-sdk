@@ -6,20 +6,26 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
+from utils import get_region_endponit
 
 
 #
 # access moderation image,post data by token
 #
-def moderation_image(token, image, url, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image' % ais.AisEndpoint.MODERATION_ENDPOINT
+def moderation_image(region_name, token, image, url, categories=None, threshold=None):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image' % endponit
 
     _data = {
-        "image": image,
-        "url": url,
         "categories": categories,
         "threshold": threshold,
     }
+
+
+    if image !='':
+        _data['image'] = image
+    if url !='':
+        _data['url'] = url
 
     kreq = urllib2.Request(url=_url)
     kreq.add_header('Content-Type', 'application/json')
@@ -58,23 +64,28 @@ def moderation_image(token, image, url, categories=None, threshold=None):
 #
 # access moderation image,post data by token
 #
-def moderation_image_aksk(_ak, _sk, image, url, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image' % ais.AisEndpoint.MODERATION_ENDPOINT
+def moderation_image_aksk(region_name, _ak, _sk, image, url, categories=None, threshold=None):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
     _data = {
-        "image": image,
-        "url": url,
         "categories": categories,
         "threshold": threshold,
     }
 
+
+    if image !='':
+        _data['image'] = image
+    if url !='':
+        _data['url'] = url
+
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/moderation/image"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

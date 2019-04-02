@@ -6,15 +6,19 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
+from utils import get_region_endponit
 
 
-def request_moderation_url(token, inner_path, image_str=None, url=None):
-    _url = 'https://' + ais.AisEndpoint.MODERATION_ENDPOINT + inner_path
+def request_moderation_url(endponit, token, inner_path, image_str=None, url=None):
+    _url = 'https://' + endponit + inner_path
 
-    _data = {
-        "image": image_str,
-        "url": url
-    }
+    _data = {}
+
+    if image_str != '':
+        _data['image'] = image_str
+
+    if url != '':
+        _data['url'] = url
 
     kreq = urllib2.Request(url=_url)
     kreq.add_header('Content-Type', 'application/json')
@@ -53,22 +57,26 @@ def request_moderation_url(token, inner_path, image_str=None, url=None):
 #
 # access moderation, image anti-porn,post data by token
 #
-def image_antiporn(token, image_str=None, url=None):
-    print request_moderation_url(token, '/v1.1/moderation/image/anti-porn', image_str, url)
-    print request_moderation_url(token, '/v1.0/moderation/image', image_str, url)
+def image_antiporn(region_name, token, image_str=None, url=None):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    print request_moderation_url(endponit, token, '/v1.1/moderation/image/anti-porn', image_str, url)
+    print request_moderation_url(endponit, token, '/v1.0/moderation/image', image_str, url)
 
 
-def request_moderation_url_aksk(sig, inner_path, image_str=None, url=None):
-    _url = 'https://' + ais.AisEndpoint.MODERATION_ENDPOINT + inner_path
+def request_moderation_url_aksk(endponit, sig, inner_path, image_str=None, url=None):
+    _url = 'https://' + endponit + inner_path
 
-    _data = {
-        "image": image_str,
-        "url": url
-    }
+    _data = {}
+
+    if image_str != '':
+        _data['image'] = image_str
+
+    if url != '':
+        _data['url'] = url
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = inner_path
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
@@ -105,9 +113,10 @@ def request_moderation_url_aksk(sig, inner_path, image_str=None, url=None):
 #
 # access moderation, image anti-porn,post data by ak,sk
 #
-def image_antiporn_aksk(_ak, _sk, image_str=None, url=None):
+def image_antiporn_aksk(region_name, _ak, _sk, image_str=None, url=None):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
-    print request_moderation_url_aksk(sig, '/v1.1/moderation/image/anti-porn', image_str, url)
-    print request_moderation_url_aksk(sig, '/v1.0/moderation/image', image_str, url)
+    print request_moderation_url_aksk(endponit, sig, '/v1.1/moderation/image/anti-porn', image_str, url)
+    print request_moderation_url_aksk(endponit, sig, '/v1.0/moderation/image', image_str, url)
