@@ -17,7 +17,6 @@ def moderation_text(region_name, token, text, type='content',
                     categories=["ad", "porn", "abuse", "politics", "contraband", "flood"]):
     endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
     _url = 'https://%s/v1.0/moderation/text' % endponit
-
     _data = {
         "categories": categories,
         "items": [

@@ -103,6 +103,7 @@ def _video_tagging(endponit, token, url, frame_interval=5, language='zh', thresh
 def _get_result(endponit, token, job_id):
     _url_tmpl = 'https://%s/v1.0/video/tagging?job_id=%s'
     _url = _url_tmpl % (endponit, job_id)
+    
     _headers = {
         "Content-Type": "application/json",
         "X-Auth-Token": token
