@@ -7,22 +7,26 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
+from ais_sdk.utils import get_region_endponit
 
 
 #
 # access moderation detect,post data by token
 #
-def clarity_detect(token, image, url, threshold=0.8):
-    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.MODERATION_ENDPOINT
+def clarity_detect(region_name, token, image, url, threshold=0.8):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % endponit
+
+    _data = {
+        "threshold": threshold
+    }
 
     if image != '':
         image = image.decode("utf-8")
+        _data['image'] = image
 
-    _data = {
-        "image": image,
-        "url": url,
-        "threshold": threshold
-    }
+    if url != '':
+        _data['url'] = url
 
     _headers = {
         "Content-Type": "application/json",
@@ -62,25 +66,28 @@ def clarity_detect(token, image, url, threshold=0.8):
 #
 # access moderation detect,post data by ak,sk
 #
-def clarity_detect_aksk(_ak, _sk, image, url, threshold=0.8):
-    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.MODERATION_ENDPOINT
+def clarity_detect_aksk(region_name, _ak, _sk, image, url, threshold=0.8):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
-    if image != '':
-        image = image.decode('utf-8')
-
     _data = {
-        "image": image,
-        "url": url,
         "threshold": threshold
     }
 
+    if image != '':
+        image = image.decode('utf-8')
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
+
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/moderation/image/clarity-detect"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

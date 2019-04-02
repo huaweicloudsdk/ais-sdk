@@ -9,13 +9,12 @@ import time
 import ais_sdk.ais as ais
 from ais_sdk.utils import get_region_endponit
 
-
 #
-# access asr, long_sentence，post data by token
+# access image, video tagging，post data by token
 #
-def moderation_video(region_name, token, url, frame_interval=5, categories=['politics', 'terrorism']):
-    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
-    status, r = _moderation_video(endponit, token, url, frame_interval, categories)
+def video_tagging(region_name, token, url, frame_interval=5, language='zh', threshold=60.0):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    status, r = _video_tagging(endponit, token, url, frame_interval, language, threshold)
 
     if status != 200:
         return r
@@ -51,15 +50,16 @@ def moderation_video(region_name, token, url, frame_interval=5, categories=['pol
 
 
 #
-# moderation_video, post the data
+# video_tagging, post the data
 #
-def _moderation_video(endponit, token, url, frame_interval=5, categories=['politics', 'terrorism']):
-    _url = 'https://%s/v1.0/moderation/video' % endponit
+def _video_tagging(endponit, token, url, frame_interval=5, language='zh', threshold='60.0'):
+    _url = 'https://%s/v1.0/video/tagging' % endponit
 
     _data = {
         "url": url,
         "frame_interval": frame_interval,
-        "categories": categories
+        "language": language,
+        "threshold": threshold
     }
     _headers = {
         "Content-Type": "application/json",
@@ -98,10 +98,10 @@ def _moderation_video(endponit, token, url, frame_interval=5, categories=['polit
 
 
 #
-# access asr, moderation vedio, get the result
+# access image, video tagging, get the result
 #
 def _get_result(endponit, token, job_id):
-    _url_tmpl = 'https://%s/v1.0/moderation/video?job_id=%s'
+    _url_tmpl = 'https://%s/v1.0/video/tagging?job_id=%s'
     _url = _url_tmpl % (endponit, job_id)
     _headers = {
         "Content-Type": "application/json",
@@ -138,15 +138,15 @@ def _get_result(endponit, token, job_id):
 
 
 #
-# access asr, long_sentence，post data by ak,sk
+# access image, video_tagging，post data by ak,sk
 #
-def moderation_video_aksk(region_name, _ak, _sk, url, frame_interval=5, categories=['politics', 'terrorism']):
-    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+def video_tagging_aksk(region_name, _ak, _sk, url, frame_interval=5, language='zh', threshold=60.0):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
-    status, r = _moderation_video_aksk(endponit, sig, url, frame_interval, categories)
+    status, r = _video_tagging_aksk(endponit, sig, url, frame_interval, language, threshold)
 
     if status != 200:
         return r
@@ -182,21 +182,22 @@ def moderation_video_aksk(region_name, _ak, _sk, url, frame_interval=5, categori
 
 
 #
-# moderation_video, post the data
+# video_tagging, post the data
 #
-def _moderation_video_aksk(endponit, sig, url, frame_interval=5, categories=['politics', 'terrorism']):
-    _url = 'https://%s/v1.0/moderation/video' % endponit
+def _video_tagging_aksk(endponit, sig, url, frame_interval=5, language='zh', threshold=60.0):
+    _url = 'https://%s/v1.0/video/tagging' % endponit
 
     _data = {
         "url": url,
         "frame_interval": frame_interval,
-        "categories": categories
+        "language": language,
+        "threshold": threshold
     }
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
     kreq.host = endponit
-    kreq.uri = "/v1.0/moderation/video"
+    kreq.uri = "/v1.0/video/tagging"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
     kreq.body = json.dumps(_data)
@@ -232,16 +233,16 @@ def _moderation_video_aksk(endponit, sig, url, frame_interval=5, categories=['po
 
 
 #
-# access asr, moderation vedio, get the result
+# access image, video tagging, get the result
 #
 def _get_result_aksk(endponit, sig, job_id):
-    _url_tmpl = 'https://%s/v1.0/moderation/video?job_id=%s'
+    _url_tmpl = 'https://%s/v1.0/video/tagging?job_id=%s'
     _url = _url_tmpl % (endponit, job_id)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
     kreq.host = endponit
-    kreq.uri = "/v1.0/moderation/video"
+    kreq.uri = "/v1.0/video/tagging"
     kreq.method = "GET"
     kreq.headers = {"Content-Type": "application/json"}
     kreq.query = {'job_id': job_id}

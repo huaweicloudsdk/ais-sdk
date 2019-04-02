@@ -7,24 +7,27 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
-
+from ais_sdk.utils import get_region_endponit
 
 #
 # access image tagging
 #
-def image_tagging(token, image, url, languzge, limit=-1, threshold=0.0):
-    _url = 'https://%s/v1.0/image/tagging' % ais.AisEndpoint.IMAGE_ENDPOINT
-
-    if image != '':
-        image = image.decode("utf-8")
+def image_tagging(region_name, token, image, url, languzge, limit=-1, threshold=0.0):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/image/tagging' % endponit
 
     _data = {
-        "image": image,
-        "url": url,
         "language": languzge,
         "limit": limit,
         "threshold": threshold
     }
+
+    if image != '':
+        image = image.decode("utf-8")
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
 
     _headers = {
         "Content-Type": "application/json",
@@ -64,27 +67,30 @@ def image_tagging(token, image, url, languzge, limit=-1, threshold=0.0):
 #
 # access image tagging ，post data by ak,sk
 #
-def image_tagging_aksk(_ak, _sk, image, url, languzge, limit=-1, threshold=0.0):
-    _url = 'https://%s/v1.0/image/tagging' % ais.AisEndpoint.IMAGE_ENDPOINT
+def image_tagging_aksk(region_name, _ak, _sk, image, url, languzge, limit=-1, threshold=0.0):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/image/tagging' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
-    if image != '':
-        image = image.decode('utf-8')
-
     _data = {
-        "image": image,
-        "url": url,
         "language": languzge,
         "limit": limit,
         "threshold": threshold
     }
 
+    if image != '':
+        image = image.decode("utf-8")
+        _data['image'] = image
+
+    if url != '':
+        _data['url'] = url
+
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/image/tagging"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

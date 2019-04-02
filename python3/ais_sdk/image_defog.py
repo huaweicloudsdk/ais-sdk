@@ -7,13 +7,14 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
-
+from ais_sdk.utils import get_region_endponit
 
 #
 # access image defog,post data by token
 #
-def image_defog(token, image, gamama=1.5):
-    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.IMAGE_ENDPOINT
+def image_defog(region_name, token, image, gamama=1.5):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/vision/defog' % endponit
 
     if image != '':
         image = image.decode("utf-8")
@@ -61,8 +62,9 @@ def image_defog(token, image, gamama=1.5):
 #
 # access image defog,post data by ak,sk
 #
-def image_defog_aksk(_ak, _sk, image, gamama=1.5):
-    _url = 'https://%s/v1.0/vision/defog' % ais.AisEndpoint.IMAGE_ENDPOINT
+def image_defog_aksk(region_name, _ak, _sk, image, gamama=1.5):
+    endponit = get_region_endponit(ais.AisService.IMAGE_SERVICE, region_name)
+    _url = 'https://%s/v1.0/vision/defog' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -75,7 +77,7 @@ def image_defog_aksk(_ak, _sk, image, gamama=1.5):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/vision/defog"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

@@ -6,13 +6,15 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
+from ais_sdk.utils import get_region_endponit
 
 
 #
 # access moderation image content of batch,post data by token
 #
-def moderation_image_batch(token, urls, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.MODERATION_ENDPOINT
+def moderation_image_batch(region_name, token, urls, categories=None, threshold=None):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image/batch' % endponit
 
     _data = {
         "urls": urls,
@@ -58,8 +60,9 @@ def moderation_image_batch(token, urls, categories=None, threshold=None):
 #
 # access moderation image content of batch,post data by aksk
 #
-def moderation_image_batch_aksk(_ak, _sk, urls, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image/batch' % ais.AisEndpoint.MODERATION_ENDPOINT
+def moderation_image_batch_aksk(region_name, _ak, _sk, urls, categories=None, threshold=None):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    _url = 'https://%s/v1.0/moderation/image/batch' % endponit
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -73,7 +76,7 @@ def moderation_image_batch_aksk(_ak, _sk, urls, categories=None, threshold=None)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = "/v1.0/moderation/image/batch"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

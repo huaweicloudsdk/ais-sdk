@@ -6,13 +6,13 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
+from ais_sdk.utils import get_region_endponit
 
-
-def request_moderation_url(token, inner_path, image_str=None, url=None):
-    _url = 'https://%s' % (ais.AisEndpoint.MODERATION_ENDPOINT + inner_path)
+def request_moderation_url(endponit, token, inner_path, image_str=None, url=None):
+    _url = 'https://%s' % (endponit + inner_path)
 
     if image_str != '':
-        image_str = image_str.decode("utf-8")
+        image_str = image_str.decode('utf-8')
 
     _data = {
         "image": image_str,
@@ -57,13 +57,14 @@ def request_moderation_url(token, inner_path, image_str=None, url=None):
 #
 # access moderation, image anti-porn,post data by token
 #
-def image_antiporn(token, image_str=None, url=None):
-    print(request_moderation_url(token, '/v1.1/moderation/image/anti-porn', image_str, url))
-    print(request_moderation_url(token, '/v1.0/moderation/image', image_str, url))
+def image_antiporn(region_name, token, image_str=None, url=None):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
+    print(request_moderation_url(endponit, token, '/v1.1/moderation/image/anti-porn', image_str, url))
+    print(request_moderation_url(endponit, token, '/v1.0/moderation/image', image_str, url))
 
 
-def request_moderation_url_aksk(sig, inner_path, image_str=None, url=None):
-    _url = 'https://%s' % (ais.AisEndpoint.MODERATION_ENDPOINT + inner_path)
+def request_moderation_url_aksk(endponit, sig, inner_path, image_str=None, url=None):
+    _url = 'https://%s' % (endponit + inner_path)
 
     if image_str != '':
         image_str = image_str.decode('utf-8')
@@ -75,7 +76,7 @@ def request_moderation_url_aksk(sig, inner_path, image_str=None, url=None):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endponit
     kreq.uri = inner_path
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
@@ -115,9 +116,10 @@ def request_moderation_url_aksk(sig, inner_path, image_str=None, url=None):
 #
 # access moderation, image anti-porn,post data by ak,sk
 #
-def image_antiporn_aksk(_ak, _sk, image_str=None, url=None):
+def image_antiporn_aksk(region_name, _ak, _sk, image_str=None, url=None):
+    endponit = get_region_endponit(ais.AisService.MODERATION_SERVICE, region_name)
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
-    print(request_moderation_url_aksk(sig, '/v1.1/moderation/image/anti-porn', image_str, url))
-    print(request_moderation_url_aksk(sig, '/v1.0/moderation/image', image_str, url))
+    print(request_moderation_url_aksk(endponit, sig, '/v1.1/moderation/image/anti-porn', image_str, url))
+    print(request_moderation_url_aksk(endponit, sig, '/v1.0/moderation/image', image_str, url))

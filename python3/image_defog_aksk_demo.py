@@ -10,9 +10,10 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    region_name = '************'
 
     # call interface use base64 file
-    result = image_defog_aksk(app_key, app_secret, encode_to_base64('data/defog-demo.png'), '1.5')
+    result = image_defog_aksk(region_name, app_key, app_secret, encode_to_base64('data/defog-demo.png'), '1.5')
     result_obj = json.loads(result)
     decode_to_wave_file(result_obj['result'], 'data/defog-demo-aksk.png')
 

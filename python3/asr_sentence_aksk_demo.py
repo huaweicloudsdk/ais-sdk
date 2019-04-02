@@ -9,7 +9,7 @@ if __name__ == '__main__':
     app_key = '*************'
     app_secret = '************'
 
-    demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav'
+    demo_data_url = 'https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/asr-sentence.wav'
 
     # call interface use the url
     result = asr_sentence_aksk(app_key, app_secret,'', demo_data_url,'wav', '16k')

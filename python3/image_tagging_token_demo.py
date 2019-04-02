@@ -10,15 +10,16 @@ if __name__ == '__main__':
     user_name = '******'
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
+    region_name = '******'
 
-    demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg'
+    demo_data_url = 'https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/tagging'
 
-    token = get_token(user_name, password, account_name)
+    token = get_token(user_name, password, account_name, region_name)
 
     # call interface use the url
-    result = image_tagging(token, "", demo_data_url, 'zh', 5, 30)
+    result = image_tagging(region_name, token, "", demo_data_url, 'zh', 5, 30)
     print(result)
 
     # call interface use the file
-    result = image_tagging(token, encode_to_base64('data/image-tagging-demo.jpg'), '', 'zh', 5, 60)
+    result = image_tagging(region_name, token, encode_to_base64('data/image-tagging-demo.jpg'), '', 'zh', 5, 60)
     print(result)

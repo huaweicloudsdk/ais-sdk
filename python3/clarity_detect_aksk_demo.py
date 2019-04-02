@@ -8,13 +8,14 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    region_name = '************'
 
     demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg'
 
     # call interface use the url
-    result = clarity_detect_aksk(app_key, app_secret, "", demo_data_url, 0.8)
+    result = clarity_detect_aksk(region_name, app_key, app_secret, "", demo_data_url, 0.8)
     print(result)
 
     # call interface use the file
-    result = clarity_detect_aksk(app_key, app_secret, encode_to_base64('data/moderation-clarity-detect.jpg'), '', 0.8)
+    result = clarity_detect_aksk(region_name, app_key, app_secret, encode_to_base64('data/moderation-clarity-detect.jpg'), '', 0.8)
     print (result)
