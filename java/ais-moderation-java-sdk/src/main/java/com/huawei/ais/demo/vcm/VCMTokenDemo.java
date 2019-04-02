@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.huawei.ais.demo.RequestSetup;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
@@ -24,9 +25,9 @@ import com.huawei.ais.sdk.util.HttpClientUtils;
  */
 public class VCMTokenDemo {
 
-	private static final String REGION = "cn-north-1";
-	private static final String AIS_ENDPOINT = "https://ais." + REGION + ".myhuaweicloud.com";
-	private static final String IAM_ENDPOINT = "https://iam." + REGION + ".myhuaweicloud.com";
+	private static final String REGION = "******";
+	private static final String AIS_ENDPOINT = String.format(RequestSetup.getEndpointTemplate(), REGION);
+	private static final String IAM_ENDPOINT = "https://iam.cn-north-1.myhuaweicloud.com";
 
 	private static final String TOKEN_URL = IAM_ENDPOINT + "/v3/auth/tokens";
 	private static final String SUBMIT_JOB_URL = AIS_ENDPOINT + "/v1.0/moderation/video";
@@ -36,19 +37,17 @@ public class VCMTokenDemo {
 	private static final String JSON_ROOT = "result";
 	private static final long QUERY_JOB_RESULT_INTERVAL = 2000L;
 
-	private static int connectionTimeout = 5000; //连接目标url超时限制参数
-	private static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
-	private static int socketTimeout = 5000;//获取服务器响应数据超时限制参数
+	// 配置超时参数
+	private static RequestSetup requestSetup = new RequestSetup(5000, 1000, 5000);
 
 	public static void main(String[] args)
 			throws UnsupportedOperationException, IOException, InterruptedException {
 		// 1. 配置好访问视频审核服务的基本信息, 获取Token
-		String username = "zhangshan";    // 用户名
-		String domainName = "MyCompany";  // 账户名，参考地址：https://console.huaweicloud.com/iam/#/myCredential
-		String password = "*******";      // 对应用户名的密码
-		String regionName = "cn-north-1"; // 服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
+		String username = "zhangsan";    // 用户名
+		String domainName = "******";  // 账户名，参考地址：https://console.huaweicloud.com/iam/#/myCredential
+		String password = "******";      // 对应用户名的密码
 
-		String token = getToken(username, domainName, password, regionName);
+		String token = getToken(username, domainName, password, REGION);
 
 		// 2. 准备好视频文件的OBS地址，公共读状态，或者临时授权下载状态
 		String videoUrl = "https://ais-sample-data.obs.cn-north-1.myhwclouds.com/news.mp4";
@@ -73,7 +72,7 @@ public class VCMTokenDemo {
 				new BasicHeader("Content-Type", "application/json")};
 
 		HttpResponse response = HttpClientUtils.post(SUBMIT_JOB_URL, headers,
-				HttpJsonDataUtils.ObjectToHttpEntity(jobMetaInfo), connectionTimeout, connectionRequestTimeout, socketTimeout);
+				HttpJsonDataUtils.ObjectToHttpEntity(jobMetaInfo), requestSetup.getConnectionTimeout(), requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 
 		if (!HttpJsonDataUtils.isOKResponded(response)) {
 			System.out.println("Submit the job failed!");
@@ -141,8 +140,8 @@ public class VCMTokenDemo {
 		Header[] headers = new Header[]{new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
 
-		HttpResponse response = HttpClientUtils.post(TOKEN_URL, headers, stringEntity, connectionTimeout,
-				connectionRequestTimeout, socketTimeout);
+		HttpResponse response = HttpClientUtils.post(TOKEN_URL, headers, stringEntity, requestSetup.getConnectionTimeout(),
+				requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 		if (!HttpJsonDataUtils.isOKResponded(response)) {
 			System.out.println("Request body:" + HttpJsonDataUtils.prettify(requestBody));
 			System.out.println(HttpJsonDataUtils.responseToString(response));

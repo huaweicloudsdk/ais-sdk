@@ -21,12 +21,11 @@ import java.net.URISyntaxException;
  * 使用Token认证方式访问服务
  */
 public class TokenDemo {
-	private static final String URL_TEMPLATE = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch?job_id=%s";
+	private static final String ENDPOINT_TEMPLATE = RequestSetup.getEndpointTemplate();
+	private static final String URL_TEMPLATE = RequestSetup.getEndpointTemplate()+"/v1.0/moderation/image/batch?job_id=%s";
 	private static final long POLLING_INTERVAL = 2000L;
-	public static int connectionTimeout = 5000; //连接目标url超时限制参数
-	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
-	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
-	
+	private static final RequestSetup requestSetup = new RequestSetup(5000, 1000, 5000);
+
 	/**
 	 * 构造使用Token方式访问服务的请求Token对象
 	 * 
@@ -95,7 +94,8 @@ public class TokenDemo {
 		StringEntity stringEntity = new StringEntity(requestBody,
 				"utf-8");
 
-		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(),
+				requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 		Header[] xst = response.getHeaders("X-Subject-Token");
 		return xst[0].getValue();
 
@@ -127,13 +127,14 @@ public class TokenDemo {
 	 * 			文件路径
 	 * @throws IOException
 	 */
-	public static void requestModerationAntiPornBase64(String token, String formFile) throws IOException {
-		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.1/moderation/image/anti-porn";
+	public static void requestModerationAntiPornBase64(String regionName, String token, String formFile) throws IOException {
+		String url = String.format(ENDPOINT_TEMPLATE, regionName)+ "/v1.1/moderation/image/anti-porn";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
 		try {
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(),
+					requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
 			System.out.println(content);
@@ -150,8 +151,8 @@ public class TokenDemo {
 	 * 			文件路径
 	 * @throws IOException
 	 */
-	public static void requestModerationClarityBase64(String token, String formFile) throws IOException {
-		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/clarity-detect";
+	public static void requestModerationClarityBase64(String regionName, String token, String formFile) throws IOException {
+		String url = String.format(ENDPOINT_TEMPLATE, regionName) + "/v1.0/moderation/image/clarity-detect";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
@@ -161,7 +162,8 @@ public class TokenDemo {
 			json.put("threshhold", 0.8);
 						
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(),
+					requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
 			System.out.println(content);
@@ -178,8 +180,8 @@ public class TokenDemo {
 	 * 			文件路径
 	 * @throws IOException
 	 */
-	public static void requestModerationDistortionCorrectBase64(String token, String formFile) throws IOException {
-		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/distortion-correct";
+	public static void requestModerationDistortionCorrectBase64(String regionName, String token, String formFile) throws IOException {
+		String url = String.format(ENDPOINT_TEMPLATE, regionName)+ "/v1.0/moderation/image/distortion-correct";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
@@ -189,7 +191,8 @@ public class TokenDemo {
 			json.put("correction", true);
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 			
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(),
+					requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 			
 			if(ResponseProcessUtils.isRespondedOK(response)) {
 				ResponseProcessUtils.processResponseWithImage(response, "data/moderation-distortion.corrected.jpg");
@@ -214,8 +217,8 @@ public class TokenDemo {
 	 * 			文本内容
 	 * @throws IOException
 	 */
-	public static void requestModerationTextContentBase64(String token, String textModeration) throws IOException {
-		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/text";
+	public static void requestModerationTextContentBase64(String regionName, String token, String textModeration) throws IOException {
+		String url = String.format(ENDPOINT_TEMPLATE, regionName) + "/v1.0/moderation/text";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			JSONObject json = new JSONObject();
@@ -231,7 +234,8 @@ public class TokenDemo {
 			json.put("items", items);
 			
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(),
+					requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
 			System.out.println(content);
@@ -248,8 +252,8 @@ public class TokenDemo {
 	 * 			文件路径
 	 * @throws IOException
 	 */
-	public static void requestModerationImageContentBase64(String token, String formFile) throws IOException {
-		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image";
+	public static void requestModerationImageContentBase64(String regionName, String token, String formFile) throws IOException {
+		String url = String.format(ENDPOINT_TEMPLATE, regionName) + "/v1.0/moderation/image";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
@@ -260,7 +264,8 @@ public class TokenDemo {
 			json.put("threshold", 0);
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 			
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(),
+					requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
@@ -280,8 +285,8 @@ public class TokenDemo {
      * 			obs 对象数组
      * @throws IOException
      */
-    public static void requestModerationImageContentBatch(String token, String[] urls) throws IOException {
-        String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch";
+    public static void requestModerationImageContentBatch(String regionName, String token, String[] urls) throws IOException {
+        String url = String.format(ENDPOINT_TEMPLATE, regionName) + "/v1.0/moderation/image/batch";
         Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
         try {
             JSONObject json = new JSONObject();
@@ -290,7 +295,8 @@ public class TokenDemo {
             json.put("threshold", 0);
             StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 
-            HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+            HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(),
+					requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 
             System.out.println(response);
             String content = IOUtils.toString(response.getEntity().getContent());
@@ -310,8 +316,8 @@ public class TokenDemo {
      * 			obs 对象数组
      * @throws IOException
      */
-	public static void requestModerationImageContentBatchJobs(String token, String[] urls){
-		String url = "https://moderation.cn-north-1.myhuaweicloud.com/v1.0/moderation/image/batch/jobs";
+	public static void requestModerationImageContentBatchJobs(String regionName, String token, String[] urls){
+		String url = String.format(ENDPOINT_TEMPLATE, regionName) + "/v1.0/moderation/image/batch/jobs";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			JSONObject json = new JSONObject();
@@ -319,7 +325,8 @@ public class TokenDemo {
 			json.put("categories", new String[] {"politics"}); //检测内容
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(),
+					requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 
 			// 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
 			ResponseProcessUtils.processResponseStatus(response);
@@ -329,7 +336,7 @@ public class TokenDemo {
 			}
 
 			String jobId = getJobId(response);
-			String uri = String.format(URL_TEMPLATE, jobId);
+			String uri = String.format(URL_TEMPLATE, regionName, jobId);
 			System.out.println(uri);
 
 			while(true){
@@ -395,40 +402,35 @@ public class TokenDemo {
 	 * 调用主入口函数
 	 */
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
-		String username = "zhangshan";		// 此处，请输入用户名
-		String password = "*******";		// 此处，请输入对应用户名的密码
-		String projectName = "cn-north-1";	// 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
+		String username = "zhangsan";		// 此处，请输入用户名
+		String password = "******";		// 此处，请输入对应用户名的密码
+		String regionName = "******";	// 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
 
-		String token = getToken(username, password, projectName);
+		String token = getToken(username, password, regionName);
 		System.out.println(token);
-		
-		// 设置三个超时参数限制连接超时，分别如下
-		connectionTimeout = 5000; //连接目标url超时限制
-		connectionRequestTimeout = 1000;//连接池获取可用连接超时限制
-		socketTimeout = 5000;//获取服务器响应数据超时限制
 				
 		//运行图像反黄检测服务
-	    //requestModerationAntiPornBase64(token, "data/moderation-demo-1.jpg");
+	    //requestModerationAntiPornBase64(regionName, token, "data/moderation-demo-1.jpg");
 		
 		//运行清晰度检测服务
-		//requestModerationClarityBase64(token, "data/moderation-demo-1.jpg");
-		
+		//requestModerationClarityBase64(regionName, token, "data/moderation-demo-1.jpg");
+
 		//运行扭曲矫正服务
-		//requestModerationDistortionCorrectBase64(token, "data/moderation-demo-1.jpg");
-		
+		//requestModerationDistortionCorrectBase64(regionName, token, "data/moderation-demo-1.jpg");
+
 		//运行文本内容检测服务
-		//requestModerationTextContentBase64(token, "luo聊请+我，微信110");
-		
+		//requestModerationTextContentBase64(regionName, token, "luo聊请+我，微信110");
+
 		//运行图像内容检测服务
-		//requestModerationImageContentBase64(token, "data/moderation-demo-1.jpg");
+		//requestModerationImageContentBase64(regionName, token, "data/moderation-demo-1.jpg");
 
 		//运行图像内容检测异步批量服务
 		String url1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
 		String url2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
-		requestModerationImageContentBatchJobs(token, new String[]{url1,url2});
+		//requestModerationImageContentBatchJobs(regionName, token, new String[]{url1,url2});
 
 		//运行图像内容检测批量服务
-		//requestModerationImageContentBatch(token, new String[]{url1,url2});
+		requestModerationImageContentBatch(regionName, token, new String[]{url1,url2});
 				
 	}
 

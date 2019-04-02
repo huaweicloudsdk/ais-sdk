@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.huawei.ais.demo.RequestSetup;
 import org.apache.http.HttpResponse;
 
 import com.huawei.ais.demo.ClientContextUtils;
@@ -29,16 +30,15 @@ public class VCMAkskDemo {
 	private static final String JSON_ROOT = "result";
 	private static final long QUERY_JOB_RESULT_INTERVAL = 2000L;
 
-	private static int connectionTimeout = 5000; //连接目标url超时限制参数
-	private static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
-	private static int socketTimeout = 5000;//获取服务器响应数据超时限制参数
+	private static RequestSetup requestSetup = new RequestSetup(5000, 1000, 5000);
 
 	public static void main(String[] args) {
 		//
 		// 1. 在ClientContextUtils类中, 配置好访问视频审核服务的基本信息,
 		// 然后，在此处生成对应的一个客户端连接对象
 		//
-		AisAccess aisAkskClient = new AisAccess(ClientContextUtils.getAuthInfo(), connectionTimeout, connectionRequestTimeout, socketTimeout);
+		AisAccess aisAkskClient = new AisAccess(ClientContextUtils.getAuthInfo(), requestSetup.getConnectionTimeout(),
+				requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 		SimpleObsClient simpleObsClient = new SimpleObsClient();
 		//
 		// 1.a 此处支持使用代理方式访问视频审核服务，用于不能直接访问华为云官网服务的情况, 例如，内网网络。
