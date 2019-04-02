@@ -10,14 +10,20 @@ import com.huawei.ais.common.ProxyHostInfo;
  *
  */
 public class ClientContextUtils {
-	
+
+	/**
+	 *  配置服务的region区域信息
+	 */
+	private static final String region = "******";
+	private static final String endPoint = String.format(RequestSetup.getEndpointTemplate(), region);
+
 	private static final AuthInfo HEC_AUTH = new AuthInfo(
 			/*  AIS服务的服务端点, 该服务端口信息可以从如下地址查询
 			 *  http://developer.huaweicloud.com/dev/endpoint
 			 * */
-			 "https://image.cn-north-1.myhuaweicloud.com",
-			 "cn-north-1",  /* AIS服务的区域信息, 可以在上面的地址中查询 */
-			 "***",    /* 请输入你的AK信息 */
+				endPoint,
+				region,  /* AIS服务的区域信息, 可以在上面的地址中查询 */
+			"***",    /* 请输入你的AK信息 */
 			 "***"     /* 对应AK的的SK信息 */
 			 );
 	

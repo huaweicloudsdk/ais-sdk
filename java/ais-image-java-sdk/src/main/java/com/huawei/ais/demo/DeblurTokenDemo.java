@@ -19,9 +19,9 @@ import java.net.URISyntaxException;
  * 使用Token认证方式访问服务
  */
 public class DeblurTokenDemo {
-	public static int connectionTimeout = 5000; //连接目标url超时限制参数
-	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
-	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
+	// 配置三个超时参数
+	public static RequestSetup requestSetup = new RequestSetup(5000, 1000, 5000);
+	private static final String ENDPOINT_TEMPLATE = RequestSetup.getEndpointTemplate();
 
 	/**
 	 * 构造使用Token方式访问服务的请求Token对象
@@ -91,7 +91,7 @@ public class DeblurTokenDemo {
 		StringEntity stringEntity = new StringEntity(requestBody,
 				"utf-8");
 
-		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+		HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(), requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 		Header[] xst = response.getHeaders("X-Subject-Token");
 		return xst[0].getValue();
 
@@ -103,13 +103,15 @@ public class DeblurTokenDemo {
 	 * @param formFile 文件路径
 	 * @throws IOException
 	 */
-	public static void requestDarkEnhanceBase64(String token, String formFile) throws IOException {
-		String url = "https://image.cn-north-1.myhuaweicloud.com/v1.0/vision/dark-enhance";
+	public static void requestDarkEnhanceBase64(String regionName, String token, String formFile) throws IOException {
+		String endPoint = String.format(ENDPOINT_TEMPLATE, regionName);
+		String url = "%s/v1.0/vision/dark-enhance";
+		url = String.format(url, endPoint);
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
 		try {
-			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
+			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, requestSetup.getConnectionTimeout(), requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 
             //验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
             ResponseProcessUtils.processResponseStatus(response);
@@ -144,10 +146,11 @@ public class DeblurTokenDemo {
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
 		String username = "zhangshan";    // 此处，请输入用户名
 		String password = "*******";	  // 此处，请输入对应用户名的密码
-		String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
-		String token = getToken(username, password, projectName);
+		String regionName = "*******"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
+		String token = getToken(username, password, regionName);
+
 		System.out.println(token);
-		requestDarkEnhanceBase64(token, "data/dark-enhance-demo-1.bmp");
+		requestDarkEnhanceBase64(regionName, token, "data/dark-enhance-demo-1.bmp");
 
 	}
 

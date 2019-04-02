@@ -3,6 +3,7 @@ package com.huawei.ais.demo.image;
 import java.io.File;
 import java.io.IOException;
 
+import com.huawei.ais.demo.RequestSetup;
 import com.huawei.ais.sdk.AisAccessWithProxy;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
@@ -26,10 +27,11 @@ public class ASRBgmDemo {
         // 然后，在此处生成对应的一个客户端连接对象
         //
         // 设置三个超时参数限制连接超时，分别如下
-        int connectionTimeout = 5000; //连接目标url超时限制
-        int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制
-        int socketTimeout = 5000;//获取服务器响应数据超时限制
-        AisAccess service = new AisAccess(ClientContextUtils.getAuthInfo(), connectionTimeout,connectionRequestTimeout,socketTimeout);
+        // 设置三个超时参数限制连接超时，分别如下
+        RequestSetup requestSetup = new RequestSetup(5000, 1000, 5000);
+
+        AisAccess service = new AisAccess(ClientContextUtils.getAuthInfo(), requestSetup.getConnectionTimeout(),
+                requestSetup.getConnectionRequestTimeout(), requestSetup.getSocketTimeout());
 
         //
         // 1.a 此处支持使用代理方式访问视频背景音乐识别服务，用于不能直接访问华为云官网服务的情况, 例如，内网网络。
@@ -46,7 +48,8 @@ public class ASRBgmDemo {
 
             JSONObject json = new JSONObject();
             // 视频的OBS URL
-            String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
+            String url = RequestSetup.getASrBgmUrl(ClientContextUtils.getAuthInfo().getRegion());
+
             json.put("url", url);
 
             // 3.传入视频背景音乐识别服务对应的uri参数, 传入视频背景音乐识别服务需要的参数，
