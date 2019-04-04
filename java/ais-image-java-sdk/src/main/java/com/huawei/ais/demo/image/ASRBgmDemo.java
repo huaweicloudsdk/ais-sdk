@@ -45,7 +45,8 @@ public class ASRBgmDemo {
             String uri = "/v1.0/bgm/recognition";
 
             JSONObject json = new JSONObject();
-            // 视频的OBS URL
+
+            // 视频的OBS URL （注：obs链接需要和region区域一致，不同的region的obs资源不共享）
             String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
             json.put("url", url);
 

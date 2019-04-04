@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.huawei.ais.demo.ClientContextUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
@@ -25,7 +26,7 @@ import com.huawei.ais.sdk.util.HttpClientUtils;
 public class VCMTokenDemo {
 
 	private static final String REGION = "cn-north-1";
-	private static final String AIS_ENDPOINT = "https://ais." + REGION + ".myhuaweicloud.com";
+	private static final String AIS_ENDPOINT = ClientContextUtils.getCurrentEndpoint(REGION);
 	private static final String IAM_ENDPOINT = "https://iam." + REGION + ".myhuaweicloud.com";
 
 	private static final String TOKEN_URL = IAM_ENDPOINT + "/v3/auth/tokens";

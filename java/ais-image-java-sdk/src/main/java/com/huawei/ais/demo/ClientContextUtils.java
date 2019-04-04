@@ -3,6 +3,9 @@ package com.huawei.ais.demo;
 import com.huawei.ais.common.AuthInfo;
 import com.huawei.ais.common.ProxyHostInfo;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * 此处为HTTP Client的工具函数，主要用于初始化Client的一些通用信息:
  * 
@@ -10,15 +13,24 @@ import com.huawei.ais.common.ProxyHostInfo;
  *
  */
 public class ClientContextUtils {
+
+	private static final String REGION = "cn-north-1"; /* 配置AIS服务的区域信息 */
+
+	private static Map<String, String> endponitMap = new ConcurrentHashMap<>();
+	static {
+		endponitMap.put("cn-north-1", "https://image.cn-north-1.myhuaweicloud.com");
+		endponitMap.put("ap-southeast-1", "https://image.ap-southeast-1.myhuaweicloud.com");
+	}
+
 	
 	private static final AuthInfo HEC_AUTH = new AuthInfo(
 			/*  AIS服务的服务端点, 该服务端口信息可以从如下地址查询
 			 *  http://developer.huaweicloud.com/dev/endpoint
 			 * */
-			 "https://image.cn-north-1.myhuaweicloud.com",
-			 "cn-north-1",  /* AIS服务的区域信息, 可以在上面的地址中查询 */
-			 "***",    /* 请输入你的AK信息 */
-			 "***"     /* 对应AK的的SK信息 */
+			 getCurrentEndpoint(REGION),
+			 REGION,
+			 "your ak",    /* 请输入你的AK信息 */
+			 "your sk"     /* 对应AK的的SK信息 */
 			 );
 	
 	public static AuthInfo getAuthInfo() {
@@ -35,5 +47,9 @@ public class ClientContextUtils {
 				"china/***", /* 代理的用户名 */
 				"***"        /* 代理用户对应的密码 */
 				);
+	}
+
+	public static String getCurrentEndpoint(String region){
+		return endponitMap.get(region);
 	}
 }
