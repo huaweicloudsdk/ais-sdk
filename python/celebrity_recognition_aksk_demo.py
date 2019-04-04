@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from ais_sdk.utils import encode_to_base64
 from ais_sdk.celebrity_recognition import celebrity_recognition_aksk
+from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
     #
@@ -8,7 +9,9 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    init_global_env(region='cn-north-1')
 
+    # The OBS link needs to be consistent with the region, and the OBS resources of different regions are not shared
     demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg'
 
     # call interface use the url

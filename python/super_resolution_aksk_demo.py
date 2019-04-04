@@ -2,6 +2,7 @@
 from ais_sdk.utils import encode_to_base64
 from ais_sdk.utils import decode_to_wave_file
 from ais_sdk.super_resolution import super_resolution_aksk
+from ais_sdk.utils import init_global_env
 import json
 
 if __name__ == '__main__':
@@ -10,6 +11,7 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    init_global_env(region='cn-north-1')
 
     # call interface use base64 file
     result = super_resolution_aksk(app_key, app_secret, encode_to_base64('data/super-resolution-demo.png'), 3)

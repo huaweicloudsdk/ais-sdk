@@ -7,13 +7,14 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
-
+import utils
 
 #
 # access moderation, image content of batch jobs，post data by token
 #
 def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
-    status, r = _image_batch_jobs(token, urls, categories)
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    status, r = _image_batch_jobs(endpoint, token, urls, categories)
 
     if status != 200:
         return r
@@ -24,7 +25,7 @@ def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
     time.sleep(1.0)
     try:
         while True:
-            status, r = _get_result(token, job_id)
+            status, r = _get_result(endpoint, token, job_id)
             if status != 200:
                 return r
 
@@ -51,8 +52,8 @@ def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
 #
 # image content batch jobs, post the data
 #
-def _image_batch_jobs(token, urls, categories=['politics', 'terrorism' ,'porn']):
-    _url = 'https://%s/v1.0/moderation/image/batch/jobs' % ais.AisEndpoint.MODERATION_ENDPOINT
+def _image_batch_jobs(endpoint, token, urls, categories=['politics', 'terrorism' ,'porn']):
+    _url = 'https://%s/v1.0/moderation/image/batch/jobs' % endpoint
 
     _data = {
         "urls": urls,
@@ -96,9 +97,9 @@ def _image_batch_jobs(token, urls, categories=['politics', 'terrorism' ,'porn'])
 #
 # access moderation, batch jobs, get the result
 #
-def _get_result(token, job_id):
+def _get_result(endpoint, token, job_id):
     _url_tmpl = 'https://%s/v1.0/moderation/image/batch?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.MODERATION_ENDPOINT, job_id)
+    _url = _url_tmpl % (endpoint, job_id)
     kreq = urllib2.Request(url=_url)
     kreq.add_header('X-Auth-Token', token)
     kreq.add_header('Content-Type', 'application/json')
@@ -140,7 +141,9 @@ def image_batch_jobs_aksk(_ak, _sk, urls, categories=['politics', 'terrorism']):
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
-    status, r = _image_batch_jobs_aksk(sig, urls, categories)
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+
+    status, r = _image_batch_jobs_aksk(endpoint, sig, urls, categories)
 
     if status != 200:
         return r
@@ -151,7 +154,7 @@ def image_batch_jobs_aksk(_ak, _sk, urls, categories=['politics', 'terrorism']):
     time.sleep(1.0)
     try:
         while True:
-            status, r = _get_result_aksk(sig, job_id)
+            status, r = _get_result_aksk(endpoint, sig, job_id)
             if status != 200:
                 return r
 
@@ -178,8 +181,8 @@ def image_batch_jobs_aksk(_ak, _sk, urls, categories=['politics', 'terrorism']):
 #
 # image content of batch jobs, post the data
 #
-def _image_batch_jobs_aksk(sig, urls, categories=['politics', 'terrorism']):
-    _url = 'https://%s/v1.0/moderation/image/batch/jobs' % ais.AisEndpoint.MODERATION_ENDPOINT
+def _image_batch_jobs_aksk(endpoint, sig, urls, categories=['politics', 'terrorism']):
+    _url = 'https://%s/v1.0/moderation/image/batch/jobs' % endpoint
 
     _data = {
         "urls": urls,
@@ -188,7 +191,7 @@ def _image_batch_jobs_aksk(sig, urls, categories=['politics', 'terrorism']):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/moderation/image/batch/jobs"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
@@ -227,13 +230,13 @@ def _image_batch_jobs_aksk(sig, urls, categories=['politics', 'terrorism']):
 #
 # access moderation, batch jobs, get the result
 #
-def _get_result_aksk(sig, job_id):
+def _get_result_aksk(endpoint, sig, job_id):
     _url_tmpl = 'https://%s/v1.0/moderation/image/batch?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.MODERATION_ENDPOINT, job_id)
+    _url = _url_tmpl % (endpoint, job_id)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/moderation/image/batch"
     kreq.method = "GET"
     kreq.headers = {"Content-Type": "application/json"}

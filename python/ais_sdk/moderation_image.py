@@ -6,13 +6,14 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
-
+import utils
 
 #
 # access moderation image,post data by token
 #
 def moderation_image(token, image, url, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image' % ais.AisEndpoint.MODERATION_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    _url = 'https://%s/v1.0/moderation/image' % endpoint
 
     _data = {
         "image": image,
@@ -59,7 +60,8 @@ def moderation_image(token, image, url, categories=None, threshold=None):
 # access moderation image,post data by token
 #
 def moderation_image_aksk(_ak, _sk, image, url, categories=None, threshold=None):
-    _url = 'https://%s/v1.0/moderation/image' % ais.AisEndpoint.MODERATION_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    _url = 'https://%s/v1.0/moderation/image' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -74,7 +76,7 @@ def moderation_image_aksk(_ak, _sk, image, url, categories=None, threshold=None)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/moderation/image"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

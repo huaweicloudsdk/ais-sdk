@@ -5,13 +5,15 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
+import utils
 
 
 #
 # access image tagging
 #
 def celebrity_recognition(token, image, url, threshold=4.8):
-    _url = 'https://%s/v1.0/image/celebrity-recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/image/celebrity-recognition' % endpoint
 
     _data = {
         "image": image,
@@ -57,7 +59,8 @@ def celebrity_recognition(token, image, url, threshold=4.8):
 # access image tagging ，post data by ak,sk
 #
 def celebrity_recognition_aksk(_ak, _sk, image, url, threshold=4.8):
-    _url = 'https://%s/v1.0/image/celebrity-recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/image/celebrity-recognition' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -71,7 +74,7 @@ def celebrity_recognition_aksk(_ak, _sk, image, url, threshold=4.8):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/image/celebrity-recognition"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
