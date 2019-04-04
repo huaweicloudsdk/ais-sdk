@@ -19,6 +19,7 @@ import java.net.URISyntaxException;
  * 使用Token认证方式访问服务
  */
 public class DeblurTokenDemo {
+	private static final String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
 	public static int connectionTimeout = 5000; //连接目标url超时限制参数
 	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
 	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
@@ -104,7 +105,7 @@ public class DeblurTokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestDarkEnhanceBase64(String token, String formFile) throws IOException {
-		String url = "https://image.cn-north-1.myhuaweicloud.com/v1.0/vision/dark-enhance";
+		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/vision/dark-enhance";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
@@ -144,7 +145,6 @@ public class DeblurTokenDemo {
 	public static void main(String[] args) throws URISyntaxException, UnsupportedOperationException, IOException {
 		String username = "zhangshan";    // 此处，请输入用户名
 		String password = "*******";	  // 此处，请输入对应用户名的密码
-		String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
 		String token = getToken(username, password, projectName);
 		System.out.println(token);
 		requestDarkEnhanceBase64(token, "data/dark-enhance-demo-1.bmp");
