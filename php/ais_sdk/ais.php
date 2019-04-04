@@ -1,22 +1,17 @@
 <?php
 /**
- * 图像分析服务请求url常量配置信息
+ * 图像分析服务请求url常量及配置信息
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2018/11/16
  * Time: 10:44
  */
+
 // tts服务请求域名
 define("TTS_ENDPOINT", "sis.cn-north-1.myhuaweicloud.com");
 
 // asr服务请求域名
 define("ASR_ENDPOINT", "sis.cn-north-1.myhuaweicloud.com");
-
-// 图像服务请求域名
-define("IMAGE_ENDPOINT", "image.cn-north-1.myhuaweicloud.com");
-
-// 内容审核服务请求域名
-define("MODERATION_ENDPOINT", "moderation.cn-north-1.myhuaweicloud.com");
 
 // token请求域名
 define("IAM_ENPOINT", "iam.cn-north-1.myhuaweicloud.com");
@@ -80,3 +75,9 @@ define("IMAGE_CONTENT_BATCH_RESULT", "/v1.0/moderation/image/batch");
 
 // 图片内容审核服务批量的uri
 define("IMAGE_CONTENT_BATCH", "/v1.0/moderation/image/batch");
+
+// 图像服务类别
+define("IMAGE", "image");
+
+//内容审核服务类别
+define("MODERATION", "moderation");

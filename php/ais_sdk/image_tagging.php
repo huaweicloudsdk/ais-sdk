@@ -7,9 +7,9 @@ require "ais.php";
  */
 function image_tagging($token, $data, $url, $threshold, $language, $limit = -1)
 {
-
+    $endPoint = getEndpoint(IMAGE);
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . IMAGE_TAGGING;
+    $_url = "https://" . $endPoint . IMAGE_TAGGING;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
@@ -64,11 +64,13 @@ function image_tagging_aksk($_ak, $_sk, $data, $url, $threshold, $language, $lim
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(IMAGE);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = IMAGE_TAGGING;
 
     $data = array(

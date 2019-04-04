@@ -8,6 +8,7 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*************";
 $app_secret = "*************";
+initRegion($region = "cn-north-1");
 
 $filepath = "./data/dark-enhance-demo.bmp";
 $image = fileToBase64($filepath);

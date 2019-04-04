@@ -7,9 +7,10 @@ require "ais.php";
  */
 function dark_enhance($token, $image, $brightness = 0.9)
 {
+    $endPoint = getEndpoint(IMAGE);
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . DARK_ENHANCE;
+    $_url = "https://" . $endPoint . DARK_ENHANCE;
 
     $data = array(
         "image" => $image,                    // 图片的base64内容
@@ -60,11 +61,13 @@ function dark_enhance_aksk($_ak, $_sk, $image, $brightness = 0.9)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(IMAGE);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = DARK_ENHANCE;
 
     $data = array(

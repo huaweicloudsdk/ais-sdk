@@ -7,9 +7,10 @@ require "ais.php";
  */
 function recapture_detect($token, $data, $url, $threshold = 0.95, $scene)
 {
+    $endPoint = getEndpoint(IMAGE);
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . RECAPTURE_DETECT;
+    $_url = "https://" . $endPoint . RECAPTURE_DETECT;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
@@ -63,11 +64,13 @@ function recapture_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.95, $scen
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(IMAGE);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = RECAPTURE_DETECT;
 
     $data = array(

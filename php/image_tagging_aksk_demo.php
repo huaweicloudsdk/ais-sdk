@@ -7,10 +7,12 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*************";
 $app_secret = "*************";
+initRegion($region = "cn-north-1");
 
 $filepath = "./data/image-tagging-demo.jpg";
 $data = fileToBase64($filepath);
 
+// obs链接需要和region区域一致，不同的region的obs资源不共享
 $data_url = "https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg";
 
 // 图片的base64 的方式请求接口

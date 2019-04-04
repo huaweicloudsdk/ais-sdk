@@ -1,10 +1,11 @@
 <?php
+
 /**
  * 获取token 信息
  */
-function gettoken($username, $password, $domainName, $regionName)
+function gettoken($username, $password, $domainName)
 {
-    $requestBody = requestBodyForGetToken($username, $password, $domainName, $regionName);
+    $requestBody = requestBodyForGetToken($username, $password, $domainName);
     $_url = "https://" . IAM_ENPOINT . AIS_TOKEN;;
     $curl = curl_init();
     $headers = array(
@@ -24,6 +25,18 @@ function gettoken($username, $password, $domainName, $regionName)
     curl_setopt($curl, CURLOPT_HEADER, true);
     $response = curl_exec($curl);
 
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    if ($status == 0) {
+        echo curl_error($curl);
+    } else {
+
+        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
+        if (substr($status, 0, 1) != 2) {
+            echo "Http status is: " . $status . "\n";
+            echo $response;
+        }
+    }
+
     // 获取响应头的信息
     $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
     $headers = substr($response, 0, $headerSize);
@@ -39,8 +52,10 @@ function gettoken($username, $password, $domainName, $regionName)
  * @param $domain 与用户名一致
  * @param $regionName 区域名称
  */
-function requestBodyForGetToken($username, $password, $domainName, $regionName)
+function requestBodyForGetToken($username, $password, $domainName)
 {
+    $regionName = $GLOBALS["regionName"];
+
     $param = array(
         "auth" => array(
             "identity" => array(

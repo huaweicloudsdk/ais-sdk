@@ -7,6 +7,7 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*************";
 $app_secret = "*************";
+initRegion($region = "cn-north-1");
 
 $data_url1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
 $data_url2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";

@@ -7,9 +7,10 @@ require "ais.php";
  */
 function image_antiporn($token, $data, $url)
 {
+    $endPoint = getEndpoint(MODERATION);
 
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_ANTI_PORN;
+    $_url = "https://" . $endPoint . IMAGE_ANTI_PORN;
 
     $data = array(
         "image" => $data,                   // 图片的base64信息
@@ -60,11 +61,13 @@ function image_antiporn_aksk($_ak, $_sk, $data, $url)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(MODERATION);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = IMAGE_ANTI_PORN;
 
     $data = array(

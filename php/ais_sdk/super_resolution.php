@@ -7,9 +7,10 @@ require "ais.php";
  */
 function super_resolution($token, $data, $scale = 3, $model = "ESPCN")
 {
+    $endPoint = getEndpoint(IMAGE);
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . SURPER_RESOLUTION;
+    $_url = "https://" . $endPoint . SURPER_RESOLUTION;
 
     $data = array(
         "image" => $data,                     // 图片文件BASE64编码字符串
@@ -63,11 +64,13 @@ function super_resolution_aksk($_ak, $_sk, $data, $scale = 3, $model = "ESPCN")
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(IMAGE);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = SURPER_RESOLUTION;
 
     $data = array(

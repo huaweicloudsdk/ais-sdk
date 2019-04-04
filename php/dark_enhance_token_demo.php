@@ -9,12 +9,12 @@ require "./ais_sdk/utils.php";
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-$regionName = "********";    // 配置区域信息
+initRegion($region = "cn-north-1");
 
 $filepath = "./data/dark-enhance-demo.bmp";
 $image = fileToBase64($filepath);
 
-$token = gettoken($username, $password, $domainName, $regionName);
+$token = gettoken($username, $password, $domainName);
 
 $result = dark_enhance($token, $image, 0.9);
 print_r($result);
