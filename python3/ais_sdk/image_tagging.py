@@ -7,13 +7,14 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
-
+import ais_sdk.utils as utils
 
 #
 # access image tagging
 #
 def image_tagging(token, image, url, languzge, limit=-1, threshold=0.0):
-    _url = 'https://%s/v1.0/image/tagging' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/image/tagging' % endpoint
 
     if image != '':
         image = image.decode("utf-8")
@@ -65,7 +66,8 @@ def image_tagging(token, image, url, languzge, limit=-1, threshold=0.0):
 # access image tagging ，post data by ak,sk
 #
 def image_tagging_aksk(_ak, _sk, image, url, languzge, limit=-1, threshold=0.0):
-    _url = 'https://%s/v1.0/image/tagging' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/image/tagging' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -84,7 +86,7 @@ def image_tagging_aksk(_ak, _sk, image, url, languzge, limit=-1, threshold=0.0):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/image/tagging"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

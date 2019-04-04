@@ -2,6 +2,7 @@
 from ais_sdk.utils import encode_to_base64
 from ais_sdk.utils import decode_to_wave_file
 from ais_sdk.distortion_correct import distortion_correct_aksk
+from ais_sdk.utils import init_global_env
 import json
 
 if __name__ == '__main__':
@@ -10,6 +11,7 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    init_global_env(region='cn-north-1')
 
     demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg'
 

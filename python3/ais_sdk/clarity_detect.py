@@ -7,13 +7,14 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
-
+import ais_sdk.utils as utils
 
 #
 # access moderation detect,post data by token
 #
 def clarity_detect(token, image, url, threshold=0.8):
-    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.MODERATION_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % endpoint
 
     if image != '':
         image = image.decode("utf-8")
@@ -63,7 +64,8 @@ def clarity_detect(token, image, url, threshold=0.8):
 # access moderation detect,post data by ak,sk
 #
 def clarity_detect_aksk(_ak, _sk, image, url, threshold=0.8):
-    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % ais.AisEndpoint.MODERATION_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    _url = 'https://%s/v1.0/moderation/image/clarity-detect' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -80,7 +82,7 @@ def clarity_detect_aksk(_ak, _sk, image, url, threshold=0.8):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/moderation/image/clarity-detect"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

@@ -2,6 +2,7 @@
 from ais_sdk.gettoken import get_token
 from ais_sdk.utils import encode_to_base64
 from ais_sdk.celebrity_recognition import celebrity_recognition
+from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
     #
@@ -10,7 +11,9 @@ if __name__ == '__main__':
     user_name = '******'
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
+    init_global_env(region='ap-southeast-1')
 
+    # The OBS link needs to be consistent with the region, and the OBS resources of different regions are not shared
     demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg'
 
     token = get_token(user_name, password, account_name)

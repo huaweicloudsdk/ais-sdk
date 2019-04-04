@@ -6,13 +6,15 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
+import ais_sdk.utils as utils
 
 
 #
 # access image tagging
 #
 def celebrity_recognition(token, image, url, threshold=0.48):
-    _url = 'https://%s/v1.0/image/celebrity-recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/image/celebrity-recognition' % endpoint
 
     if image != '':
         image = image.decode("utf-8")
@@ -62,7 +64,8 @@ def celebrity_recognition(token, image, url, threshold=0.48):
 # access image tagging ，post data by ak,sk
 #
 def celebrity_recognition_aksk(_ak, _sk, image, url, threshold=0.48):
-    _url = 'https://%s/v1.0/image/celebrity-recognition' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/image/celebrity-recognition' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -79,7 +82,7 @@ def celebrity_recognition_aksk(_ak, _sk, image, url, threshold=0.48):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/image/celebrity-recognition"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

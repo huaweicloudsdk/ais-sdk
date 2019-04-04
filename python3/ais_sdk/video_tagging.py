@@ -7,13 +7,15 @@ import urllib.request
 import json
 import time
 import ais_sdk.ais as ais
+import ais_sdk.utils as utils
 
 
 #
 # access image, video tagging，post data by token
 #
 def video_tagging(token, url, frame_interval=5, language='zh', threshold=60.0):
-    status, r = _video_tagging(token, url, frame_interval, language, threshold)
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    status, r = _video_tagging(endpoint, token, url, frame_interval, language, threshold)
 
     if status != 200:
         return r
@@ -24,7 +26,7 @@ def video_tagging(token, url, frame_interval=5, language='zh', threshold=60.0):
     time.sleep(1.0)
     try:
         while True:
-            status, r = _get_result(token, job_id)
+            status, r = _get_result(endpoint, token, job_id)
             if status != 200:
                 return r
 
@@ -51,8 +53,8 @@ def video_tagging(token, url, frame_interval=5, language='zh', threshold=60.0):
 #
 # video_tagging, post the data
 #
-def _video_tagging(token, url, frame_interval=5, language='zh', threshold='60.0'):
-    _url = 'https://%s/v1.0/video/tagging' % ais.AisEndpoint.IMAGE_ENDPOINT
+def _video_tagging(endpoint, token, url, frame_interval=5, language='zh', threshold='60.0'):
+    _url = 'https://%s/v1.0/video/tagging' % endpoint
 
     _data = {
         "url": url,
@@ -99,9 +101,9 @@ def _video_tagging(token, url, frame_interval=5, language='zh', threshold='60.0'
 #
 # access image, video tagging, get the result
 #
-def _get_result(token, job_id):
+def _get_result(endpoint, token, job_id):
     _url_tmpl = 'https://%s/v1.0/video/tagging?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.IMAGE_ENDPOINT, job_id)
+    _url = _url_tmpl % (endpoint, job_id)
     _headers = {
         "Content-Type": "application/json",
         "X-Auth-Token": token
@@ -144,7 +146,9 @@ def video_tagging_aksk(_ak, _sk, url, frame_interval=5, language='zh', threshold
     sig.AppKey = _ak
     sig.AppSecret = _sk
 
-    status, r = _video_tagging_aksk(sig, url, frame_interval, language, threshold)
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+
+    status, r = _video_tagging_aksk(endpoint, sig, url, frame_interval, language, threshold)
 
     if status != 200:
         return r
@@ -155,7 +159,7 @@ def video_tagging_aksk(_ak, _sk, url, frame_interval=5, language='zh', threshold
     time.sleep(1.0)
     try:
         while True:
-            status, r = _get_result_aksk(sig, job_id)
+            status, r = _get_result_aksk(endpoint, sig, job_id)
             if status != 200:
                 return r
 
@@ -182,8 +186,8 @@ def video_tagging_aksk(_ak, _sk, url, frame_interval=5, language='zh', threshold
 #
 # video_tagging, post the data
 #
-def _video_tagging_aksk(sig, url, frame_interval=5, language='zh', threshold=60.0):
-    _url = 'https://%s/v1.0/video/tagging' % ais.AisEndpoint.IMAGE_ENDPOINT
+def _video_tagging_aksk(endpoint, sig, url, frame_interval=5, language='zh', threshold=60.0):
+    _url = 'https://%s/v1.0/video/tagging' % endpoint
 
     _data = {
         "url": url,
@@ -194,7 +198,7 @@ def _video_tagging_aksk(sig, url, frame_interval=5, language='zh', threshold=60.
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/video/tagging"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}
@@ -233,13 +237,13 @@ def _video_tagging_aksk(sig, url, frame_interval=5, language='zh', threshold=60.
 #
 # access image, video tagging, get the result
 #
-def _get_result_aksk(sig, job_id):
+def _get_result_aksk(endpoint, sig, job_id):
     _url_tmpl = 'https://%s/v1.0/video/tagging?job_id=%s'
-    _url = _url_tmpl % (ais.AisEndpoint.IMAGE_ENDPOINT, job_id)
+    _url = _url_tmpl % (endpoint, job_id)
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/video/tagging"
     kreq.method = "GET"
     kreq.headers = {"Content-Type": "application/json"}

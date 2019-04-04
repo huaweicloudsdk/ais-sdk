@@ -1,6 +1,20 @@
 # -*- coding:utf-8 -*-
+import os
 import base64
 import urllib.request
+import ais_sdk.ais as ais
+
+_ENDPOINT = {
+    'image': {
+        'cn-north-1':'image.cn-north-1.myhuaweicloud.com',
+        'ap-southeast-1':'image.ap-southeast-1.myhuaweicloud.com'
+              },
+    'moderation': {
+        'cn-north-1':'moderation.cn-north-1.myhuaweicloud.com',
+        'ap-southeast-1':'moderation.ap-southeast-1.myhuaweicloud.com'
+    }
+}
+
 
 def encode_to_base64(filename):
     """
@@ -26,3 +40,13 @@ def decode_to_wave_file(base64_encoded_str, filename):
     wf = open(filename, 'wb')
     wf.write(wave_data)
     wf.close()
+
+def get_endpoint(type):
+    region_name = get_region()
+    return _ENDPOINT[type].get(region_name)
+
+def get_region():
+    return os.environ.get(ais.AisService.REGION_MSG)
+
+def init_global_env(region):
+    os.environ[ais.AisService.REGION_MSG] = region

@@ -7,13 +7,14 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
-
+import ais_sdk.utils as utils
 
 #
 # access image super resolution,post data by token
 #
 def super_resolution(token, image, scale=3, model="ESPCN"):
-    _url = 'https://%s/v1.0/vision/super-resolution' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/vision/super-resolution' % endpoint
 
     _data = {
         "image": image.decode("utf-8"),
@@ -62,7 +63,8 @@ def super_resolution(token, image, scale=3, model="ESPCN"):
 # access image super resolution enhance,post data by sk,sk
 #
 def super_resolution_aksk(_ak, _sk, image, scale=3, model="ESPCN"):
-    _url = 'https://%s/v1.0/vision/super-resolution' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/vision/super-resolution' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -76,7 +78,7 @@ def super_resolution_aksk(_ak, _sk, image, scale=3, model="ESPCN"):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/vision/super-resolution"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

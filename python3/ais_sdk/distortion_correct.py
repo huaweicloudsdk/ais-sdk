@@ -7,13 +7,14 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
-
+import ais_sdk.utils as utils
 
 #
 # access moderation distortion correct.post data by token
 #
 def distortion_correct(token, image, url, correction=True):
-    _url = 'https://%s/v1.0/moderation/image/distortion-correct' % ais.AisEndpoint.MODERATION_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    _url = 'https://%s/v1.0/moderation/image/distortion-correct' % endpoint
 
     if image != '':
         image = image.decode("utf-8")
@@ -63,7 +64,8 @@ def distortion_correct(token, image, url, correction=True):
 # access moderation distortion correct.post data by ak,sk
 #
 def distortion_correct_aksk(_ak, _sk, image, url, correction=True):
-    _url = 'https://%s/v1.0/moderation/image/distortion-correct' % ais.AisEndpoint.MODERATION_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    _url = 'https://%s/v1.0/moderation/image/distortion-correct' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -80,7 +82,7 @@ def distortion_correct_aksk(_ak, _sk, image, url, correction=True):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/moderation/image/distortion-correct"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

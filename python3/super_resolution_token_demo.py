@@ -4,6 +4,7 @@ from ais_sdk.gettoken import get_token
 from ais_sdk.utils import encode_to_base64
 from ais_sdk.utils import decode_to_wave_file
 from ais_sdk.super_resolution import super_resolution
+from ais_sdk.utils import init_global_env
 import json
 
 if __name__ == '__main__':
@@ -13,6 +14,7 @@ if __name__ == '__main__':
     user_name = '*****'
     password = '******'
     account_name = '*****'  # the same as user_name in commonly use
+    init_global_env(region='cn-north-1')
 
     token = get_token(user_name, password, account_name)
 
