@@ -9,7 +9,7 @@ require "./ais_sdk/utils.php";
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-$regionName = "********";    // 配置区域信息
+initRegion($region = "cn-north-1");
 
 $filepath = "./data/defog-demo.png";
 $image = fileToBase64($filepath);

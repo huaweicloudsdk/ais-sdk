@@ -8,8 +8,9 @@ require "ais.php";
  */
 function batch_jobs($token, $urls, $categories)
 {
+    $endPoint = getEndpoint(MODERATION);
     // 获取任务信息
-    $jobResult = _batch_jobs($token, $urls, $categories);
+    $jobResult = _batch_jobs($endPoint, $token, $urls, $categories);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id . "\n";;
@@ -17,7 +18,7 @@ function batch_jobs($token, $urls, $categories)
     while (true) {
 
         // 获取任务解析的结果
-        $resultobj = get_result($token, $job_id);
+        $resultobj = get_result($endPoint, $token, $job_id);
         if ($resultobj['status'] != 200) {
             var_dump($resultobj);
         }
@@ -39,10 +40,10 @@ function batch_jobs($token, $urls, $categories)
 }
 
 
-function _batch_jobs($token, $urls, $categories)
+function _batch_jobs($endPoint, $token, $urls, $categories)
 {
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_CONTENT_BATCH_JOBS;
+    $_url = "https://" . $endPoint . IMAGE_CONTENT_BATCH_JOBS;
 
     $data = array(
         "urls" => $urls,                          // url：视频的URL路径
@@ -87,9 +88,9 @@ function _batch_jobs($token, $urls, $categories)
  * @param $token
  * @param $job_id
  */
-function get_result($token, $job_id)
+function get_result($endPoint, $token, $job_id)
 {
-    $url = "https://" . MODERATION_ENDPOINT . IMAGE_CONTENT_BATCH_RESULT . "?job_id=" . $job_id;
+    $url = "https://" . $endPoint . IMAGE_CONTENT_BATCH_RESULT . "?job_id=" . $job_id;
 
     $headers = array(
         "Content-Type:application/json",
@@ -130,12 +131,14 @@ function get_result($token, $job_id)
  */
 function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
 {
+    $endPoint = getEndpoint(MODERATION);
+
     // 构建ak，sk对象
     $signer = new Signer();
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $jobResult = _batch_jobs_aksk($signer, $urls, $categories);
+    $jobResult = _batch_jobs_aksk($endPoint, $signer, $urls, $categories);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id . "\n";
@@ -143,7 +146,7 @@ function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
     while (true) {
 
         // 获取任务的执行结果
-        $resultobj = get_result_aksk($signer, $job_id);
+        $resultobj = get_result_aksk($endPoint, $signer, $job_id);
 
         if ($resultobj['status'] != 200) {
             var_dump($resultobj);
@@ -167,7 +170,7 @@ function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
 /**
  * 获取任务信息
  */
-function _batch_jobs_aksk($signer, $urls, $categories)
+function _batch_jobs_aksk($endPoint, $signer, $urls, $categories)
 {
     // 构建请求信息
     $data = array(
@@ -178,7 +181,7 @@ function _batch_jobs_aksk($signer, $urls, $categories)
     $req = new Request();
     $req->method = 'POST';
     $req->scheme = 'https';
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = IMAGE_CONTENT_BATCH_JOBS;
     $req->body = json_encode($data);
     $req->headers = array(
@@ -212,13 +215,13 @@ function _batch_jobs_aksk($signer, $urls, $categories)
  * @param $token
  * @param $job_id
  */
-function get_result_aksk($signer, $job_id)
+function get_result_aksk($endPoint, $signer, $job_id)
 {
 
     $req = new Request();
     $req->method = 'GET';
     $req->scheme = 'https';
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = IMAGE_CONTENT_BATCH_RESULT;
     $req->query = array(
         'job_id' => $job_id

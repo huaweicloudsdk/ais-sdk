@@ -7,9 +7,10 @@ require "ais.php";
  */
 function clarity_detect($token, $data, $url, $threshold = 0.8)
 {
+    $endPoint = getEndpoint(MODERATION);
 
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_CLARITY_DETECT;
+    $_url = "https://" . $endPoint . IMAGE_CLARITY_DETECT;
 
     $data = array(
         "image" => $data,                    // 图片的base64内容，与url二选一
@@ -61,11 +62,13 @@ function clarity_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.8)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(MODERATION);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = IMAGE_CLARITY_DETECT;
 
     $data = array(

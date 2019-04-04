@@ -7,6 +7,7 @@ require "./ais_sdk/utils.php";
 
 $app_key = "*************";
 $app_secret = "*************";
+initRegion($region = "cn-north-1");
 
 $filepath = "./data/defog-demo.png";
 $image = fileToBase64($filepath);

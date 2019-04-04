@@ -1,4 +1,16 @@
 <?php
+$regionName = "cn-north-1";
+
+$_endponit = array(
+    "image" => array(
+       "cn-north-1" => "image.cn-north-1.myhuaweicloud.com",
+        "ap-southeast-1" => "image.ap-southeast-1.myhuaweicloud.com"
+    ),
+    "moderation" => array(
+        "cn-north-1" => "moderation.cn-north-1.myhuaweicloud.com",
+        "ap-southeast-1" => "moderation.ap-southeast-1.myhuaweicloud.com"
+    )
+);
 
 /**
  * 文件转化为base64
@@ -36,4 +48,24 @@ function base64ToFile($filePath, $base64str)
         echo "base64str is null!";
     }
 
+}
+
+/**
+ * 初始化region信息
+ * @param $region
+ */
+function initRegion($region){
+    $GLOBALS["regionName"] = $region;
+}
+
+
+/**
+ * 获取服务的域名
+ * @param $type
+ * @return mixed
+ */
+function getEndpoint($type)
+{
+    global $_endponit;
+    return $_endponit[$type][$GLOBALS["regionName"]];
 }

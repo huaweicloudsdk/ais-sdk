@@ -9,12 +9,12 @@ require "./ais_sdk/utils.php";
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-$regionName = "********";    // 配置区域信息
+initRegion($region = "cn-north-1");
 
 $filepath = "./data/super-resolution-demo.png";
 $data = fileToBase64($filepath);
 
-$token = gettoken($username, $password, $domainName, $regionName);
+$token = gettoken($username, $password, $domainName);
 
 $result = super_resolution($token, $data, 4, "ESPCN");
 echo $result;

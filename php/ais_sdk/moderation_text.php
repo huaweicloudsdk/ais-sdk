@@ -8,8 +8,10 @@ require "ais.php";
 function moderation_text($token, $items, $categories)
 {
 
+    $endPoint = getEndpoint(MODERATION);
+
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . MODERATION_TEXT;
+    $_url = "https://" . $endPoint . MODERATION_TEXT;
 
     $data = array(
         "categories" => $categories,               // 检测场景 Array politics：涉政 porn：涉黄 ad：广告 abuse：辱骂 contraband：违禁品 flood：灌水
@@ -62,11 +64,13 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(MODERATION);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = MODERATION_TEXT;
 
     $data = array(

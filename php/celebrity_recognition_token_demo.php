@@ -9,14 +9,15 @@ require "./ais_sdk/utils.php";
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-$regionName = "********";    // 配置区域信息
+initRegion($region = "cn-north-1");
 
 $filepath = "./data/celebrity-recognition.jpg";
 $data = fileToBase64($filepath);
 
+// obs链接需要和region区域一致，不同的region的obs资源不共享
 $data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg";
 
-$token = gettoken($username, $password, $domainName, $regionName);
+$token = gettoken($username, $password, $domainName);
 
 // 图片base64方式请求接口
 $result = celebrity_recognition($token, $data, "");

@@ -8,8 +8,9 @@ require "ais.php";
 function image_content($token, $data, $url, $categories, $threshold)
 {
 
+    $endPoint = getEndpoint(MODERATION);
     // 构建请求信息
-    $_url = "https://" . MODERATION_ENDPOINT . IMAGE_CONTENT_DETECT;
+    $_url = "https://" . $endPoint . IMAGE_CONTENT_DETECT;
 
     $data = array(
         "image" => $data,                      // 与url二选一 图片文件Base64编码字符串
@@ -63,11 +64,13 @@ function image_content_aksk($_ak, $_sk, $data, $url, $categories, $threshold)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(MODERATION);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = MODERATION_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = IMAGE_CONTENT_DETECT;
 
     $data = array(

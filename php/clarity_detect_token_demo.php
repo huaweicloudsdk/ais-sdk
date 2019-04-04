@@ -9,14 +9,14 @@ require "./ais_sdk/utils.php";
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-$regionName = "********";    // 配置区域信息
+initRegion($region = "cn-north-1");
 
 $filepath = "./data/moderation-clarity-detect.jpg";
 $data = fileToBase64($filepath);
 
 $data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
-$token = gettoken($username, $password, $domainName, $regionName);
+$token = gettoken($username, $password, $domainName);
 
 
 // base64 方式请求

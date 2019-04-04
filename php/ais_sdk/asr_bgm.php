@@ -1,14 +1,16 @@
 <?php
 require "signer.php";
 require "ais.php";
+
 /**
  * token 方式
  */
 function asr_bgm($token, $url)
 {
+    $endPoint = getEndpoint(IMAGE);
 
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . ASR_BGM;
+    $_url = "https://" . $endPoint . ASR_BGM;
 
     $data = array(
         "url" => $url                      // 背景音乐的url链接，目前只支持obs
@@ -55,6 +57,7 @@ function asr_bgm($token, $url)
  */
 function asr_bgm_aksk($_ak, $_sk, $url)
 {
+    $endPoint = getEndpoint(IMAGE);
     // 构建ak，sk对象
     $signer = new Signer();
     $signer->AppKey = $_ak;             // 构建ak
@@ -64,7 +67,7 @@ function asr_bgm_aksk($_ak, $_sk, $url)
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = ASR_BGM;
 
     $data = array(

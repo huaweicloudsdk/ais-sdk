@@ -8,8 +8,9 @@ require "ais.php";
 function image_defog($token, $data, $gamma, $natural_look)
 {
 
+    $endPoint = getEndpoint(IMAGE);
     // 构建请求信息
-    $_url = "https://" . IMAGE_ENDPOINT . DEFOG;
+    $_url = "https://" . $endPoint . DEFOG;
 
     $data = array(
         "image" => $data,                    // image: 图片信息 base64
@@ -61,11 +62,13 @@ function image_defog_aksk($_ak, $_sk, $data, $gamma, $natural_look)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
+    $endPoint = getEndpoint(IMAGE);
+
     // 构建请求对象
     $req = new Request();
     $req->method = "POST";
     $req->scheme = "https";
-    $req->host = IMAGE_ENDPOINT;
+    $req->host = $endPoint;
     $req->uri = DEFOG;
 
     $data = array(

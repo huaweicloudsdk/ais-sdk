@@ -9,7 +9,7 @@ require "./ais_sdk/utils.php";
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-$regionName = "********";    // 配置区域信息
+initRegion($region = "cn-north-1");
 
 $categories = array(
     array(
@@ -20,7 +20,7 @@ $categories = array(
 
 $items = array("ad", "politics", "politics", "politics", "contraband", "contraband");
 
-$token = gettoken($username, $password, $domainName, $regionName);
+$token = gettoken($username, $password, $domainName);
 
 $result = moderation_text($token, $categories, $items);
 echo $result;
