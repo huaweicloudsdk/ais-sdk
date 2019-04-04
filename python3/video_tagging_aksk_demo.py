@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from ais_sdk.video_tagging import video_tagging_aksk
+from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
     #
@@ -7,6 +8,7 @@ if __name__ == '__main__':
     #
     app_key = '*********'
     app_secret = '*********'
+    init_global_env(region='cn-north-1')
 
     demo_data_url = 'https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition'
 

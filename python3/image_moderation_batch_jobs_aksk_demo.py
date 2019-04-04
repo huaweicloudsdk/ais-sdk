@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from ais_sdk.image_moderation_batch_jobs import image_batch_jobs_aksk
+from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
     #
@@ -7,6 +8,7 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    init_global_env(region='cn-north-1')
 
     demo_data_url1 = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg'
     demo_data_url2 = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg'

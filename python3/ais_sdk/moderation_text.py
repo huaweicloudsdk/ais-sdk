@@ -7,14 +7,15 @@ import urllib.parse
 import urllib.request
 import json
 import ais_sdk.ais as ais
-
+import ais_sdk.utils as utils
 
 #
 # access moderation text enhance,posy data by token
 #
 def moderation_text(token, text, type='content',
-                    categories=["ad", "porn", "abuse", "politics", "contraband", "flood"]):
-    _url = 'https://%s/v1.0/moderation/text' % ais.AisEndpoint.MODERATION_ENDPOINT
+                    categories=["ad", "politics", "porn", "abuse", "contraband", "flood"]):
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    _url = 'https://%s/v1.0/moderation/text' % endpoint
 
     _data = {
         "categories": categories,
@@ -63,8 +64,9 @@ def moderation_text(token, text, type='content',
 # access moderation text enhance,posy data by ak,sk
 #
 def moderation_text_aksk(_ak, _sk, text, type='content',
-                         categories=["ad", "porn", "abuse", "politics", "contraband", "flood"]):
-    _url = 'https://%s/v1.0/moderation/text' % ais.AisEndpoint.MODERATION_ENDPOINT
+                         categories=["ad", "politics", "porn", "abuse", "contraband", "flood"]):
+    endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
+    _url = 'https://%s/v1.0/moderation/text' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -79,7 +81,7 @@ def moderation_text_aksk(_ak, _sk, text, type='content',
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.MODERATION_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/moderation/text"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

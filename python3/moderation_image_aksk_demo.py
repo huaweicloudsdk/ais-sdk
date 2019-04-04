@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from ais_sdk.utils import encode_to_base64
 from ais_sdk.moderation_image import moderation_image_aksk
+from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
     #
@@ -8,6 +9,7 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    init_global_env(region='cn-north-1')
 
     demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg'
 
@@ -18,5 +20,3 @@ if __name__ == '__main__':
     # call interface use the url
     result = moderation_image_aksk(app_key, app_secret, "", demo_data_url, ['politics','terrorism'], "")
     print(result)
-
-
