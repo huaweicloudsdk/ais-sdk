@@ -1,9 +1,12 @@
 import urllib2
 import json
 import ais
+import utils
 
 
 def get_token(username, password, domain):
+    region_name = utils.get_region()
+
     auth_data = {
         "auth": {
             "identity": {
@@ -23,7 +26,7 @@ def get_token(username, password, domain):
             },
             "scope": {
                 "project": {
-                    "name": "cn-north-1"
+                    "name": region_name
                 }
             }
         }

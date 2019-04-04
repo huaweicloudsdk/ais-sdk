@@ -6,13 +6,14 @@ import ssl
 from urllib2 import HTTPError, URLError
 import signer
 import ais
-
+import utils
 
 #
 # access image recapture detect
 #
 def recapture_detect(token, image, url, threshold=0.95, scene=None):
-    _url = 'https://%s/v1.0/image/recapture-detect' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/image/recapture-detect' % endpoint
 
     _data = {
         "image": image,
@@ -59,7 +60,8 @@ def recapture_detect(token, image, url, threshold=0.95, scene=None):
 # access image recapture detect ,post data by aksk
 #
 def recapture_detect_aksk(_ak, _sk, image, url, threshold=0.95, scene=None):
-    _url = 'https://%s/v1.0/image/recapture-detect' % ais.AisEndpoint.IMAGE_ENDPOINT
+    endpoint = utils.get_endpoint(ais.AisService.IMAGE_SERVICE)
+    _url = 'https://%s/v1.0/image/recapture-detect' % endpoint
 
     sig = signer.Signer()
     sig.AppKey = _ak
@@ -74,7 +76,7 @@ def recapture_detect_aksk(_ak, _sk, image, url, threshold=0.95, scene=None):
 
     kreq = signer.HttpRequest()
     kreq.scheme = "https"
-    kreq.host = ais.AisEndpoint.IMAGE_ENDPOINT
+    kreq.host = endpoint
     kreq.uri = "/v1.0/image/recapture-detect"
     kreq.method = "POST"
     kreq.headers = {"Content-Type": "application/json"}

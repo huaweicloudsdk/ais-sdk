@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from ais_sdk.utils import encode_to_base64, download_url_base64
 from ais_sdk.image_antiporn import image_antiporn_aksk
+from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
     #
@@ -8,6 +9,7 @@ if __name__ == '__main__':
     #
     app_key = '*************'
     app_secret = '************'
+    init_global_env(region='cn-north-1')
 
     demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg'
 
