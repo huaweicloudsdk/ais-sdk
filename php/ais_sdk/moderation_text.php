@@ -8,7 +8,7 @@ require "ais.php";
 function moderation_text($token, $items, $categories)
 {
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . MODERATION_TEXT;
@@ -64,7 +64,7 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求对象
     $req = new Request();

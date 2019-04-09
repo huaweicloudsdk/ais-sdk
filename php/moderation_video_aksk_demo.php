@@ -5,9 +5,10 @@
 require "./ais_sdk/moderation_video.php";
 require "./ais_sdk/utils.php";
 
+// 当前支持北京1：cn-north-1 和香港：ap-southeast-1 等region信息
+init_region($region = 'cn-north-1');
 $app_key = "*************";
 $app_secret = "*************";
-initRegion($region = "cn-north-1");
 
 $demo_data_url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
 

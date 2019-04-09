@@ -7,7 +7,7 @@ require "ais.php";
  */
 function dark_enhance($token, $image, $brightness = 0.9)
 {
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . DARK_ENHANCE;
@@ -61,7 +61,7 @@ function dark_enhance_aksk($_ak, $_sk, $image, $brightness = 0.9)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求对象
     $req = new Request();

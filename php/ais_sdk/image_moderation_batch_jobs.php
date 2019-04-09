@@ -8,7 +8,7 @@ require "ais.php";
  */
 function batch_jobs($token, $urls, $categories)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
     // 获取任务信息
     $jobResult = _batch_jobs($endPoint, $token, $urls, $categories);
     $jobResultObj = json_decode($jobResult, true);
@@ -131,7 +131,7 @@ function get_result($endPoint, $token, $job_id)
  */
 function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建ak，sk对象
     $signer = new Signer();

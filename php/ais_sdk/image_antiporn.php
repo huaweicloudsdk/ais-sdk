@@ -7,7 +7,7 @@ require "ais.php";
  */
 function image_antiporn($token, $data, $url)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . IMAGE_ANTI_PORN;
@@ -61,7 +61,7 @@ function image_antiporn_aksk($_ak, $_sk, $data, $url)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求对象
     $req = new Request();

@@ -6,10 +6,11 @@ require "./ais_sdk/gettoken.php";
 require "./ais_sdk/moderation_text.php";
 require "./ais_sdk/utils.php";
 
+// 当前支持北京1：cn-north-1 和香港：ap-southeast-1 等region信息
+init_region($region = 'cn-north-1');
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-initRegion($region = "cn-north-1");
 
 $categories = array(
     array(
@@ -20,7 +21,7 @@ $categories = array(
 
 $items = array("ad", "politics", "politics", "politics", "contraband", "contraband");
 
-$token = gettoken($username, $password, $domainName);
+$token = get_token($username, $password, $domainName);
 
 $result = moderation_text($token, $categories, $items);
 echo $result;

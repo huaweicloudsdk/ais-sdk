@@ -7,7 +7,7 @@ require "ais.php";
  */
 function distortion_correct($token, $image, $url, $correction = true)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . DISTORTION_CORRECT;
@@ -62,7 +62,7 @@ function distortion_correct_aksk($_ak, $_sk, $image, $url, $correction = true)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求对象
     $req = new Request();

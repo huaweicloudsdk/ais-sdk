@@ -5,6 +5,8 @@
 require "./ais_sdk/tts.php";
 require "./ais_sdk/utils.php";
 
+// 当前支持北京1：cn-north-1
+init_region($region = 'cn-north-1');
 $app_key = "*************";
 $app_secret = "*************";
 
@@ -12,10 +14,10 @@ $app_secret = "*************";
 $result = tts_aksk($app_key, $app_secret, "语音合成为你的业务增加交互的能力.");
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"]["data"];
-base64ToFile("data/tts_use_aksk_default_config.wav", $basestr);
+base64_to_file("data/tts_use_aksk_default_config.wav", $basestr);
 
 // ak,sk特殊方式请求数据
 $result = tts_aksk($app_key, $app_secret, "语音合成为你的业务增加交互的能力.", "xiaoyan", 0, "16k", 0, 0);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"]["data"];
-base64ToFile("data/tts_use_aksk_specific_config.wav", $basestr);
+base64_to_file("data/tts_use_aksk_specific_config.wav", $basestr);

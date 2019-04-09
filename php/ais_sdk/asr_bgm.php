@@ -7,7 +7,7 @@ require "ais.php";
  */
 function asr_bgm($token, $url)
 {
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . ASR_BGM;
@@ -57,7 +57,7 @@ function asr_bgm($token, $url)
  */
 function asr_bgm_aksk($_ak, $_sk, $url)
 {
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
     // 构建ak，sk对象
     $signer = new Signer();
     $signer->AppKey = $_ak;             // 构建ak

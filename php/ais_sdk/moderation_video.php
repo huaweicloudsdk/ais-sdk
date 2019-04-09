@@ -8,7 +8,7 @@ require "ais.php";
  */
 function moderation_video($token, $url, $frame_interval, $category)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
     // 获取任务信息
     $jobResult = _moderation_video($endPoint, $token, $url, $frame_interval, $category);
     $jobResultObj = json_decode($jobResult, true);
@@ -137,7 +137,7 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     $jobResult = _moderation_video_aksk($endPoint, $signer, $url, $frame_interval, $category);
     $jobResultObj = json_decode($jobResult, true);
