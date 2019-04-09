@@ -5,13 +5,15 @@ from ais_sdk.recapture_detect import recapture_detect
 from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
+    # Region currently supports Beijing(cn-north-1) and Hong Kong(ap-southeast-1)
+    init_global_env('cn-north-1')
+
     #
     # access image recapture detect ,post data by token
     #
     user_name = '******'
     password = '******'
     account_name = '******'  # the same as user_name in commonly use
-    init_global_env(region='cn-north-1')
 
     # The OBS link needs to be consistent with the region, and the OBS resources of different regions are not shared
     demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg'

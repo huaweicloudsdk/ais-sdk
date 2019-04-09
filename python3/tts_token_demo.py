@@ -1,12 +1,15 @@
 # -*- coding:utf-8 -*-
 
 from ais_sdk.gettoken import get_token
-from ais_sdk.utils import decode_to_wave_file
+from ais_sdk.utils import decode_to_wave_file,init_global_env
 from ais_sdk.tts import tts
 
 import json
 
 if __name__ == '__main__':
+    # Region currently supports Beijing(cn-north-1) and Hong Kong(ap-southeast-1)
+    init_global_env('cn-north-1')
+
     #
     # access ocr vat invoice,post data by token
     #
