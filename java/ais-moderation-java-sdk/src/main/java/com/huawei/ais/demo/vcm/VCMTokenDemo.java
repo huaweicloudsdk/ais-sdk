@@ -25,7 +25,7 @@ import com.huawei.ais.sdk.util.HttpClientUtils;
  */
 public class VCMTokenDemo {
 
-	private static final String REGION = "cn-north-1";
+	private static final String REGION = "cn-north-1"; // 此处，请输入服务的区域信息，目前支持北京1 cn-north-1、香港 ap-southeast-1
 	private static final String AIS_ENDPOINT = ClientContextUtils.getCurrentEndpoint(REGION);
 	private static final String IAM_ENDPOINT = "https://iam." + REGION + ".myhuaweicloud.com";
 

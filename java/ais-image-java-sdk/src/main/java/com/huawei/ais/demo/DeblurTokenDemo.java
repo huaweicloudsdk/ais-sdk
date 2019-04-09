@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
  * 使用Token认证方式访问服务
  */
 public class DeblurTokenDemo {
-	private static final String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
+	private static final String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，目前支持北京1 cn-north-1、香港 ap-southeast-1
 	public static int connectionTimeout = 5000; //连接目标url超时限制参数
 	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
 	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
