@@ -1,10 +1,13 @@
 # -*- coding:utf-8 -*-
+import json
 from ais_sdk.utils import decode_to_wave_file
 from ais_sdk.tts import tts_aksk
-
-import json
+from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
+    # Region currently supports Beijing(cn-north-1)
+    init_global_env('cn-north-1')
+
     #
     # access text to speech,post data by token
     #

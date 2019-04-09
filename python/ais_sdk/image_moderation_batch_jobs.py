@@ -12,6 +12,8 @@ import utils
 #
 # access moderation, image content of batch jobs，post data by token
 #
+_RETRY_TIMES = 3
+
 def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
     endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
     status, r = _image_batch_jobs(endpoint, token, urls, categories)
@@ -23,6 +25,8 @@ def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
     job_id = submit_result['result'].get('job_id', '')
     # print "Process job id is :", job_id
     time.sleep(1.0)
+
+    retry_times = 0
     try:
         while True:
             status, r = _get_result(endpoint, token, job_id)
@@ -33,7 +37,12 @@ def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
 
             process_status = rec_result["result"].get('status')
             if process_status == 'failed':
-                return r
+                if retry_times < _RETRY_TIMES:
+                    retry_times += 1
+                    time.sleep(2.0)
+                    continue
+                else:
+                    return r
 
             elif process_status == 'finish':
                 return r
@@ -152,6 +161,7 @@ def image_batch_jobs_aksk(_ak, _sk, urls, categories=['politics', 'terrorism']):
     job_id = submit_result['result'].get('job_id', '')
     # print "Process job id is :", job_id
     time.sleep(1.0)
+    retry_times = 0
     try:
         while True:
             status, r = _get_result_aksk(endpoint, sig, job_id)
@@ -162,7 +172,12 @@ def image_batch_jobs_aksk(_ak, _sk, urls, categories=['politics', 'terrorism']):
 
             process_status = rec_result["result"].get('status')
             if process_status == 'failed':
-                return r
+                if retry_times < _RETRY_TIMES:
+                    retry_times += 1
+                    time.sleep(2.0)
+                    continue
+                else:
+                    return r
 
             elif process_status == 'finish':
                 return r
