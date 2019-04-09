@@ -9,13 +9,15 @@ os.environ['http_proxy'] = 'http://username:password@proxyExample.huawei.com:808
 os.environ['https_proxy'] = 'http://username:password@proxyExample.huawei.com:8080/'
 
 if __name__ == '__main__':
+    # Region currently supports Beijing(cn-north-1) and Hong Kong(ap-southeast-1)
+    init_global_env('cn-north-1')
+
     #
     # access asr, asr_bgm,post data by token
     #
     user_name = '*******'
     password = '*******'
     account_name = '*******'  # the same as user_name in commonly use
-    init_global_env(region='cn-north-1')
 
     # The OBS link needs to be consistent with the region, and the OBS resources of different regions are not shared
     demo_data_url = 'https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition'
