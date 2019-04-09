@@ -25,6 +25,7 @@ import com.huawei.ais.sdk.util.HttpClientUtils;
 public class ModerationImageContentBatchJobsDemo {
 	private static final String URL_TEMPLATE = "/v1.0/moderation/image/batch?job_id=%s";
 	private static final long POLLING_INTERVAL = 2000L;
+	private static final Integer RETRY_TIMES_MAX = 3; // 查询任务失败的最大重试次数
 
 	//
 	// 图像内容批量异步批量服务的使用示例函数
@@ -75,6 +76,9 @@ public class ModerationImageContentBatchJobsDemo {
 			// 5.获取到提交成功的任务ID, 准备进行结果的查询
 			String jobId = getJobId(response);
 
+			// 初始化查询jobId失败次数
+			Integer retryTimes = 0;
+
 
 			// 5.1 构建进行查询的请求链接，并进行轮询查询，由于是异步任务，必须多次进行轮询
 			// 直到结果状态为任务已处理完成
@@ -91,8 +95,15 @@ public class ModerationImageContentBatchJobsDemo {
 				// 6.3 如果处理失败，直接退出
 				if(status.equals("failed"))
 				{
-					System.out.println("Image content of batch jobs process result failed!");
-					return;
+					if(retryTimes < RETRY_TIMES_MAX){
+						retryTimes++;
+						System.out.println(String.format("Image content of batch jobs process result failed! The number of retries is %s!", retryTimes));
+						Thread.sleep(POLLING_INTERVAL);
+						continue;
+					}else{
+						System.out.println("Image content of batch jobs process result failed! The number of retries has run out");
+						return;
+					}
 				}
 
 				// 6.2 任务处理成功

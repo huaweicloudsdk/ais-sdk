@@ -13,20 +13,23 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 public class ClientContextUtils {
-	private static final String REGION = "cn-north-1"; /* 配置AIS服务的区域信息 */
+	/**
+	 *  服务的区域信息: 目前支持北京1 cn-north-1、香港 ap-southeast-1
+	 */
+	private static final String REGION = "cn-north-1";
 
 	private static Map<String, String> endponitMap = new ConcurrentHashMap<>();
 	static {
+		/*  moderation服务的服务端点, 该服务端口信息可以从如下地址查询
+		 *  http://developer.huaweicloud.com/dev/endpoint
+		 * */
 		endponitMap.put("cn-north-1", "https://moderation.cn-north-1.myhuaweicloud.com");
 		endponitMap.put("ap-southeast-1", "https://moderation.ap-southeast-1.myhuaweicloud.com");
 	}
 	
 	private static final AuthInfo HEC_AUTH = new AuthInfo(
-			/*  内容检测服务的服务端点, 该服务端口信息可以从如下地址查询
-			 *  http://developer.huaweicloud.com/dev/endpoint
-			 * */
 			 getCurrentEndpoint(REGION),
-			 REGION,  /* 内容检测服务的区域信息, 可以在上面的地址中查询 */
+			 REGION,
 			 "your ak",    /* 请输入你的AK信息 */
 			 "your sk"     /* 对应AK的的SK信息 */
 			 );
@@ -47,6 +50,9 @@ public class ClientContextUtils {
 				);  
 	}
 
+	/**
+	 * 用于根据服务区域信息获取服务域名
+	 */
 	public static String getCurrentEndpoint(String region){
 		return endponitMap.get(region);
 	}

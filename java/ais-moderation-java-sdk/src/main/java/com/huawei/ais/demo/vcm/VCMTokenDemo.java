@@ -25,7 +25,7 @@ import com.huawei.ais.sdk.util.HttpClientUtils;
  */
 public class VCMTokenDemo {
 
-	private static final String REGION = "cn-north-1";
+	private static final String REGION = "cn-north-1"; // 此处，请输入服务的区域信息，目前支持北京1 cn-north-1、香港 ap-southeast-1
 	private static final String AIS_ENDPOINT = ClientContextUtils.getCurrentEndpoint(REGION);
 	private static final String IAM_ENDPOINT = "https://iam." + REGION + ".myhuaweicloud.com";
 
@@ -36,6 +36,7 @@ public class VCMTokenDemo {
 
 	private static final String JSON_ROOT = "result";
 	private static final long QUERY_JOB_RESULT_INTERVAL = 2000L;
+	private static final Integer RETRY_TIMES_MAX = 3; // 查询任务失败的最大重试次数
 
 	private static int connectionTimeout = 5000; //连接目标url超时限制参数
 	private static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
@@ -88,6 +89,8 @@ public class VCMTokenDemo {
 		String jobId = submitResult.getId();
 		System.out.println("\nSubmit job successfully, job_id=" + jobId);
 
+		// 初始化查询jobId失败次数
+		Integer retryTimes = 0;
 
 		// 构建进行查询的请求链接，并进行轮询查询，由于是异步任务，必须多次进行轮询
 		// 直到结果状态为任务已处理结束
@@ -109,9 +112,17 @@ public class VCMTokenDemo {
 				System.out.println("Job " + jobResult.getStatus() + ", waiting...");
 				Thread.sleep(QUERY_JOB_RESULT_INTERVAL);
 			} else if (jobStatus == JobStatus.FAILED) {
-				// 如果处理失败，直接退出
-				System.out.println("\nJob failed! \ncause:" + jobResult.getCause());
-				break;
+				// 如果失败次数未达上限，进行重试
+				if(retryTimes < RETRY_TIMES_MAX){
+					retryTimes++;
+					System.out.println(String.format("\nJob failed! cause:%s, The number of retries is %s!", jobResult.getCause(), retryTimes));
+					Thread.sleep(QUERY_JOB_RESULT_INTERVAL);
+					continue;
+				}else {
+					// 如果处理失败到达限制次数，直接退出
+					System.out.println(String.format("\nJob failed! cause:%s, The number of retries has run out!", jobResult.getCause()));
+					break;
+				}
 			} else if (jobStatus == JobStatus.FINISH) {
 				// 任务处理成功，打印结果
 				System.out.println("\nJob finished!");
