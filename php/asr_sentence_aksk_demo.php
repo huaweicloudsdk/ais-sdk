@@ -5,13 +5,15 @@
 require "./ais_sdk/asr_sentence.php";
 require "./ais_sdk/utils.php";
 
+// 当前支持北京1：cn-north-1
+init_region($region = 'cn-north-1');
 $app_key = "*************";
 $app_secret = "*************";
 
 $filepath = "./data/asr-sentence.wav";
-$data = fileToBase64($filepath);
+$data = file_to_base64($filepath);
 
-$data_url = "https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav";
+$data_url = "https://obs-ch-sdk-sample.obs.cn-north-1.myhuaweicloud.com/asr-sentence.wav";
 
 // base64 方式请求
 $result = asr_sentence_aksk($app_key, $app_secret, $data, "", "wav", "16k");

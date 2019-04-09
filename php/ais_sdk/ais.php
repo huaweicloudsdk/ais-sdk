@@ -81,3 +81,6 @@ define("IMAGE", "image");
 
 //内容审核服务类别
 define("MODERATION", "moderation");
+
+// 最大重试次数
+define("RETRY_TIMES_MAX", 3);

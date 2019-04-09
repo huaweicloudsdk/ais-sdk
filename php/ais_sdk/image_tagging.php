@@ -7,7 +7,7 @@ require "ais.php";
  */
 function image_tagging($token, $data, $url, $threshold, $language, $limit = -1)
 {
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
     // 构建请求信息
     $_url = "https://" . $endPoint . IMAGE_TAGGING;
 
@@ -64,7 +64,7 @@ function image_tagging_aksk($_ak, $_sk, $data, $url, $threshold, $language, $lim
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求对象
     $req = new Request();

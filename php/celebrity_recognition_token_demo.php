@@ -6,18 +6,19 @@ require "./ais_sdk/gettoken.php";
 require "./ais_sdk/celebrity_recognition.php";
 require "./ais_sdk/utils.php";
 
+// 当前支持北京1：cn-north-1 和香港：ap-southeast-1 等region信息
+init_region($region = 'cn-north-1');
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-initRegion($region = "cn-north-1");
 
 $filepath = "./data/celebrity-recognition.jpg";
-$data = fileToBase64($filepath);
+$data = file_to_base64($filepath);
 
 // obs链接需要和region区域一致，不同的region的obs资源不共享
 $data_url = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg";
 
-$token = gettoken($username, $password, $domainName);
+$token = get_token($username, $password, $domainName);
 
 // 图片base64方式请求接口
 $result = celebrity_recognition($token, $data, "");

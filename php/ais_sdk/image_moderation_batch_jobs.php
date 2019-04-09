@@ -8,13 +8,14 @@ require "ais.php";
  */
 function batch_jobs($token, $urls, $categories)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
     // 获取任务信息
     $jobResult = _batch_jobs($endPoint, $token, $urls, $categories);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id . "\n";;
 
+    $retryTimes = 0;
     while (true) {
 
         // 获取任务解析的结果
@@ -24,7 +25,13 @@ function batch_jobs($token, $urls, $categories)
         }
 
         if ($resultobj['result']['status'] == "failed") {
-            var_dump($resultobj);
+            if($retryTimes < RETRY_TIMES_MAX){
+                $retryTimes++;
+                sleep(2);
+                continue;
+            }else{
+                var_dump($resultobj);
+            }
 
         } // 任务处理完毕
         elseif ($resultobj['result']['status'] == "finish") {
@@ -67,6 +74,7 @@ function _batch_jobs($endPoint, $token, $urls, $categories)
     // 执行请求信息
     $response = curl_exec($curl);
     $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
     if ($status == 0) {
         echo curl_error($curl);
     } else {
@@ -131,7 +139,7 @@ function get_result($endPoint, $token, $job_id)
  */
 function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建ak，sk对象
     $signer = new Signer();
@@ -143,6 +151,7 @@ function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id . "\n";
 
+    $retryTimes = 0;
     while (true) {
 
         // 获取任务的执行结果
@@ -153,7 +162,13 @@ function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
         }
 
         if ($resultobj['result']['status'] == "failed") {
-            var_dump($resultobj);
+            if($retryTimes < RETRY_TIMES_MAX){
+                $retryTimes++;
+                sleep(2);
+                continue;
+            }else{
+                var_dump($resultobj);
+            }
 
             // 任务处理成功，返回结果信息
         } elseif ($resultobj['result']['status'] == "finish") {

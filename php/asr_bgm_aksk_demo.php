@@ -6,9 +6,10 @@
 require "./ais_sdk/asr_bgm.php";
 require "./ais_sdk/utils.php";
 
+// 当前支持北京1：cn-north-1 和香港：ap-southeast-1 等region信息
+init_region($region = 'cn-north-1');
 $app_key = "*************";
 $app_secret = "*************";
-initRegion($region = 'cn-north-1');
 
 // obs链接需要和region区域一致，不同的region的obs资源不共享
 $data_url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";

@@ -5,15 +5,16 @@
 require "./ais_sdk/image_defog.php";
 require "./ais_sdk/utils.php";
 
+// 当前支持北京1：cn-north-1 和香港：ap-southeast-1 等region信息
+init_region($region = 'cn-north-1');
 $app_key = "*************";
 $app_secret = "*************";
-initRegion($region = "cn-north-1");
 
 $filepath = "./data/defog-demo.png";
-$image = fileToBase64($filepath);
+$image = file_to_base64($filepath);
 
 $result = image_defog_aksk($app_key, $app_secret, $image, 1.5, true);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"];
-base64ToFile("data/defog-demo-aksk.png", $basestr);
+base64_to_file("data/defog-demo-aksk.png", $basestr);

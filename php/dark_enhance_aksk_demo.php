@@ -6,15 +6,16 @@
 require "./ais_sdk/dark_enhance.php";
 require "./ais_sdk/utils.php";
 
+// 当前支持北京1：cn-north-1 和香港：ap-southeast-1 等region信息
+init_region($region = 'cn-north-1');
 $app_key = "*************";
 $app_secret = "*************";
-initRegion($region = "cn-north-1");
 
 $filepath = "./data/dark-enhance-demo.bmp";
-$image = fileToBase64($filepath);
+$image = file_to_base64($filepath);
 
 $result = dark_enhance_aksk($app_key, $app_secret, $image, 0.9);
 print_r($result);
 $resultobj = json_decode($result, true);
 $basestr = $resultobj["result"];
-base64ToFile("data/dark-enhance-demo-aksk.bmp", $basestr);
+base64_to_file("data/dark-enhance-demo-aksk.bmp", $basestr);

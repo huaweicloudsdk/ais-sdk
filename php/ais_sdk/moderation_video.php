@@ -8,13 +8,14 @@ require "ais.php";
  */
 function moderation_video($token, $url, $frame_interval, $category)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
     // 获取任务信息
     $jobResult = _moderation_video($endPoint, $token, $url, $frame_interval, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id;
 
+    $retryTimes = 0;
     while (true) {
 
         // 获取任务解析的结果
@@ -24,7 +25,13 @@ function moderation_video($token, $url, $frame_interval, $category)
         }
 
         if ($resultobj['result']['status'] == "failed") {
-            var_dump($resultobj);
+            if($retryTimes < RETRY_TIMES_MAX){
+                $retryTimes++;
+                sleep(2);
+                continue;
+            }else{
+                var_dump($resultobj);
+            }
 
         } // 任务处理完毕
         elseif ($resultobj['result']['status'] == "finish") {
@@ -137,13 +144,14 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     $jobResult = _moderation_video_aksk($endPoint, $signer, $url, $frame_interval, $category);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id;
 
+    $retryTimes = 0;
     while (true) {
 
         // 获取任务的执行结果
@@ -154,7 +162,13 @@ function moderation_video_aksk($_ak, $_sk, $url, $frame_interval, $category)
         }
 
         if ($resultobj['result']['status'] == "failed") {
-            var_dump($resultobj);
+            if($retryTimes < RETRY_TIMES_MAX){
+                $retryTimes++;
+                sleep(2);
+                continue;
+            }else{
+                var_dump($resultobj);
+            }
 
             // 任务处理成功，返回结果信息
         } elseif ($resultobj['result']['status'] == "finish") {
