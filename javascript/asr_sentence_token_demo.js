@@ -8,13 +8,12 @@ var utils = require("./ais_sdk/utils");
 var username = "*******";        // 配置用户名
 var domain_name = "*******";     // 配置用户名
 var password = "*******";        // 密码
-var region_name = "cn-north-1";  // 配置区域信息
 
 var filepath = "./data/asr-sentence.wav";
 var data = utils.changeFileToBase64(filepath);
 
-obsUrl = "https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav";
-token.getToken(username, domain_name, password, region_name, function (token) {
+obsUrl = "https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/asr-sentence.wav";
+token.getToken(username, domain_name, password, function (token) {
 
     sentence.asr_scentence(token, data, "", "wav", "16k", function (result) {
         console.log(result);

@@ -4,6 +4,8 @@ var signer = require("./signer");
 var ais = require("./ais");
 
 function video(token, url, frame_interval, category, callback) {
+
+    var endPoint = utils.getEndPoint(ais.MODERATION_SERVICE);
     /**
      *  url：视频的URL路径
      *  frame_interval：非必选 截帧时间间隔。number
@@ -11,10 +13,11 @@ function video(token, url, frame_interval, category, callback) {
      * @type {string}
      */
     var requestData = {"url": url, "frame_interval": frame_interval, "category": category};
+    var requestBody = JSON.stringify(requestData);
 
     // 构建请求信息
-    var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-    var options = utils.getHttpRequestEntityOptions(ais.MODERATION_ENDPOINT, "POST", ais.MODERATION_VIDEO, headers);
+    var headers = {"Content-Type": "application/json", "X-Auth-Token": token, "Content-Length": requestBody.length};
+    var options = utils.getHttpRequestEntityOptions(endPoint, "POST", ais.MODERATION_VIDEO, headers);
 
     var request = https.request(options, function (response) {
 
@@ -30,11 +33,11 @@ function video(token, url, frame_interval, category, callback) {
             // 获取job_id
             var result = JSON.parse(chunk);
             job_id = result.result.job_id;
-            console.log('Process job id is :' + job_id)
+            console.log('Process job id is :' + job_id);
 
             // 根据job_id的结果,获取视频审核信息
             var results = "";
-            get_result(job_id, results, token, callback);
+            get_result(endPoint, job_id, results, token, callback);
         })
     });
 
@@ -42,14 +45,14 @@ function video(token, url, frame_interval, category, callback) {
         console.log(err.message);
     });
 
-    request.write(JSON.stringify(requestData));
+    request.write(requestBody);
     request.end();
 }
 
-function get_result(job_id, resultsearch, token, callback) {
+function get_result(endPoint, job_id, resultsearch, token, callback) {
     // 构建请求参数和请求信息
     var requestData = {'job_id': job_id};
-    var options = utils.getHttpRequestEntityForGet(ais.MODERATION_ENDPOINT, "GET", ais.MODERATION_VIDEO, {
+    var options = utils.getHttpRequestEntityForGet(endPoint, "GET", ais.MODERATION_VIDEO, {
         "Content-Type": "application/json",
         "X-Auth-Token": token
     }, requestData);
@@ -80,7 +83,7 @@ function get_result(job_id, resultsearch, token, callback) {
 
                 // 如果没有返回，等待一段时间，继续进行轮询。
                 setTimeout(function () {
-                    get_result(job_id, resultsearch, token, callback);
+                    get_result(endPoint, job_id, resultsearch, token, callback);
                 }, 2000);
             }
         });
@@ -100,12 +103,14 @@ function video_aksk(_ak, _sk, url, frame_interval, category, callback) {
     sig.AppKey = _ak;                     // 构建ak
     sig.AppSecret = _sk;                  // 构建sk
 
+    var endPoint = utils.getEndPoint(ais.MODERATION_SERVICE);
+
     // 构建请求信息和请求参数信息
     var requestData = {"url": url, "frame_interval": frame_interval, "category": category};
     var job_id = "";
     var req = new signer.HttpRequest();
     var header = {"Content-Type": "application/json"};
-    var options = utils.getHttpRequestEntity(sig, req, ais.MODERATION_ENDPOINT, "POST", ais.MODERATION_VIDEO, "", header, requestData);
+    var options = utils.getHttpRequestEntity(sig, req, endPoint, "POST", ais.MODERATION_VIDEO, "", header, requestData);
 
     var request = https.request(options, function (response) {
 
@@ -121,10 +126,10 @@ function video_aksk(_ak, _sk, url, frame_interval, category, callback) {
             // 获取job_id 信息，获取视频审核信息
             var result = JSON.parse(chunk);
             job_id = result.result.job_id;
-            console.log('Process job id is :' + job_id)
+            console.log('Process job id is :' + job_id);
 
             var results = "";
-            get_result_aksk(sig, job_id, results, callback);
+            get_result_aksk(endPoint, sig, job_id, results, callback);
         })
     });
 
@@ -143,11 +148,11 @@ function video_aksk(_ak, _sk, url, frame_interval, category, callback) {
  * @param job_id : 任务的id
  * @param resultsearch ：获取结果信息
  */
-function get_result_aksk(sign, job_id, resultsearch, callback) {
+function get_result_aksk(endPoint, sign, job_id, resultsearch, callback) {
 
     // 构建请求信息和参数信息
     var request = new signer.HttpRequest();
-    var options = utils.getHttpRequestEntity(sign, request, ais.MODERATION_ENDPOINT, "GET", ais.MODERATION_VIDEO, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
+    var options = utils.getHttpRequestEntity(sign, request, endPoint, "GET", ais.MODERATION_VIDEO, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
 
     // 轮询请求视频接口，获取结果信息
     var reqsearch = https.request(options, function (response) {
@@ -176,7 +181,7 @@ function get_result_aksk(sign, job_id, resultsearch, callback) {
 
                 // 如果没有返回，等待一段时间，继续进行轮询。
                 setTimeout(function () {
-                    get_result_aksk(sign, job_id, resultsearch, callback);
+                    get_result_aksk(endPoint, sign, job_id, resultsearch, callback);
                 }, 2000);
             }
         });

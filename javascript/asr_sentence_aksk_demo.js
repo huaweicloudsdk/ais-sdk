@@ -10,7 +10,7 @@ var app_secret = "************";
 var filepath = "./data/asr-sentence.wav";
 var data = utils.changeFileToBase64(filepath);
 
-obsUrl = "https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav";
+obsUrl = "https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/asr-sentence.wav";
 
 sentence.asr_scentence_aksk(app_key, app_secret, data, "", "wav", "16k", function (result) {
     console.log(result);

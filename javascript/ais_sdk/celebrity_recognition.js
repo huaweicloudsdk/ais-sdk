@@ -5,12 +5,14 @@ var ais = require("./ais");
 
 module.exports = {
     celebrity_recognition: function (token, data, url, threshold = 0.48, callback) {
+        var endPoint = utils.getEndPoint(ais.IMAGE_SERVICE);
 
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url, "threshold": threshold};
-        var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-        var options = utils.getHttpRequestEntityOptions(ais.IMAGE_ENDPOINT, "POST", ais.CELEBRITY_RECOGNITION, headers);
         var requestBody = JSON.stringify(requestData);
+
+        var headers = {"Content-Type": "application/json", "X-Auth-Token": token, "Content-Length": requestBody.length};
+        var options = utils.getHttpRequestEntityOptions(endPoint, "POST", ais.CELEBRITY_RECOGNITION, headers);
 
         var request = https.request(options, function (response) {
 
@@ -41,11 +43,13 @@ module.exports = {
         sig.AppKey = _ak;                   // 构建ak
         sig.AppSecret = _sk;                // 构建sk
 
+        var endPoint = utils.getEndPoint(ais.IMAGE_SERVICE);
+
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url};
         var _headers = {"Content-Type": "application/json"};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.IMAGE_ENDPOINT, "POST", ais.CELEBRITY_RECOGNITION, "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, endPoint, "POST", ais.CELEBRITY_RECOGNITION, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 

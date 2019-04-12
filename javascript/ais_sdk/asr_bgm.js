@@ -6,13 +6,15 @@ var ais = require("./ais");
 module.exports = {
     asr_bgm: function (token, url, callback) {
 
+        var endPoint = utils.getEndPoint(ais.IMAGE_SERVICE);
         // 构建请求信息
+        var requestBody = JSON.stringify({"url": url});
         var headers = {
             "Content-Type": "application/json",
-            "X-Auth-Token": token
+            "X-Auth-Token": token,
+            "Content-Length": requestBody.length
         };
-        var options = utils.getHttpRequestEntityOptions(ais.IMAGE_ENDPOINT, "POST", ais.ASR_BGM, headers);
-        var requestBody = JSON.stringify({"url": url});
+        var options = utils.getHttpRequestEntityOptions(endPoint, "POST", ais.ASR_BGM, headers, );
 
         var requset = https.request(options, function (response) {
 
@@ -37,6 +39,7 @@ module.exports = {
 
     asr_bgm_aksk: function (_ak, _sk, _url, callback) {
 
+        var endPoint = utils.getEndPoint(ais.IMAGE_SERVICE);
         // 配置ak，sk信息
         var sig = new signer.Signer();
         sig.AppKey = _ak;    //构建ak
@@ -46,7 +49,7 @@ module.exports = {
         var requestData = {"url": _url};
         var _headers = {"Content-Type": "application/json"};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.IMAGE_ENDPOINT, "POST", ais.ASR_BGM, "", _headers, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, endPoint, "POST", ais.ASR_BGM, "", _headers, requestData);
 
         var requset = https.request(options, function (response) {
 

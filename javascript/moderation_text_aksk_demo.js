@@ -4,6 +4,9 @@
 var text = require("./ais_sdk/moderation_text");
 var utils = require("./ais_sdk/utils");
 
+// 初始化服务的区域信息，目前支持北京1(cn-north-1)、香港(ap-southeast-1)等区域信息
+utils.initRegion(region="cn-north-1");
+
 var app_key = "*************";
 var app_secret = "************";
 

@@ -11,10 +11,13 @@ function batch_jobs(token, urls, categories, callback) {
      * @type {string}
      */
     var requestData = {"urls": urls, "categories": categories};
+    var requestBody = JSON.stringify(requestData);
+
+    var endPoint = utils.getEndPoint(ais.MODERATION_SERVICE);
 
     // 构建请求信息
-    var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-    var options = utils.getHttpRequestEntityOptions(ais.MODERATION_ENDPOINT, "POST", ais.IMAGE_CONTENT_BATCH_JOBS, headers);
+    var headers = {"Content-Type": "application/json", "X-Auth-Token": token, "Content-Length": requestBody.length};
+    var options = utils.getHttpRequestEntityOptions(endPoint, "POST", ais.IMAGE_CONTENT_BATCH_JOBS, headers);
 
     var request = https.request(options, function (response) {
 
@@ -34,7 +37,7 @@ function batch_jobs(token, urls, categories, callback) {
 
             // 根据job_id的结果,获取批量异步图像内容审核结果
             var results = "";
-            get_result(job_id, results, token, callback);
+            get_result(endPoint, job_id, results, token, callback);
         })
     });
 
@@ -42,16 +45,16 @@ function batch_jobs(token, urls, categories, callback) {
         console.log(err.message);
     });
 
-    request.write(JSON.stringify(requestData));
+    request.write(requestBody);
     request.end();
 }
 
-function get_result(job_id, resultsearch, token, callback) {
+function get_result(endPoint, job_id, resultsearch, token, callback) {
     // 构建请求参数和请求信息
     var requestData = {'job_id': job_id};
-    var options = utils.getHttpRequestEntityForGet(ais.MODERATION_ENDPOINT, "GET", ais.IMAGE_CONTENT_BATCH_RESULT, {
+    var options = utils.getHttpRequestEntityForGet(endPoint, "GET", ais.IMAGE_CONTENT_BATCH_RESULT, {
         "Content-Type": "application/json",
-        "X-Auth-Token": token
+        "X-Auth-Token": token,
     }, requestData);
 
     // 轮询请求图像内容审核接口，获取结果信息
@@ -80,7 +83,7 @@ function get_result(job_id, resultsearch, token, callback) {
 
                 // 如果没有返回，等待一段时间，继续进行轮询。
                 setTimeout(function () {
-                    get_result(job_id, resultsearch, token, callback);
+                    get_result(endPoint, job_id, resultsearch, token, callback);
                 }, 2000);
             }
         });
@@ -100,12 +103,14 @@ function batch_jobs_aksk(_ak, _sk, urls, categories, callback) {
     sig.AppKey = _ak;                     // 构建ak
     sig.AppSecret = _sk;                  // 构建sk
 
+    var endPoint = utils.getEndPoint(ais.MODERATION_SERVICE);
+
     // 构建请求信息和请求参数信息
     var requestData = {"urls": urls, "categories": categories};
     var job_id = "";
     var req = new signer.HttpRequest();
     var header = {"Content-Type": "application/json"};
-    var options = utils.getHttpRequestEntity(sig, req, ais.MODERATION_ENDPOINT, "POST", ais.IMAGE_CONTENT_BATCH_JOBS, "", header, requestData);
+    var options = utils.getHttpRequestEntity(sig, req, endPoint, "POST", ais.IMAGE_CONTENT_BATCH_JOBS, "", header, requestData);
 
     var request = https.request(options, function (response) {
 
@@ -124,7 +129,7 @@ function batch_jobs_aksk(_ak, _sk, urls, categories, callback) {
             console.log('Process job id is :' + job_id);
 
             var results = "";
-            get_result_aksk(sig, job_id, results, callback);
+            get_result_aksk(endPoint, sig, job_id, results, callback);
         })
     });
 
@@ -143,11 +148,11 @@ function batch_jobs_aksk(_ak, _sk, urls, categories, callback) {
  * @param job_id : 任务的id
  * @param resultsearch ：获取结果信息
  */
-function get_result_aksk(sign, job_id, resultsearch, callback) {
+function get_result_aksk(endPoint, sign, job_id, resultsearch, callback) {
 
     // 构建请求信息和参数信息
     var request = new signer.HttpRequest();
-    var options = utils.getHttpRequestEntity(sign, request, ais.MODERATION_ENDPOINT, "GET", ais.IMAGE_CONTENT_BATCH_RESULT, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
+    var options = utils.getHttpRequestEntity(sign, request, endPoint, "GET", ais.IMAGE_CONTENT_BATCH_RESULT, {'job_id': job_id}, {"Content-Type": "application/json"}, "");
 
     // 轮询图像内容审核接口，获取结果信息
     var reqsearch = https.request(options, function (response) {
@@ -176,7 +181,7 @@ function get_result_aksk(sign, job_id, resultsearch, callback) {
 
                 // 如果没有返回，等待一段时间，继续进行轮询。
                 setTimeout(function () {
-                    get_result_aksk(sign, job_id, resultsearch, callback);
+                    get_result_aksk(endPoint, sign, job_id, resultsearch, callback);
                 }, 2000);
             }
         });

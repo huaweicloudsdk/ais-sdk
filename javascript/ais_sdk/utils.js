@@ -4,7 +4,21 @@
 var fs = require("fs");
 var path = require("path");
 var signer = require("./signer");
+global.ENDPOINT = {
+    'image': {
+        'cn-north-1': 'image.cn-north-1.myhuaweicloud.com',
+        'ap-southeast-1': 'image.ap-southeast-1.myhuaweicloud.com'
+    },
+    'moderation': {
+        'cn-north-1': 'moderation.cn-north-1.myhuaweicloud.com',
+        'ap-southeast-1': 'moderation.ap-southeast-1.myhuaweicloud.com'
+    }
+};
+
+global.region = "cn-north-1";
+
 module.exports = {
+
     /**
      * 将文件内容转化成base64的字符串
      * @param filepath 文件路径
@@ -27,7 +41,7 @@ module.exports = {
      * @param headers 请求头信息
      * @param body 请求体信息
      */
-    getHttpRequestEntity: function (sign, request, host, method, uri, query, headers, body) {
+    getHttpRequestEntity: function (sig, request, host, method, uri, query, headers, body) {
         request.rejectunauthorized = false;
         request.host = host;
         request.method = method;
@@ -41,11 +55,11 @@ module.exports = {
         } else {
             request.body = "";
         }
-        var options = sign.Sign(request);
+        var options = sig.Sign(request);
         return options;
     },
     /**
-     * Token方式封装GET请求信息
+     * Token方式封装请求信息
      * @param host 域名信息
      * @param method 请求类型
      * @param uri 请求路径
@@ -115,7 +129,7 @@ module.exports = {
      * @param password       密码
      * @param regionName     区域名
      */
-    getRequestBodyForToken: function (username, password, domainName, regionName) {
+    getRequestBodyForToken: function (username, password, domainName) {
         var param = {
             "auth": {
                 "identity": {
@@ -134,7 +148,7 @@ module.exports = {
                 },
                 "scope": {
                     "project": {
-                        "name": regionName
+                        "name": region
                     }
                 }
             }
@@ -146,6 +160,22 @@ module.exports = {
         var filePath = path.normalize(filePosition);
         fs.writeFileSync(filePath, new Buffer(base64Str, 'base64'));
         console.log(filePath);
+    },
+
+    /**
+     * 初始化当前服务的region信息
+     * @param region
+     */
+    initRegion : function (regionName) {
+        region = regionName;
+    },
+
+    /**
+     * 获取当前服务的请求域名
+     * @param type
+     */
+    getEndPoint : function (type) {
+        return ENDPOINT[type][region];
     }
 
 };
