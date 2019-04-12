@@ -5,7 +5,7 @@ var ais = require("./ais");
 
 module.exports = {
     distortion_correct: function (token, data, url, correction, callback) {
-
+        var endPoint = utils.getEndPoint(ais.MODERATION_SERVICE);
         /**
          * image：与url二选一 图片文件Base64编码字符串
          * url：与image二选一 图片的URL路径，目前支持华为云上OBS提供的临时授权访问的URL，以及匿名公开授权的URL
@@ -13,12 +13,13 @@ module.exports = {
          * @type {{image: (*|string), correction: boolean}}
          */
         var requestData = {"image": data, "url": url, "correction": correction};
-        var options = utils.getHttpRequestEntityOptions(ais.MODERATION_ENDPOINT, "POST", ais.DISTORTION_CORRECT, {
-            "Content-Type": "application/json",
-            "X-Auth-Token": token
-        });
-
         var requestBody = JSON.stringify(requestData);
+
+        var options = utils.getHttpRequestEntityOptions(endPoint, "POST", ais.DISTORTION_CORRECT, {
+            "Content-Type": "application/json",
+            "X-Auth-Token": token,
+            "Content-Length": requestBody.length
+        });
 
         var request = https.request(options, function (response) {
 
@@ -53,6 +54,8 @@ module.exports = {
         sig.AppKey = _ak;                       // 构建ak
         sig.AppSecret = _sk;                    // 构建sk
 
+        var endPoint = utils.getEndPoint(ais.MODERATION_SERVICE);
+
         /**
          * image：与url二选一 图片文件Base64编码字符串
          * url：与image二选一 图片的URL路径，目前支持华为云上OBS提供的临时授权访问的URL，以及匿名公开授权的URL
@@ -61,7 +64,7 @@ module.exports = {
          */
         var requestData = {"image": data, "url": url, "correction": correction};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.MODERATION_ENDPOINT, "POST", ais.DISTORTION_CORRECT, "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, endPoint, "POST", ais.DISTORTION_CORRECT, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

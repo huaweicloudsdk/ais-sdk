@@ -6,11 +6,14 @@ var ais = require("./ais");
 module.exports = {
     clarity_detect: function (token, data, url, threshold, callback) {
 
+        var endPoint = utils.getEndPoint(ais.MODERATION_SERVICE);
+
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url, "threshold": threshold};
-        var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-        var options = utils.getHttpRequestEntityOptions(ais.MODERATION_ENDPOINT, "POST", ais.IMAGE_CLARITY_DETECT, headers);
         var requestBody = JSON.stringify(requestData);
+
+        var headers = {"Content-Type": "application/json", "X-Auth-Token": token, "Content-Length": requestBody.length};
+        var options = utils.getHttpRequestEntityOptions(endPoint, "POST", ais.IMAGE_CLARITY_DETECT, headers);
 
         var request = https.request(options, function (response) {
 
@@ -39,9 +42,11 @@ module.exports = {
         sig.AppKey = _ak;                   // 构建ak
         sig.AppSecret = _sk;                // 构建sk
 
+        var endPoint = utils.getEndPoint(ais.MODERATION_SERVICE);
+
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url, "threshold": threshold};
-        var host = ais.MODERATION_ENDPOINT;
+        var host = endPoint;
         var _headers = {"Content-Type": "application/json"};
         var uri = ais.IMAGE_CLARITY_DETECT;
         var req = new signer.HttpRequest();

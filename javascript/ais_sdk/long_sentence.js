@@ -6,9 +6,10 @@ var ais = require("./ais");
 function long_sentence(token, data, url, category, callback) {
     // 封装获取job_id请求的参数信息
     var requestData = {"data": data, "url": url, "category": category};
+    var requestBody = JSON.stringify(requestData);
 
     // 构建请求信息
-    var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
+    var headers = {"Content-Type": "application/json", "X-Auth-Token": token, "Content-Length": requestBody.length};
     var options = utils.getHttpRequestEntityOptions(ais.ASR_ENDPOINT, "POST", ais.LONG_SENTENCE, headers);
 
     var request = https.request(options, function (response) {
@@ -24,7 +25,7 @@ function long_sentence(token, data, url, category, callback) {
             // 获取job_id
             var result = JSON.parse(chunk);
             job_id = result.result.job_id;
-            console.log('Process job id is :' + job_id)
+            console.log('Process job id is :' + job_id);
 
             // 根据job_id的结果,获取语音识别的信息获取语音识获取语音识别的信息
             var words = "";
@@ -37,7 +38,7 @@ function long_sentence(token, data, url, category, callback) {
         console.log(err.message);
     });
 
-    request.write(JSON.stringify(requestData));
+    request.write(requestBody);
     request.end();
 }
 

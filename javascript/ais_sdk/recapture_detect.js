@@ -6,14 +6,17 @@ var ais = require("./ais");
 module.exports = {
     recapture_detect: function (token, data, url, threshold, scene, callback) {
 
+        var endPoint = utils.getEndPoint(ais.IMAGE_SERVICE);
+
         // 构建请求信息和请求参数信息
         var requestData = {"image": data, "url": url, "threshold": threshold, "scene": scene};
-        var options = utils.getHttpRequestEntityOptions(ais.IMAGE_ENDPOINT, "POST", ais.RECAPTURE_DETECT, {
-            "Content-Type": "application/json",
-            "X-Auth-Token": token
-        });
-
         var requestBody = JSON.stringify(requestData);
+
+        var options = utils.getHttpRequestEntityOptions(endPoint, "POST", ais.RECAPTURE_DETECT, {
+            "Content-Type": "application/json",
+            "X-Auth-Token": token,
+            "Content-Length": requestBody.length
+        });
 
         var request = https.request(options, function (response) {
 
@@ -42,9 +45,11 @@ module.exports = {
         sig.AppKey = _ak;                   // 构建ak
         sig.AppSecret = _sk;                // 构建sk
 
+        var endPoint = utils.getEndPoint(ais.IMAGE_SERVICE);
+
         var requestData = {"image": data, "url": url, "threshold": threshold, "scene": scene};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.IMAGE_ENDPOINT, "POST", ais.RECAPTURE_DETECT, "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, endPoint, "POST", ais.RECAPTURE_DETECT, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 
