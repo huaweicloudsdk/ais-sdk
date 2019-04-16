@@ -10,7 +10,7 @@ require "./ais_sdk/utils.php";
 init_region($region = 'cn-north-1');
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
-$domainName = "********";   // 配置用户名
+$domainName = "*********";   // 配置用户名
 
 $demo_data_url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
 
