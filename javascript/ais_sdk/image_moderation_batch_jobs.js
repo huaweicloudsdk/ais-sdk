@@ -50,6 +50,7 @@ function batch_jobs(token, urls, categories, callback) {
     request.end();
 }
 
+
 function get_result(endPoint, job_id, resultsearch, token, retryTimes, callback) {
     // 构建请求参数和请求信息
     var requestData = {'job_id': job_id};
@@ -96,6 +97,7 @@ function get_result(endPoint, job_id, resultsearch, token, retryTimes, callback)
                 // 如果没有返回，等待一段时间，继续进行轮询。
                 setTimeout(function () {
                     get_result(endPoint, job_id, resultsearch, token, retryTimes, callback);
+
                 }, 2000);
             }
         });

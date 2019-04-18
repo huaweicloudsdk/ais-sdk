@@ -50,6 +50,7 @@ function video(token, url, frame_interval, category, callback) {
     request.end();
 }
 
+
 function get_result(endPoint, job_id, resultsearch, token, retryTimes, callback) {
     // 构建请求参数和请求信息
     var requestData = {'job_id': job_id};
