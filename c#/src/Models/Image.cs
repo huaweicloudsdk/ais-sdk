@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -11,6 +12,13 @@ namespace Ais.Models
 {
     public class Image
     {
+        private static Dictionary<String, String> endPointsDic = new Dictionary<string, string>();
+
+        static Image()
+        {
+            endPointsDic.Add("cn-north-1", "image.cn-north-1.myhuaweicloud.com");
+            endPointsDic.Add("ap-southeast-1", "image.ap-southeast-1.myhuaweicloud.com");
+        }
         public static String ImageTaggingToken(String token, String image, String url, float threshold, String language, int limit, String endpoint)
         {
             // reuqest data for image tagging
@@ -119,6 +127,12 @@ namespace Ais.Models
 
             return utils.PostData(request, uri, token, requestBody, result, serviceName);
 
+        }
+
+        public static String getEndponit(String region)
+        {
+            String endpoint = endPointsDic[region];
+            return endpoint;
         }
     }
 }

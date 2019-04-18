@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -10,6 +11,14 @@ namespace Ais.Models
 {
     public class Moderation
     {
+        private static Dictionary<String, String> endPointsDic = new Dictionary<string, string>();
+
+        static Moderation()
+        {
+            endPointsDic.Add("cn-north-1", "image.cn-north-1.myhuaweicloud.com");
+            endPointsDic.Add("ap-southeast-1", "image.ap-southeast-1.myhuaweicloud.com");
+        }
+
         public static String ClarityDetectToken(String token, String image, String url, float threshold, String endpoint)
         {
             // reuqest data for image clarity detect
@@ -152,6 +161,7 @@ namespace Ais.Models
 
             HttpWebRequest request = null;
             String serviceName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            int retryTimes = 0;
 
             while (true)
             {
@@ -164,8 +174,18 @@ namespace Ais.Models
                 result = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
                 JObject joResult = (JObject)JsonConvert.DeserializeObject(result);
-                if (joResult["result"]["status"].ToString() == "failed" || joResult["result"]["status"].ToString() == "finish")
+                if (joResult["result"]["status"].ToString() == "failed")
                 {
+                    if (retryTimes < Ais.RETRY_MAX_TIMES) {
+                        retryTimes++;
+                        Thread.Sleep(3000);
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                } else if (joResult["result"]["status"].ToString() == "finish") {
                     break;
                 }
                 else
@@ -213,6 +233,7 @@ namespace Ais.Models
 
             HttpWebRequest request = null;
             String serviceName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            int retryTimes = 0;
 
             while (true)
             {
@@ -225,12 +246,23 @@ namespace Ais.Models
                 result = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
                 JObject joResult = (JObject)JsonConvert.DeserializeObject(result);
-                if (joResult["result"]["status"].ToString() == "failed" || joResult["result"]["status"].ToString() == "finish")
+                if (joResult["result"]["status"].ToString() == "failed")
                 {
+                    if (retryTimes < Ais.RETRY_MAX_TIMES)
+                    {
+                        retryTimes++;
+                        Thread.Sleep(3000);
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else if (joResult["result"]["status"].ToString() == "finish") {
                     break;
                 }
-                else
-                {
+                else { 
                     Thread.Sleep(3000);
                     continue;
                 }
@@ -238,6 +270,11 @@ namespace Ais.Models
             }
             return result;
 
+        }
+
+        public static String getEndponit(String region) {
+            String endpoint = endPointsDic[region];
+            return endpoint;
         }
     }
 }
