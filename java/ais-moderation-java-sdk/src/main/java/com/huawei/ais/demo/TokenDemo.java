@@ -21,9 +21,10 @@ import java.net.URISyntaxException;
  * 使用Token认证方式访问服务
  */
 public class TokenDemo {
-	private static final String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，参考地址: http://developer.huaweicloud.com/dev/endpoint
+	private static final String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，目前支持华北-北京一(cn-north-1)以及亚太-香港(ap-southeast-1)
 	private static final String URL_TEMPLATE = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/batch?job_id=%s";
 	private static final long POLLING_INTERVAL = 2000L;
+	private static final Integer RETRY_MAX_TIMES = 3; // 查询任务失败的最大重试次数
 	public static int connectionTimeout = 5000; //连接目标url超时限制参数
 	public static int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制参数
 	public static int socketTimeout =  5000;//获取服务器响应数据超时限制参数
@@ -333,6 +334,9 @@ public class TokenDemo {
 			String uri = String.format(URL_TEMPLATE, jobId);
 			System.out.println(uri);
 
+			// 初始化查询jobId失败次数
+			Integer retryTimes = 0;
+
 			while(true){
 
 				// 发起请求
@@ -340,11 +344,20 @@ public class TokenDemo {
 				String result = HttpClientUtils.convertStreamToString(getResponse.getEntity().getContent());
 				String status = getProcessStatus(result);
 
-				// 如果处理失败，直接退出
 				if(status.equals("failed"))
 				{
-					System.out.println("Image content of batch jobs process result failed!");
-					return;
+					// 如果失败次数未达上限，进行重试
+					if(retryTimes < RETRY_MAX_TIMES){
+						retryTimes++;
+						System.out.println(String.format("Image content of batch jobs process result failed! The number of retries is %s!", retryTimes));
+						Thread.sleep(POLLING_INTERVAL);
+						continue;
+					}else{
+						// 如果处理失败到达限制次数，直接退出
+						System.out.println("Image content of batch jobs process result failed! The number of retries has run out!");
+						Thread.sleep(POLLING_INTERVAL);
+						return;
+					}
 				}
 
 				// 任务处理成功
