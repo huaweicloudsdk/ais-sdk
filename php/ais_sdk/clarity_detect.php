@@ -7,7 +7,7 @@ require "ais.php";
  */
 function clarity_detect($token, $data, $url, $threshold = 0.8)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . IMAGE_CLARITY_DETECT;
@@ -62,7 +62,7 @@ function clarity_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.8)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求对象
     $req = new Request();

@@ -8,7 +8,7 @@ require "ais.php";
 function image_content_batch($token, $urls, $categories, $threshold)
 {
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . IMAGE_CONTENT_BATCH;
@@ -62,7 +62,7 @@ function image_content_batch_aksk($_ak, $_sk, $urls, $categories, $threshold)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求对象
     $req = new Request();

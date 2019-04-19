@@ -5,12 +5,14 @@
 require "./ais_sdk/recapture_detect.php";
 require "./ais_sdk/utils.php";
 
+// region目前支持华北-北京一(cn-north-1)、亚太-香港(ap-southeast-1)
+init_region($region = 'cn-north-1');
+
 $app_key = "*************";
 $app_secret = "*************";
-initRegion($region = "cn-north-1");
 
 $filepath = "./data/recapture-detect-demo.jpg";
-$data = fileToBase64($filepath);
+$data = file_to_base64($filepath);
 
 $data_url = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 

@@ -7,7 +7,7 @@ require "ais.php";
  */
 function super_resolution($token, $data, $scale = 3, $model = "ESPCN")
 {
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . SURPER_RESOLUTION;
@@ -64,7 +64,7 @@ function super_resolution_aksk($_ak, $_sk, $data, $scale = 3, $model = "ESPCN")
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求对象
     $req = new Request();

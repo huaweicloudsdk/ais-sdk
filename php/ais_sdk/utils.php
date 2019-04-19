@@ -17,7 +17,7 @@ $_endponit = array(
  * @param $file 文件路径
  * @return string
  */
-function fileToBase64($file)
+function file_to_base64($file)
 {
     $base64data = "";
     if (file_exists($file)) {
@@ -31,7 +31,7 @@ function fileToBase64($file)
  * @param $filePath
  * @param $base64str
  */
-function base64ToFile($filePath, $base64str)
+function base64_to_file($filePath, $base64str)
 {
     if ($base64str != null) {
 
@@ -54,7 +54,7 @@ function base64ToFile($filePath, $base64str)
  * 初始化region信息
  * @param $region
  */
-function initRegion($region){
+function init_region($region){
     $GLOBALS["regionName"] = $region;
 }
 
@@ -64,7 +64,7 @@ function initRegion($region){
  * @param $type
  * @return mixed
  */
-function getEndpoint($type)
+function get_endpoint($type)
 {
     global $_endponit;
     return $_endponit[$type][$GLOBALS["regionName"]];
