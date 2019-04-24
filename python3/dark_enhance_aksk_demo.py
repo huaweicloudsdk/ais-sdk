@@ -7,12 +7,14 @@ from ais_sdk.utils import init_global_env
 
 
 if __name__ == '__main__':
+    # Services currently support North China-Beijing 1 (cn-north-1), Asia Pacific-Hong Kong (ap-southeast-1)
+    init_global_env('cn-north-1')
+
     #
     # access image dark enhance by ak,sk
     #
     app_key = '*************'
     app_secret = '************'
-    init_global_env(region='cn-north-1')
 
     # call interface use base64 file
     result = dark_enhance_aksk(app_key,app_secret, encode_to_base64('data/dark-enhance-demo.bmp'), '0.95')

@@ -4,14 +4,16 @@ from ais_sdk.image_tagging import image_tagging_aksk
 from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
+    # Services currently support North China-Beijing 1 (cn-north-1), Asia Pacific-Hong Kong (ap-southeast-1)
+    init_global_env('cn-north-1')
+
     #
     # access image tagging ， post data by ak,sk
     #
     app_key = '*************'
     app_secret = '************'
-    init_global_env(region='cn-north-1')
 
-    # The OBS link needs to be consistent with the region, and the OBS resources of different regions are not shared
+    # The OBS link should match the region, and the OBS resources of different regions are not shared
     demo_data_url = 'https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg'
 
     # call interface use the url

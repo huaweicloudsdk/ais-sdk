@@ -12,6 +12,7 @@ import ais_sdk.utils as utils
 #
 # access asr, long_sentence，post data by token
 #
+_RETRY_TIMES = 3
 def moderation_video(token, url, frame_interval=5, categories=['politics', 'terrorism']):
     endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
     status, r = _moderation_video(endpoint, token, url, frame_interval, categories)
@@ -23,11 +24,18 @@ def moderation_video(token, url, frame_interval=5, categories=['politics', 'terr
     job_id = submit_result['result'].get('job_id', '')
     #print("Process job id is :", job_id)
     time.sleep(1.0)
+
+    retry_times = 0
     try:
         while True:
             status, r = _get_result(endpoint, token, job_id)
             if status != 200:
-                return r
+                if retry_times < _RETRY_TIMES:
+                    retry_times += 1
+                    time.sleep(2.0)
+                    continue
+                else:
+                    return r
 
             rec_result = json.loads(r)
 
@@ -154,11 +162,18 @@ def moderation_video_aksk(_ak, _sk, url, frame_interval=5, categories=['politics
     job_id = submit_result['result'].get('job_id', '')
     #print("Process job id is :", job_id)
     time.sleep(1.0)
+
+    retry_times = 0
     try:
         while True:
             status, r = _get_result_aksk(endpoint, sig, job_id)
             if status != 200:
-                return r
+                if retry_times < _RETRY_TIMES:
+                    retry_times += 1
+                    time.sleep(2.0)
+                    continue
+                else:
+                    return r
 
             rec_result = json.loads(r)
 
