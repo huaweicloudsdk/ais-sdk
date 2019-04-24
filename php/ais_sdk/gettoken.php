@@ -3,9 +3,9 @@
 /**
  * 获取token 信息
  */
-function gettoken($username, $password, $domainName)
+function get_token($username, $password, $domainName)
 {
-    $requestBody = requestBodyForGetToken($username, $password, $domainName);
+    $requestBody = requestbody_get_token($username, $password, $domainName);
     $_url = "https://" . IAM_ENPOINT . AIS_TOKEN;;
     $curl = curl_init();
     $headers = array(
@@ -42,7 +42,7 @@ function gettoken($username, $password, $domainName)
     $headers = substr($response, 0, $headerSize);
 
     curl_close($curl);
-    return gettokenByheaders($headers);
+    return get_token_by_headers($headers);
 }
 
 /**
@@ -50,9 +50,9 @@ function gettoken($username, $password, $domainName)
  * @param $username 用户名
  * @param $password 密码
  * @param $domain 与用户名一致
- * @param $regionName 区域名称
+ *
  */
-function requestBodyForGetToken($username, $password, $domainName)
+function requestbody_get_token($username, $password, $domainName)
 {
     $regionName = $GLOBALS["regionName"];
 
@@ -87,7 +87,7 @@ function requestBodyForGetToken($username, $password, $domainName)
  * @param $headers
  * @return string
  */
-function gettokenByheaders($headers)
+function get_token_by_headers($headers)
 {
 
     $headArr = explode("\r\n", $headers);

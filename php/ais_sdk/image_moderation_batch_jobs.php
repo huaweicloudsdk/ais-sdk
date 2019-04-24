@@ -8,21 +8,29 @@ require "ais.php";
  */
 function batch_jobs($token, $urls, $categories)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
     // 获取任务信息
     $jobResult = _batch_jobs($endPoint, $token, $urls, $categories);
     $jobResultObj = json_decode($jobResult, true);
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id . "\n";;
 
+    $retryTimes = 0;
     while (true) {
 
         // 获取任务解析的结果
         $resultobj = get_result($endPoint, $token, $job_id);
-        if ($resultobj['status'] != 200) {
-            var_dump($resultobj);
+        if (!status_success($resultobj['status'])) {
+            // 如果查询次数小于最大次数，进行重试
+            if($retryTimes < RETRY_MAX_TIMES){
+                $retryTimes++;
+                sleep(2);
+                continue;
+            }else{
+                var_dump($resultobj);
+            }
         }
-
+        // 任务处理失败，直接退出
         if ($resultobj['result']['status'] == "failed") {
             var_dump($resultobj);
 
@@ -67,12 +75,13 @@ function _batch_jobs($endPoint, $token, $urls, $categories)
     // 执行请求信息
     $response = curl_exec($curl);
     $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
     if ($status == 0) {
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return $response;
         } else {
             echo "The http status code for get jobId request failure: " . $status . "\n";
@@ -111,17 +120,9 @@ function get_result($endPoint, $token, $job_id)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
-
             $response = json_decode($response, true);
             $response['status'] = $status;
             return $response;
-        } else {
-            echo "The http status code for get result request failure:" . $status . "\n";
-            echo $response;
-
-        }
     }
     curl_close($curl);
 }
@@ -131,7 +132,7 @@ function get_result($endPoint, $token, $job_id)
  */
 function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建ak，sk对象
     $signer = new Signer();
@@ -143,19 +144,27 @@ function batch_jobs_aksk($_ak, $_sk, $urls, $categories)
     $job_id = $jobResultObj['result']['job_id'];
     echo "Process job id is :" . $job_id . "\n";
 
+    $retryTimes = 0;
     while (true) {
 
         // 获取任务的执行结果
         $resultobj = get_result_aksk($endPoint, $signer, $job_id);
 
-        if ($resultobj['status'] != 200) {
-            var_dump($resultobj);
+        if (!status_success($resultobj['status'])) {
+            // 如果查询次数小于最大次数，进行重试
+            if($retryTimes < RETRY_MAX_TIMES){
+                $retryTimes++;
+                sleep(2);
+                continue;
+            }else{
+                var_dump($resultobj);
+            }
         }
-
+        // 任务处理失败，直接退出
         if ($resultobj['result']['status'] == "failed") {
-            var_dump($resultobj);
+                var_dump($resultobj);
 
-            // 任务处理成功，返回结果信息
+           // 任务处理成功，返回结果信息
         } elseif ($resultobj['result']['status'] == "finish") {
             return $resultobj;
         } // 任务处理未完成，轮询继续请求接口
@@ -197,8 +206,8 @@ function _batch_jobs_aksk($endPoint, $signer, $urls, $categories)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return $response;
         } else {
             echo "The http status code for get jobId request failure:" . $status . "\n";
@@ -240,17 +249,9 @@ function get_result_aksk($endPoint, $signer, $job_id)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
-
             $response = json_decode($response, true);
             $response['status'] = $status;
             return $response;
-        } else {
-            echo "The http status code for get result request failure:" . $status . "\n";
-            echo $response;
-        }
-
     }
     curl_close($curl);
 }

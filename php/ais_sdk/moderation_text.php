@@ -8,7 +8,7 @@ require "ais.php";
 function moderation_text($token, $items, $categories)
 {
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . MODERATION_TEXT;
@@ -40,8 +40,8 @@ function moderation_text($token, $items, $categories)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
             echo "Http status is: " . $status . "\n";
@@ -64,7 +64,7 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求对象
     $req = new Request();
@@ -95,8 +95,8 @@ function moderation_text_aksk($_ak, $_sk, $items, $categories)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 

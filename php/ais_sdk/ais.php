@@ -81,3 +81,6 @@ define("IMAGE", "image");
 
 //内容审核服务类别
 define("MODERATION", "moderation");
+
+// 异步查询任务失败最大重试次数
+define("RETRY_MAX_TIMES", 3);

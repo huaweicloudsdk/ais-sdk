@@ -39,8 +39,8 @@ function asr_sentence($token, $data, $url = "", $encode_type = "wav", $sample_ra
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
             echo "Http status is: " . $status . "\n";
@@ -93,8 +93,8 @@ function asr_sentence_aksk($_ak, $_sk, $data, $url = "", $encode_type = "wav", $
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 
