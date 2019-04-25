@@ -7,7 +7,7 @@ require "ais.php";
  */
 function asr_bgm($token, $url)
 {
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . ASR_BGM;
@@ -37,8 +37,8 @@ function asr_bgm($token, $url)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return json_encode(json_decode($response, true), JSON_UNESCAPED_UNICODE);
         } else {
             echo "Http status is: " . $status . "\n";
@@ -57,7 +57,7 @@ function asr_bgm($token, $url)
  */
 function asr_bgm_aksk($_ak, $_sk, $url)
 {
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
     // 构建ak，sk对象
     $signer = new Signer();
     $signer->AppKey = $_ak;             // 构建ak
@@ -89,8 +89,8 @@ function asr_bgm_aksk($_ak, $_sk, $url)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return json_encode(json_decode($response, true), JSON_UNESCAPED_UNICODE);
         } else {
             echo "Http status is: " . $status . "\n";

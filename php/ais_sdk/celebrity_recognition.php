@@ -7,7 +7,7 @@ require "ais.php";
  */
 function celebrity_recognition($token, $data, $url, $threshold = 0.48)
 {
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . CELEBRITY_RECOGNITION;
@@ -39,8 +39,8 @@ function celebrity_recognition($token, $data, $url, $threshold = 0.48)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
             echo "Http status is: " . $status . "\n";
@@ -63,7 +63,7 @@ function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(IMAGE);
+    $endPoint = get_endpoint(IMAGE);
 
     // 构建请求对象
     $req = new Request();
@@ -94,8 +94,8 @@ function celebrity_recognition_aksk($_ak, $_sk, $data, $url, $threshold = 0.48)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return json_encode(json_decode($response, true),JSON_UNESCAPED_UNICODE);
         } else {
 

@@ -1,20 +1,22 @@
 <?php
 /**
- * 图片内容检测服务token 方式请求的示例
+ * 图片内容检测批量异步服务token 方式请求的示例
  */
 require "./ais_sdk/gettoken.php";
 require "./ais_sdk/image_moderation_batch_jobs.php";
 require "./ais_sdk/utils.php";
 
+// region目前支持华北-北京一(cn-north-1)、亚太-香港(ap-southeast-1)
+init_region($region = 'cn-north-1');
+
 $username = "********";      // 配置用户名
 $password = "********";      // 密码
 $domainName = "*********";   // 配置用户名
-initRegion($region = "cn-north-1");
 
 $data_url1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
 $data_url2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
-$token = gettoken($username, $password, $domainName, $regionName);
+$token = get_token($username, $password, $domainName);
 
 $result = batch_jobs($token, array($data_url1,$data_url2), array("politics", "terrorism", "porn"));
 echo json_encode($result);

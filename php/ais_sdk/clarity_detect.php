@@ -7,7 +7,7 @@ require "ais.php";
  */
 function clarity_detect($token, $data, $url, $threshold = 0.8)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . IMAGE_CLARITY_DETECT;
@@ -39,8 +39,8 @@ function clarity_detect($token, $data, $url, $threshold = 0.8)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return $response;
         } else {
             echo "Http status is: " . $status . "\n";
@@ -62,7 +62,7 @@ function clarity_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.8)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求对象
     $req = new Request();
@@ -93,8 +93,8 @@ function clarity_detect_aksk($_ak, $_sk, $data, $url, $threshold = 0.8)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return $response;
         } else {
 

@@ -7,7 +7,7 @@ require "ais.php";
  */
 function distortion_correct($token, $image, $url, $correction = true)
 {
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求信息
     $_url = "https://" . $endPoint . DISTORTION_CORRECT;
@@ -39,8 +39,8 @@ function distortion_correct($token, $image, $url, $correction = true)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if (status_success($status)) {
             return $response;
         } else {
             echo "Http status is: " . $status . "\n";
@@ -62,7 +62,7 @@ function distortion_correct_aksk($_ak, $_sk, $image, $url, $correction = true)
     $signer->AppKey = $_ak;             // 构建ak
     $signer->AppSecret = $_sk;          // 构建sk
 
-    $endPoint = getEndpoint(MODERATION);
+    $endPoint = get_endpoint(MODERATION);
 
     // 构建请求对象
     $req = new Request();
@@ -93,8 +93,8 @@ function distortion_correct_aksk($_ak, $_sk, $image, $url, $correction = true)
         echo curl_error($curl);
     } else {
 
-        // 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-        if ($status == 200) {
+        // 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+        if ($status == status_success($status)) {
             return $response;
         } else {
 
