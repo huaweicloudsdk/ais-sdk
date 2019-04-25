@@ -4,12 +4,14 @@ from ais_sdk.image_antiporn import image_antiporn_aksk
 from ais_sdk.utils import init_global_env
 
 if __name__ == '__main__':
+    # Services currently support North China-Beijing 1 (cn-north-1), Asia Pacific-Hong Kong (ap-southeast-1)
+    init_global_env('cn-north-1')
+
     #
     # access moderation, image anti-porn,post data by ak,sk
     #
     app_key = '*************'
     app_secret = '************'
-    init_global_env(region='cn-north-1')
 
     demo_data_url = 'https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg'
 

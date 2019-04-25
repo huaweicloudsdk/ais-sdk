@@ -12,6 +12,7 @@ import ais_sdk.utils as utils
 #
 # access moderation, image content of batch jobs，post data by token
 #
+_RETRY_TIMES = 3
 def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
     endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
     status, r = _image_batch_jobs(endpoint, token, urls, categories)
@@ -23,11 +24,18 @@ def image_batch_jobs(token, urls, categories=['politics', 'terrorism', 'porn']):
     job_id = submit_result['result'].get('job_id', '')
     #print("Process job id is :", job_id)
     time.sleep(1.0)
+
+    retry_times = 0
     try:
         while True:
             status, r = _get_result(endpoint, token, job_id)
             if status != 200:
-                return r
+                if retry_times < _RETRY_TIMES:
+                    retry_times += 1
+                    time.sleep(2.0)
+                    continue
+                else:
+                    return r
 
             rec_result = json.loads(r)
 
@@ -154,11 +162,18 @@ def image_batch_jobs_aksk(_ak, _sk, urls, categories=['politics', 'terrorism']):
     job_id = submit_result['result'].get('job_id', '')
     #print("Process job id is :", job_id)
     time.sleep(1.0)
+
+    retry_times = 0
     try:
         while True:
             status, r = _get_result_aksk(endpoint, sig, job_id)
             if status != 200:
-                return r
+                if retry_times < _RETRY_TIMES:
+                    retry_times += 1
+                    time.sleep(2.0)
+                    continue
+                else:
+                    return r
 
             rec_result = json.loads(r)
 

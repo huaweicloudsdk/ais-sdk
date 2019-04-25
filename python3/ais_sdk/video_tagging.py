@@ -13,6 +13,7 @@ import ais_sdk.utils as utils
 #
 # access image, video tagging，post data by token
 #
+_RETRY_TIMES = 3
 def video_tagging(token, url, frame_interval=5, language='zh', threshold=60.0):
     endpoint = utils.get_endpoint(ais.AisService.MODERATION_SERVICE)
     status, r = _video_tagging(endpoint, token, url, frame_interval, language, threshold)
@@ -24,11 +25,18 @@ def video_tagging(token, url, frame_interval=5, language='zh', threshold=60.0):
     job_id = submit_result['result'].get('job_id', '')
     #print("Process job id is :", job_id)
     time.sleep(1.0)
+
+    retry_times = 0
     try:
         while True:
             status, r = _get_result(endpoint, token, job_id)
             if status != 200:
-                return r
+                if retry_times < _RETRY_TIMES:
+                    retry_times += 1
+                    time.sleep(2.0)
+                    continue
+                else:
+                    return r
 
             rec_result = json.loads(r)
 
@@ -157,11 +165,18 @@ def video_tagging_aksk(_ak, _sk, url, frame_interval=5, language='zh', threshold
     job_id = submit_result['result'].get('job_id', '')
     #print("Process job id is :", job_id)
     time.sleep(1.0)
+
+    retry_times = 0
     try:
         while True:
             status, r = _get_result_aksk(endpoint, sig, job_id)
             if status != 200:
-                return r
+                if retry_times < _RETRY_TIMES:
+                    retry_times += 1
+                    time.sleep(2.0)
+                    continue
+                else:
+                    return r
 
             rec_result = json.loads(r)
 
