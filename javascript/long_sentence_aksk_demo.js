@@ -7,7 +7,7 @@ var utils = require("./ais_sdk/utils");
 var app_key = "*************";
 var app_secret = "************";
 
-demo_data_url = "https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3";
+demo_data_url = "https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/lsr-1.mp3";
 
 var filepath = "./data/asr-sentence.wav";
 var data = utils.changeFileToBase64(filepath);

@@ -9,10 +9,10 @@ module.exports = {
 
         // 构建请求信息和请求参数信息
         var requestData = {"data": data, url: url, "encode_type": encode_type, "sample_rate": sample_rate};
-
-        var headers = {"Content-Type": "application/json", "X-Auth-Token": token};
-        var options = utils.getHttpRequestEntityOptions(ais.ASR_ENDPOINT, "POST", ais.ASR_SENTENCE, headers);
         var requestBody = JSON.stringify(requestData);
+
+        var headers = {"Content-Type": "application/json", "X-Auth-Token": token, "Content-Length": requestBody.length};
+        var options = utils.getHttpRequestEntityOptions(ais.ASR_ENDPOINT, "POST", ais.ASR_SENTENCE, headers);
 
         var request = https.request(options, function (response) {
 
