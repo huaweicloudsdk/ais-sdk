@@ -90,10 +90,14 @@ namespace AisDemo
 
         private static void ImageTagging(String token, String endpoint)
         {
-            String dataUrl = "";    // The obs url of file
-            float threshold = 60;   // The confidence interval
-            String language = "en"; // The tagging language
-            int limit = 5;          // The tagging amount limit of return
+            // The obs url of file
+            String dataUrl = "";
+            // The confidence interval
+            float threshold = 60;
+            // The tagging language
+            String language = "en";
+            // The tagging amount limit of return
+            int limit = 5;          
 
             // post data by native file
             String image = utils.ConvertFileToBase64("../../data/image-tagging-demo.jpg");
@@ -124,9 +128,12 @@ namespace AisDemo
 
         private static void AsrSentence(String token, String endpoint)
         {
-            String encode_type = "wav";     // sentence flie type
-            String sample_rate = "16k";     // sampling rate of speech,just adapt to the file suffix is ".wav"
-            String dataUrl = "";            // the obs url
+            // sentence flie type
+            String encode_type = "wav";
+            // sampling rate of speech,just adapt to the file suffix is ".wav"
+            String sample_rate = "16k";
+            // the obs url
+            String dataUrl = "";           
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/asr-sentence.wav");
@@ -145,8 +152,10 @@ namespace AisDemo
 
         private static void CelebrityRecognition(String token, String endpoint)
         {
-            String dataUrl = "";       // The obs url of file
-            float threshold = 0.48f;   // The confidence interval,default 0.48f (0-1)
+            // The obs url of file
+            String dataUrl = "";
+            // The confidence interval,default 0.48f (0-1)
+            float threshold = 0.48f;   
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/celebrity-recognition.jpg");
@@ -165,8 +174,10 @@ namespace AisDemo
 
         private static void ClarityDetect(String token, String endpoint)
         {
-            String dataUrl = "";      // The obs url of file
-            float threshold = 0.8f;   // The clarity confidence interval,default 0.8f
+            // The obs url of file
+            String dataUrl = "";
+            // The clarity confidence interval,default 0.8f
+            float threshold = 0.8f;   
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/moderation-clarity-detect.jpg");
@@ -185,7 +196,8 @@ namespace AisDemo
 
         private static void DarkEnhance(String token, String endpoint)
         {
-            float brightness = 0.9f;   // The brightness interval,default 0.9f
+            // The brightness interval,default 0.9f
+            float brightness = 0.9f;   
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/dark-enhance-demo.bmp");
@@ -199,8 +211,10 @@ namespace AisDemo
 
         private static void DistortionCorrect(String token, String endpoint)
         {
-            String dataUrl = "";       // The obs url of file
-            bool correction = false;   // Whether to correct distortion or not
+            // The obs url of file
+            String dataUrl = "";
+            // Whether to correct distortion or not
+            bool correction = false;   
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/modeation-distortion.jpg");
@@ -239,8 +253,8 @@ namespace AisDemo
 
         private static void AntiPorn(String token, String endpoint)
         {
-
-            String dataUrl = "";    // The obs url of file
+            // The obs url of file
+            String dataUrl = "";    
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/moderation-antiporn.jpg");
@@ -258,9 +272,10 @@ namespace AisDemo
 
         private static void ImageContent(String token, String endpoint)
         {
-
-            String dataUrl = "";    // The obs url of file                                       
-            float threshold = 0.6f; // The image content confidence interval,"politics" default 0.48f,"terrorism":0
+            // The obs url of file 
+            String dataUrl = "";
+            // The image content confidence interval,"politics" default 0.48f,"terrorism":0
+            float threshold = 0.6f; 
 
             JArray categories = new JArray();                                           
 
@@ -327,9 +342,10 @@ namespace AisDemo
 
         private static void ImageDefog(String token, String endpoint)
         {
-
-            bool natural_look = true;   // Is natural 
-            float gamma = 1.5f;         // The gama correction value,default 1.5. range : [0.1,10]
+            // Is natural 
+            bool natural_look = true;
+            // The gama correction value,default 1.5. range : [0.1,10]
+            float gamma = 1.5f;         
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/defog-demo.png");
@@ -363,9 +379,12 @@ namespace AisDemo
 
         private static void RecaptureDetect(String token, String endpoint)
         {
-            String dataUrl = "";            // The obs url of file
-            float threshold = 0.95f;        // The image content confidence interval,"politics" default 0.95f.range of  [0-1]    
-            JArray scene = new JArray();    // The scene of recapture detect
+            // The obs url of file
+            String dataUrl = "";
+            // The image content confidence interval,"politics" default 0.95f.range of  [0-1] 
+            float threshold = 0.95f;
+            // The scene of recapture detect
+            JArray scene = new JArray();    
             scene.Add("recapture");
 
             // post data by native file
@@ -399,12 +418,18 @@ namespace AisDemo
 
         private static void Tts(String token, String endpoint)
         {
-            String text = "This is a test sample";   // Text in speech synthesis   
-            String voice_name = "xiaoyan";           // The voice name for voice output
-            int volume = 0;                          // The volume for voice output. [-20, 20]，default value is 0。
-            String sample_rate = "16k";              // The sample rate
-            int speech_speed = 0;                    // [-500, 500]
-            int pitch_rate = 0;                      // [-500, 500]
+            // Text in speech synthesis  
+            String text = "This is a test sample";
+            // The voice name for voice output
+            String voice_name = "xiaoyan";
+            // The volume for voice output. [-20, 20]，default value is 0。
+            int volume = 0;
+            // The sample rate
+            String sample_rate = "16k";
+            // The range of values is [-500, 500]
+            int speech_speed = 0;
+            // The range of values is [-500, 500]
+            int pitch_rate = 0;                      
 
             // post data by native file
             String reslut = TTS.TTSToken(token, text, voice_name, volume, sample_rate, speech_speed, pitch_rate, endpoint);
@@ -424,8 +449,9 @@ namespace AisDemo
             categories.Add("politics");
 
             // The OBS link must match the region, and the OBS resources of different regions are not shared
-            String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";   
-            int frame_interval = 5;             // Frame time interval
+            String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
+            // Frame time interval
+            int frame_interval = 5;             
 
             String reslut = Moderation.VideoToken(token, url, frame_interval, categories, endpoint);
             Console.WriteLine(reslut);
@@ -434,9 +460,10 @@ namespace AisDemo
 
         private static void LongSentence(String token, String endpoint)
         {
-
-            String dataUrl = "";                // The obs url of file
-            String categories = "common";       // The scene of detect 
+            // The obs url of file
+            String dataUrl = "";
+            // The scene of detect 
+            String categories = "common";       
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/asr-sentence.wav");

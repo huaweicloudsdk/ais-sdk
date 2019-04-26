@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Ais.Models
 {
-    class TTS
+    public class TTS
     {
         public static String TTSToken(String token, String text, String voice_name, int volume, String sample_rate, int speech_speed, int pitch_rate, String endpoint)
         {
