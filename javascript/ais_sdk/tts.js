@@ -15,12 +15,13 @@ module.exports = {
             "speech_speed": speech_speed,               // speech_speed：语速 [-500,500]
             "pitch_rate": pitch_rate                    // pitch_rate：音高 [-20,20]
         };
+        var requestBody = JSON.stringify(requestData);
+
         var options = utils.getHttpRequestEntityOptions(ais.TTS_ENDPOINT, "POST", ais.TTS, {
             "Content-Type": "application/json",
-            "X-Auth-Token": token
+            "X-Auth-Token": token,
+            "Content-Length": requestBody.length
         });
-
-        var requestBody = JSON.stringify(requestData);
 
         var request = https.request(options, function (response) {
 

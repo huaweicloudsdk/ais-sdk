@@ -6,6 +6,8 @@ var ais = require("./ais");
 module.exports = {
     image_tagging: function (token, data, url, threshold, language, limit, callback) {
 
+        var endPoint = utils.getEndPoint(ais.IMAGE_SERVICE);
+
         /**
          * image: 图片信息
          * url： 与image 二选一
@@ -14,13 +16,14 @@ module.exports = {
          * threshold：可选 标签的置信度，低于不返回
          * @type {string}
          */
-        var requestData = {"image": data, "url": url, "threshold": threshold, "language": language, "limit": limit};
-
-        var options = utils.getHttpRequestEntityOptions(ais.IMAGE_ENDPOINT, "POST", ais.IMAGE_TAGGING, {
-            "Content-Type": "application/json",
-            "X-Auth-Token": token
-        });
+        var requestData = {"image": data, url: url, "threshold": threshold, "language": language, "limit": limit};
         var requestBody = JSON.stringify(requestData);
+
+        var options = utils.getHttpRequestEntityOptions(endPoint, "POST", ais.IMAGE_TAGGING, {
+            "Content-Type": "application/json",
+            "X-Auth-Token": token,
+            "Content-Length":requestBody.length
+        });
 
         var request = https.request(options, function (response) {
 
@@ -49,6 +52,8 @@ module.exports = {
         sig.AppKey = _ak;                   // 构建ak
         sig.AppSecret = _sk;                // 构建sk
 
+        var endPoint = utils.getEndPoint(ais.IMAGE_SERVICE);
+
         // 构建请求信息和请求参数信息
         /**
          * image: 图片信息
@@ -60,7 +65,7 @@ module.exports = {
          */
         var requestData = {"image": data, "url": url, "threshold": threshold, "language": language, "limit": limit};
         var req = new signer.HttpRequest();
-        var options = utils.getHttpRequestEntity(sig, req, ais.IMAGE_ENDPOINT, "POST", ais.IMAGE_TAGGING, "", {"Content-Type": "application/json"}, requestData);
+        var options = utils.getHttpRequestEntity(sig, req, endPoint, "POST", ais.IMAGE_TAGGING, "", {"Content-Type": "application/json"}, requestData);
 
         var request = https.request(options, function (response) {
 

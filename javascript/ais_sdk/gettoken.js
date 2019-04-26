@@ -7,10 +7,10 @@ var ais = require("./ais");
 
 module.exports = {
 
-    getToken: function (username, domainname, password, regionName,callback) {
+    getToken: function (username, domainname, password, callback) {
 
         // 构建获取token的请求信息
-        var requestBody = utils.getRequestBodyForToken(username, password, domainname, regionName);
+        var requestBody = utils.getRequestBodyForToken(username, password, domainname);
         var host = ais.IAM_ENPOINT;
         var uri = ais.AIS_TOKEN;
         var options = utils.getHttpRequestEntityOptions(host, "POST", uri, {"Content-Type": "application/json"});

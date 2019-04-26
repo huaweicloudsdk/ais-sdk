@@ -9,11 +9,6 @@ var ais = {
     // asr服务请求域名
     ASR_ENDPOINT: 'sis.cn-north-1.myhuaweicloud.com',
 
-    // 服务请求域名
-    IMAGE_ENDPOINT: 'image.cn-north-1.myhuaweicloud.com',
-
-    // 服务请求域名
-    MODERATION_ENDPOINT: 'moderation.cn-north-1.myhuaweicloud.com',
 
     // token请求域名
     IAM_ENPOINT: 'iam.cn-north-1.myhuaweicloud.com',
@@ -78,7 +73,14 @@ var ais = {
     // 图片内容审核服务的批量
     IMAGE_CONTENT_BATCH: '/v1.0/moderation/image/batch',
 
+    // image服务的服务类别
+    IMAGE_SERVICE: 'image',
 
+    // moderation 服务的服务类别
+    MODERATION_SERVICE: 'moderation',
+
+    // 最大重试次数
+    RETRY_TIMES_MAX: 3
 
 };
 module.exports = ais;
