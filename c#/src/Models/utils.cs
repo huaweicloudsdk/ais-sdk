@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -11,6 +12,7 @@ namespace Ais.Models
 {
     public class utils
     {
+
         // change file message to base64 String
         public static String ConvertFileToBase64(String filePath)
         {
@@ -114,6 +116,10 @@ namespace Ais.Models
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             return true;
+        }
+
+        public static Boolean isOkResponse(int status) {
+            return status >= 200 && status <= 300;
         }
 
     }

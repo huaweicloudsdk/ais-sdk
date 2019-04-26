@@ -64,5 +64,8 @@ namespace Ais.Models
 
         // the uri for service of image content batch result
         public static String IMAGE_CONTENT_BATCH = "/v1.0/moderation/image/batch";
+
+        // retry max times
+        public static int RETRY_MAX_TIMES = 3;
     }
 }

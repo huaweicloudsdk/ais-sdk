@@ -9,16 +9,17 @@ namespace AisDemo
     {
         static void Main(string[] args)
         {
+            // Services currently support North China-Beijing 1 (cn-north-1), Asia Pacific-Hong Kong (ap-southeast-1)
+            String regionName = "cn-north-1";
             String username = "*******";
             String password = "*******";
             String domainName = "*******";
-            String regionName = "cn-north-1";
 
             // domain names for image service
-            String IMAGE_ENDPOINT = "image.cn-north-1.myhuaweicloud.com";
+            String IMAGE_ENDPOINT = Image.getEndponit(regionName);
 
             // domain names for moderation service
-            String MODERATION_ENDPOINT = "moderation.cn-north-1.myhuaweicloud.com";
+            String MODERATION_ENDPOINT = Moderation.getEndponit(regionName);
 
             // domain names for tts service 
             String TTS_ENDPOINT = "sis.cn-north-1.myhuaweicloud.com";
@@ -83,7 +84,7 @@ namespace AisDemo
             LongSentence(token, ASR_ENDPOINT);
 
             // text to speech service example
-            Tts(token, TTS_ENDPOINT); 
+            Tts(token, TTS_ENDPOINT);
 
         }
 
@@ -100,6 +101,7 @@ namespace AisDemo
             String reslut = Image.ImageTaggingToken(token, image, dataUrl, threshold, language, limit, endpoint);
             Console.WriteLine(reslut);
 
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
             dataUrl = "https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg";
 
             // post data by obs url
@@ -111,7 +113,8 @@ namespace AisDemo
 
         private static void AsrBgm(String token, String endpoint)
         {
-            String dataUrl = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition"; // The obs url of file
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
+            String dataUrl = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";
 
             // post data by obs url
             String reslut = Asr.AsrBgmToken(token, dataUrl, endpoint);
@@ -130,7 +133,8 @@ namespace AisDemo
             String reslut = Asr.AsrSentenceToken(token, data, dataUrl, encode_type, sample_rate, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav";
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
+            dataUrl = "https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/asr-sentence.wav";
 
             // post data by obs url
             reslut = Asr.AsrSentenceToken(token, "", dataUrl, encode_type, sample_rate, endpoint);
@@ -149,6 +153,7 @@ namespace AisDemo
             String reslut = Image.CelebrityRecognitionToken(token, data, dataUrl, threshold, endpoint);
             Console.WriteLine(reslut);
 
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
             dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg";
 
             // post data by obs url
@@ -168,6 +173,7 @@ namespace AisDemo
             String reslut = Moderation.ClarityDetectToken(token, data, dataUrl, threshold, endpoint);
             Console.WriteLine(reslut);
 
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
             dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
             // post data by obs url
@@ -211,7 +217,7 @@ namespace AisDemo
                 Console.WriteLine(reslut);
             }
 
-
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
             dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg";
 
             // post data by obs url
@@ -234,13 +240,14 @@ namespace AisDemo
         private static void AntiPorn(String token, String endpoint)
         {
 
-            String dataUrl = "";       // The obs url of file
+            String dataUrl = "";    // The obs url of file
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/moderation-antiporn.jpg");
             String reslut = Moderation.AntiPornToken(token, data, dataUrl, endpoint);
             Console.WriteLine(reslut);
 
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
             dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
             // post data by obs url
@@ -252,10 +259,10 @@ namespace AisDemo
         private static void ImageContent(String token, String endpoint)
         {
 
-            String dataUrl = "";                                                        // The obs url of file
-            float threshold = 0.6f;                                                     // The image content confidence interval,"politics" default 0.48f,"terrorism":0
+            String dataUrl = "";    // The obs url of file                                       
+            float threshold = 0.6f; // The image content confidence interval,"politics" default 0.48f,"terrorism":0
 
-            JArray categories = new JArray();                                           // The scene of detect 
+            JArray categories = new JArray();                                           
 
             categories.Add("politics");
             categories.Add("terrorism");
@@ -266,6 +273,7 @@ namespace AisDemo
             String reslut = Moderation.ImageContentToken(token, data, dataUrl, threshold, categories, endpoint);
             Console.WriteLine(reslut);
 
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
             dataUrl = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
 
             // post data by obs url
@@ -276,8 +284,8 @@ namespace AisDemo
 
         private static void ImageContentBatch(String token, String endpoint)
         {
-
-            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";                                                               // The obs url of file
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
+            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
             String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
             JArray urls = new JArray();
@@ -286,7 +294,7 @@ namespace AisDemo
 
             float threshold = 0.6f;
 
-            JArray categories = new JArray();                                                   // The scene of detect 
+            JArray categories = new JArray();
             categories.Add("politics");
             categories.Add("terrorism");
             categories.Add("porn");
@@ -299,14 +307,15 @@ namespace AisDemo
         private static void ImageContentBatchJobs(String token, String endpoint)
         {
 
-            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";                                                               // The obs url of file
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
+            String dataUrl1 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg";
             String dataUrl2 = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg";
 
             JArray urls = new JArray();
             urls.Add(dataUrl1);
             urls.Add(dataUrl2);
 
-            JArray categories = new JArray();                                                   // The scene of detect 
+            JArray categories = new JArray();
             categories.Add("politics");
             categories.Add("terrorism");
             categories.Add("porn");
@@ -319,8 +328,8 @@ namespace AisDemo
         private static void ImageDefog(String token, String endpoint)
         {
 
-            bool natural_look = true;       // Is natural 
-            float gamma = 1.5f;             // The gama correction value,default 1.5. range : [0.1,10]
+            bool natural_look = true;   // Is natural 
+            float gamma = 1.5f;         // The gama correction value,default 1.5. range : [0.1,10]
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/defog-demo.png");
@@ -335,13 +344,13 @@ namespace AisDemo
 
         private static void ModerationText(String token, String endpoint)
         {
-            JArray categories = new JArray();                                           // The scene of detect 
+            JArray categories = new JArray();
             categories.Add("politics");
             categories.Add("porn");
             categories.Add("contraband");
             categories.Add("ad");
 
-            JArray items = new JArray();                                                // The content of detect
+            JArray items = new JArray();
             JObject content = new JObject();
             content.Add("text", "666666luo聊请+110亚砷酸钾六位qq，fuck666666666666666");
             content.Add("type", "content");
@@ -364,6 +373,7 @@ namespace AisDemo
             String reslut = Image.RecaptureDetectToken(token, data, dataUrl, threshold, scene, endpoint);
             Console.WriteLine(reslut);
 
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
             dataUrl = "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg";
 
             // post data by obs url
@@ -397,7 +407,6 @@ namespace AisDemo
             int pitch_rate = 0;                      // [-500, 500]
 
             // post data by native file
-
             String reslut = TTS.TTSToken(token, text, voice_name, volume, sample_rate, speech_speed, pitch_rate, endpoint);
 
             JObject joResult = (JObject)JsonConvert.DeserializeObject(reslut);
@@ -409,13 +418,14 @@ namespace AisDemo
         private static void ModerationVideo(String token, String endpoint)
         {
 
-            JArray categories = new JArray();                                                    // The scene of detect 
+            JArray categories = new JArray();
             categories.Add("terrorism");
             categories.Add("porn");
             categories.Add("politics");
 
-            String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";   // OBS URL of the video
-            int frame_interval = 5;                                                                 // Frame time interval
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
+            String url = "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition";   
+            int frame_interval = 5;             // Frame time interval
 
             String reslut = Moderation.VideoToken(token, url, frame_interval, categories, endpoint);
             Console.WriteLine(reslut);
@@ -425,15 +435,16 @@ namespace AisDemo
         private static void LongSentence(String token, String endpoint)
         {
 
-            String dataUrl = "";                                                        // The obs url of file
-            String categories = "common";                                               // The scene of detect 
+            String dataUrl = "";                // The obs url of file
+            String categories = "common";       // The scene of detect 
 
             // post data by native file
             String data = utils.ConvertFileToBase64("../../data/asr-sentence.wav");
             String reslut = Asr.LongSentenceToken(token, data, dataUrl, categories, endpoint);
             Console.WriteLine(reslut);
 
-            dataUrl = "https://ais-sample-data.obs.myhuaweicloud.com/lsr-1.mp3";
+            // The OBS link must match the region, and the OBS resources of different regions are not shared
+            dataUrl = "https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/lsr-1.mp3";
 
             // post data by obs url
             reslut = Asr.LongSentenceToken(token, "", dataUrl, categories, endpoint);
