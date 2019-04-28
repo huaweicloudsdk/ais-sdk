@@ -8,6 +8,19 @@ import (
 	"os"
 )
 
+var ENDPOINTS = make(map[string]map[string]string)
+
+func init(){ 
+	var imageMap = make(map[string]string)
+	var moderationMap = make(map[string]string)
+	imageMap["cn-north-1"] = "image.cn-north-1.myhuaweicloud.com"
+	imageMap["ap-southeast-1"] = "image.ap-southeast-1.myhuaweicloud.com"
+	moderationMap["cn-north-1"] = "moderation.cn-north-1.myhuaweicloud.com"
+	moderationMap["ap-southeast-1"] = "moderation.ap-southeast-1.myhuaweicloud.com"
+	ENDPOINTS["image"] = imageMap
+	ENDPOINTS["moderation"] = moderationMap
+}
+var region = "cn-north-1"
 func ChangeFileToBase64(filepath string) string {
 	ff, _ := os.Open(filepath)
 	defer ff.Close()
@@ -38,4 +51,18 @@ func Base64ToFile(filePath string, base64Str string) {
 	if err != nil {
 		log.Println(err.Error())
 	}
+}
+
+func IsOkResponse(statusCode int) bool {
+	return statusCode >= 200 && statusCode <= 300
+}
+
+func InitRegion(regionName string){
+	region = regionName
+}
+
+func GetEndpoint(typeName string) string{
+	var endpointMap = make(map[string]string)
+	endpointMap = ENDPOINTS[typeName]
+	return endpointMap[region]
 }
