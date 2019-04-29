@@ -27,8 +27,9 @@ func ImageAntiPornAksk(ak string, sk string, image string, url string) string {
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.MODERATION_ENDPOINT + core.IMAGE_ANTI_PORN
+	
+	endpoint := GetEndpoint(core.MODERATION)
+	uri := "https://" + endpoint + core.IMAGE_ANTI_PORN
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")

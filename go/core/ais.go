@@ -3,15 +3,9 @@ package core
 const (
 	// domain name for asr service
 	ASR_ENDPOINT string = "sis.cn-north-1.myhuaweicloud.com"
-    
+	
 	// domain name for tts service 
 	TTS_ENDPOINT string = "sis.cn-north-1.myhuaweicloud.com"
-    
-	// domain name for image service
-	IMAGE_ENDPOINT string = "image.cn-north-1.myhuaweicloud.com"
-	
-	// domain name for image service
-	MODERATION_ENDPOINT string = "moderation.cn-north-1.myhuaweicloud.com"
 
 	// domain name for get token
 	IAM_ENPOINT string = "iam.cn-north-1.myhuaweicloud.com"
@@ -78,4 +72,13 @@ const (
 
 	// the uri for service of image content batch result
 	IMAGE_MODERATION_BATCH string = "/v1.0/moderation/image/batch"
+	
+	// image service type 
+	IMAGE = "image"
+	
+	// moderation service type 
+	MODERATION = "moderation"
+	
+	// the max retyr tiems
+	RETRY_MAX_TIMES int = 3
 )

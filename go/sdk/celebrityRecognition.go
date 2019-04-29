@@ -28,8 +28,9 @@ func CelebrityRecognitionAksk(ak string, sk string, image string, url string, th
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.IMAGE_ENDPOINT + core.IMAGE_CLARITY_DETECT
+	
+	endpoint := GetEndpoint(core.IMAGE)
+	uri := "https://" + endpoint + core.CELEBRITY_RECOGNITION
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")
