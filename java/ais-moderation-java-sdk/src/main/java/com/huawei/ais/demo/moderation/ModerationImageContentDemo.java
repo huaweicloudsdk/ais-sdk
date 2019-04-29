@@ -134,7 +134,7 @@ public class ModerationImageContentDemo {
 	//
 	public static void main(String[] args) throws IOException {
 		ModerationImageContentDemo tool = new ModerationImageContentDemo();
-		byte[] imageBytes = tool.downloadUrl("http://moderation-demo.ei.huaweicloud.com/theme/images/imagga/image_tagging_04.jpg");
+		byte[] imageBytes = tool.downloadUrl("https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/terrorism.jpg");
 		tool.imageContentCheck(imageBytes);
 		tool.imageAntiporn(imageBytes);
 

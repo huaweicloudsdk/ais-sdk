@@ -323,9 +323,9 @@ public class TokenDemo {
 
 			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 
-			// 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
+			// 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
 			ResponseProcessUtils.processResponseStatus(response);
-			if(response.getStatusLine().getStatusCode() != 200 ){
+			if(!HttpJsonDataUtils.isOKResponded(response)){
 				System.out.println("Image content of batch jobs process is failed: submit the job failed!");
 				return;
 			}
@@ -341,8 +341,7 @@ public class TokenDemo {
 
 				// 发起请求
 				HttpResponse getResponse = HttpClientUtils.get(uri, headers);
-				System.out.println(HttpJsonDataUtils.responseToString(getResponse));
-				if(getResponse.getStatusLine().getStatusCode() != 200 ){
+				if(!HttpJsonDataUtils.isOKResponded(getResponse)){
 					System.out.println(HttpJsonDataUtils.responseToString(getResponse));
 					if(retryTimes < RETRY_MAX_TIMES){
 						retryTimes++;
