@@ -341,7 +341,6 @@ public class TokenDemo {
 
 				// 发起请求
 				HttpResponse getResponse = HttpClientUtils.get(uri, headers);
-				System.out.println(HttpJsonDataUtils.responseToString(getResponse));
 				if(getResponse.getStatusLine().getStatusCode() != 200 ){
 					System.out.println(HttpJsonDataUtils.responseToString(getResponse));
 					if(retryTimes < RETRY_MAX_TIMES){
