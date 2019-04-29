@@ -66,10 +66,10 @@ public class ModerationImageContentBatchJobsDemo {
 			// 该参数主要通过JSON对象的方式传入, 使用POST方法调用服务
 			HttpResponse response = service.post(uri, json.toJSONString());
 
-			// 4.验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
+			// 4.验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
 			ResponseProcessUtils.processResponseStatus(response);
 			
-			if(response.getStatusLine().getStatusCode() != 200 ){
+			if(!HttpJsonDataUtils.isOKResponded(response)){
 				System.out.println("Image content of batch jobs process is failed: submit the job failed!");
 				return;
 			}
@@ -90,8 +90,8 @@ public class ModerationImageContentBatchJobsDemo {
 				// 5.1 发起请求
 				HttpResponse getResponse = service.get(url);
 
-				// 5.2 验证服务调用返回的状态是否成功，如果为200, 为成功, 否则失败。
-				if(getResponse.getStatusLine().getStatusCode() != 200 ){
+				// 5.2 验证服务调用返回的状态是否成功，如果为2xx, 为成功, 否则失败。
+				if(!HttpJsonDataUtils.isOKResponded(getResponse)){
 					System.out.println(HttpJsonDataUtils.responseToString(getResponse));
 					if(retryTimes < RETRY_MAX_TIMES){
 						retryTimes++;
