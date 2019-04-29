@@ -23,15 +23,29 @@ func ImageModerationBatchJobsAksk(ak string, sk string, urls []string, categorie
 		AppKey:    ak,
 		AppSecret: sk,
 	}
-
-	jobId := GetBatchJobIdAksk(s, urls, categories)
-
+	
+	endpoint := GetEndpoint(core.MODERATION)
+	jobId := GetBatchJobIdAksk(endpoint, s, urls, categories)
+	var retryTimes int = 0;
+	
 	var resultJson BatchJobResult
 	for {
-		resultStr := GetBatchJobResult(s, jobId)
+		resultStr, httpStatusCode := GetBatchJobResult(endpoint, s, jobId)
+		if !IsOkResponse(httpStatusCode) {
+			if retryTimes < core.RETRY_MAX_TIMES {
+				retryTimes++
+				log.Println("Moderation batch jobs process is retrying!")
+				time.Sleep(time.Duration(3) * time.Second)
+				continue
+			}else {
+				log.Println("Moderation batch jobs process is failed")
+				return resultStr
+			}
+		}
+		
 		resultMap := make(map[string]BatchJobResult)
 		json.Unmarshal([]byte(resultStr), &resultMap)
-
+		
 		resultJson = resultMap["result"]
 		statusCode := resultJson.Status
 		if statusCode == "failed" {
@@ -48,7 +62,7 @@ func ImageModerationBatchJobsAksk(ak string, sk string, urls []string, categorie
 	}
 }
 
-func GetBatchJobIdAksk(sig core.Signer, urls []string, categories []string) string {
+func GetBatchJobIdAksk(endpoint string, sig core.Signer, urls []string, categories []string) string {
 	requestBody := make(map[string]interface{})
 	requestBody["urls"] = urls
 	requestBody["categories"] = categories
@@ -59,7 +73,7 @@ func GetBatchJobIdAksk(sig core.Signer, urls []string, categories []string) stri
 	}
 	reader := bytes.NewBuffer(bytesData)
 
-	uri := "https://" + core.MODERATION_ENDPOINT + core.IMAGE_MODERATION_BATCH_JOBS
+	uri := "https://" + endpoint + core.IMAGE_MODERATION_BATCH_JOBS
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")
@@ -92,8 +106,8 @@ func GetBatchJobIdAksk(sig core.Signer, urls []string, categories []string) stri
 	return resultData["job_id"]
 }
 
-func GetBatchJobResult(sig core.Signer, jobId string) string {
-	uri := "https://" + core.MODERATION_ENDPOINT + core.IMAGE_MODERATION_BATCH_RESULT + "?job_id=" + jobId
+func GetBatchJobResult(endpoint string, sig core.Signer, jobId string) (string, int) {
+	uri := "https://" + endpoint + core.IMAGE_MODERATION_BATCH_RESULT + "?job_id=" + jobId
 	r, _ := http.NewRequest("GET", uri, nil)
 
 	r.Header.Add("content-type", "application/json")
@@ -109,11 +123,13 @@ func GetBatchJobResult(sig core.Signer, jobId string) string {
 	if err != nil {
 		log.Println(err.Error())
 	}
-
+	statusCode := resp.StatusCode
 	defer resp.Body.Close()
+	
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Println(err.Error())
 	}
-	return string(body)
+	
+	return string(body), statusCode
 }

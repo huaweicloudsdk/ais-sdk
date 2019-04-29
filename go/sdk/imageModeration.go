@@ -28,8 +28,9 @@ func ImageModerationAksk(ak string, sk string, image string, url string, categor
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.MODERATION_ENDPOINT + core.IMAGE_MODERATION
+	
+	endpoint := GetEndpoint(core.MODERATION)
+	uri := "https://" + endpoint + core.IMAGE_MODERATION
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")

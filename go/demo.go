@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
+	// Services currently support North China-Beijing 1 (cn-north-1), Asia Pacific-Hong Kong (ap-southeast-1)
+	sdk.InitRegion("cn-north-1")
+	
 	ak := "*******" // your AppKey
 	sk := "******"  // your AppSecret
 
@@ -61,8 +64,12 @@ func main() {
 	// The sample for long sentence
 	// Test_LongSentenceAkskDemo(ak, sk)
 
-	// The sample for long sentence
-	   Test_ModerationVideoAkskDemo(ak, sk)
+	// The sample for moderation video
+	// Test_ModerationVideoAkskDemo(ak, sk)
+	
+	// The sample for image content batch job detect service
+	   Test_ImageModerationBatchJobAkskDemo(ak, sk)
+	
 }
 
 func Test_InstrumentAkskDemo(ak string, sk string) {
@@ -84,32 +91,32 @@ func Test_InstrumentAkskDemo(ak string, sk string) {
 
 func Test_BgmAkskDemo(ak string, sk string) {
 
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition"
 	result := sdk.AsrBgmAksk(ak, sk, url)
 	fmt.Println(result)
 }
 
 func Test_SentenceAkskDemo(ak string, sk string) {
-	encode_type := "wav"
-	sample_rate := "16k"
+	encodeType := "wav"
+	sampleRate := "16k"
 
-	// post data by url
-	url := "https://ais-sample-data.obs.myhuaweicloud.com/asr-sentence.wav"
-	result := sdk.AsrSentenceAksk(ak, sk, "", url, encode_type, sample_rate)
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
+	url := "https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/asr-sentence.wav"
+	result := sdk.AsrSentenceAksk(ak, sk, "", url, encodeType, sampleRate)
 	fmt.Println(result)
 
 	// post data by native file
 	filepath := "data/asr-sentence.wav"
 	data := sdk.ChangeFileToBase64(filepath)
-	result = sdk.AsrSentenceAksk(ak, sk, data, "", encode_type, sample_rate)
+	result = sdk.AsrSentenceAksk(ak, sk, data, "", encodeType, sampleRate)
 	fmt.Println(result)
 }
 
 func Test_ClarityDetectAkskDemo(ak string, sk string) {
 	var threshold float32 = 0.8
 
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg"
 	result := sdk.ClarityDetectAksk(ak, sk, "", url, threshold)
 	fmt.Println(result)
@@ -122,9 +129,9 @@ func Test_ClarityDetectAkskDemo(ak string, sk string) {
 }
 
 func Test_CelebrityRecognitionAkskDemo(ak string, sk string) {
-	var threshold float32 = 4.8
+	var threshold float32 = 0.48
 
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/celebrity-recognition.jpg"
 	result := sdk.CelebrityRecognitionAksk(ak, sk, "", url, threshold)
 	fmt.Println(result)
@@ -150,7 +157,7 @@ func Test_DarkEnhanceAkskDemo(ak string, sk string) {
 func Test_DistortionCorrectAkskDemo(ak string, sk string) {
 	var correction bool = true
 
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/vat-invoice.jpg"
 	result := sdk.DistortionCorrectAksk(ak, sk, "", url, correction)
 	fmt.Println(result)
@@ -163,7 +170,7 @@ func Test_DistortionCorrectAkskDemo(ak string, sk string) {
 }
 
 func Test_ImageAntiPornAkskDemo(ak string, sk string) {
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg"
 	result := sdk.ImageAntiPornAksk(ak, sk, "", url)
 	fmt.Println(result)
@@ -178,7 +185,7 @@ func Test_ImageAntiPornAkskDemo(ak string, sk string) {
 func Test_ImageModerationAkskDemo(ak string, sk string) {
 	var categories = []string{"politics", "terrorism", "porn"}
 
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg"
 	result := sdk.ImageModerationAksk(ak, sk, "", url, categories)
 	fmt.Println(result)
@@ -192,7 +199,8 @@ func Test_ImageModerationAkskDemo(ak string, sk string) {
 
 func Test_ImageModerationBatchAkskDemo(ak string, sk string) {
 	var categories = []string{"politics", "terrorism", "porn"}
-
+	
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url1 := "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg"
 	url2 := "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg"
 
@@ -205,12 +213,12 @@ func Test_ImageDefogAkskDemo(ak string, sk string) {
 
 	var resultMap map[string]interface{}
 
-	var natural_look bool = true
+	var naturalLook bool = true
 	var gamma float32 = 1.5
 
 	filepath := "data/defog-demo.png"
 	image := sdk.ChangeFileToBase64(filepath)
-	result := sdk.ImageDefogAksk(ak, sk, image, gamma, natural_look)
+	result := sdk.ImageDefogAksk(ak, sk, image, gamma, naturalLook)
 	json.Unmarshal([]byte(result), &resultMap)
 	sdk.Base64ToFile("data/defog-demo-aksk.png", resultMap["result"].(string))
 }
@@ -220,7 +228,7 @@ func Test_ImageTaggingAkskDemo(ak string, sk string) {
 	var limit int = -1
 	var threshold float32 = 60.0
 
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://ais-sample-data.obs.myhuaweicloud.com/tagging-normal.jpg"
 	result := sdk.ImageTaggingAksk(ak, sk, "", url, language, limit, threshold)
 	fmt.Println(result)
@@ -248,7 +256,7 @@ func Test_RecaptureDetectAkskDemo(ak string, sk string) {
 	var scene = []string{"recapture"}
 	var threshold float32 = 0.95
 
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://ais-sample-data.obs.myhuaweicloud.com/recapture-detect.jpg"
 	result := sdk.RecaptureDetectAksk(ak, sk, "", url, threshold, scene)
 	fmt.Println(result)
@@ -309,9 +317,9 @@ func Test_LongSentenceAkskDemo(ak string, sk string) {
 
 func Test_ModerationVideoAkskDemo(ak string, sk string) {
 
-	// post data by url
 	var frameInterval int = 5
 	var categories = []string{"politics", "terrorism", "porn"}
+    // The OBS link should match the region, and the OBS resources of different regions are not shared
 	url := "https://obs-test-llg.obs.cn-north-1.myhuaweicloud.com/bgm_recognition"
 	result := sdk.ModerationVideoAksk(ak, sk, url, frameInterval, categories)
 	fmt.Println(result)
@@ -319,7 +327,7 @@ func Test_ModerationVideoAkskDemo(ak string, sk string) {
 
 func Test_ImageModerationBatchJobAkskDemo(ak string, sk string) {
 
-	// post data by url
+	// The OBS link should match the region, and the OBS resources of different regions are not shared
 	var url1 string = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/terrorism.jpg"
 	var url2 string = "https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg"
 
