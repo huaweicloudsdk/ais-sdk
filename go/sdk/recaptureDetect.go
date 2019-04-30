@@ -29,8 +29,9 @@ func RecaptureDetectAksk(ak string, sk string, image string, url string, thresho
 		log.Println(err.Error())
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.IMAGE_ENDPOINT + core.RECAPTURE_DETECT
+	
+	endpoint := GetEndpoint(core.IMAGE)
+	uri := "https://" + endpoint + core.RECAPTURE_DETECT
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")
