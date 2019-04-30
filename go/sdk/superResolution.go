@@ -28,8 +28,9 @@ func SuperResolutionAksk(ak string, sk string, image string, scale int, model st
 		log.Println(err.Error())
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.IMAGE_ENDPOINT + core.SUPER_RESOLUTION
+	
+	endpoint := GetEndpoint(core.IMAGE)
+	uri := "https://" + endpoint + core.SUPER_RESOLUTION
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")

@@ -28,8 +28,9 @@ func ClarityDetectAksk(ak string, sk string, image string, url string, threshold
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.MODERATION_ENDPOINT + core.IMAGE_CLARITY_DETECT
+	
+	endpoint := GetEndpoint(core.MODERATION)
+	uri := "https://" + endpoint + core.IMAGE_CLARITY_DETECT
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")

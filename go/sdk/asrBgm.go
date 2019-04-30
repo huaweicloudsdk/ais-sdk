@@ -26,8 +26,9 @@ func AsrBgmAksk(ak string, sk string, url string) string {
 		log.Println(err.Error())
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.IMAGE_ENDPOINT + core.ASR_BGM
+	
+	endpoint := GetEndpoint(core.IMAGE)
+	uri := "https://" + endpoint + core.ASR_BGM
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")

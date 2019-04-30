@@ -28,8 +28,9 @@ func InstrumentAksk(ak string, sk string, image string, url string, threshold fl
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.IMAGE_ENDPOINT + core.INSTRUMENT
+	
+	endpoint := GetEndpoint(core.IMAGE)
+	uri := "https://" + endpoint + core.INSTRUMENT
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")

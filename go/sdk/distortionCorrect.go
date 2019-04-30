@@ -29,8 +29,9 @@ func DistortionCorrectAksk(ak string, sk string, image string, url string, corre
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.MODERATION_ENDPOINT + core.DISTORTION_CORRECTION
+	
+	endpoint := GetEndpoint(core.MODERATION)
+	uri := "https://" + endpoint + core.DISTORTION_CORRECTION
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")

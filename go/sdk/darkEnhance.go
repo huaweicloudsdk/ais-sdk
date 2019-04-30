@@ -27,8 +27,9 @@ func DarkEnhanceAksk(ak string, sk string, image string, brightness float32) str
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.IMAGE_ENDPOINT + core.DARK_ENHANCE
+	
+	endpoint := GetEndpoint(core.IMAGE)
+	uri := "https://" + endpoint + core.DARK_ENHANCE
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")

@@ -23,12 +23,26 @@ func ModerationVideoAksk(ak string, sk string, url string, frameInterval int, ca
 		AppKey:    ak,
 		AppSecret: sk,
 	}
-
-	jobId := GetJobIdAksk(s, url, frameInterval, categories)
-
+	
+	endpoint := GetEndpoint(core.MODERATION)
+	jobId := GetJobIdAksk(endpoint, s, url, frameInterval, categories)
+	var retryTimes int = 0;
+	
 	var resultJson VideoResultJson
 	for {
-		resultStr := GetResult(s, jobId)
+		resultStr, httpStatusCode := GetResult(endpoint, s, jobId)
+		if !IsOkResponse(httpStatusCode) {
+			if retryTimes < core.RETRY_MAX_TIMES {
+				retryTimes++
+				log.Println("Moderation video process is retrying!")
+				time.Sleep(time.Duration(3) * time.Second)
+				continue
+			}else {
+				log.Println("Moderation video process is failed")
+				return resultStr
+			}
+		}
+		
 		resultMap := make(map[string]VideoResultJson)
 		json.Unmarshal([]byte(resultStr), &resultMap)
 
@@ -48,7 +62,7 @@ func ModerationVideoAksk(ak string, sk string, url string, frameInterval int, ca
 	}
 }
 
-func GetJobIdAksk(sig core.Signer, url string, frameInterval int, categories []string) string {
+func GetJobIdAksk(endpoint string, sig core.Signer, url string, frameInterval int, categories []string) string {
 	requestBody := make(map[string]interface{})
 	requestBody["url"] = url
 	requestBody["frame_interval"] = frameInterval
@@ -60,7 +74,7 @@ func GetJobIdAksk(sig core.Signer, url string, frameInterval int, categories []s
 	}
 	reader := bytes.NewBuffer(bytesData)
 
-	uri := "https://" + core.MODERATION_ENDPOINT + core.MODERATION_VIDEO
+	uri := "https://" + endpoint + core.MODERATION_VIDEO
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")
@@ -93,8 +107,8 @@ func GetJobIdAksk(sig core.Signer, url string, frameInterval int, categories []s
 	return resultData["job_id"]
 }
 
-func GetResult(sig core.Signer, jobId string) string {
-	uri := "https://" + core.MODERATION_ENDPOINT + core.MODERATION_VIDEO + "?job_id=" + jobId
+func GetResult(endpoint string, sig core.Signer, jobId string) (string, int) {
+	uri := "https://" + endpoint + core.MODERATION_VIDEO + "?job_id=" + jobId
 	r, _ := http.NewRequest("GET", uri, nil)
 
 	r.Header.Add("content-type", "application/json")
@@ -110,11 +124,11 @@ func GetResult(sig core.Signer, jobId string) string {
 	if err != nil {
 		log.Println(err.Error())
 	}
-
+	statusCode := resp.StatusCode
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Println(err.Error())
 	}
-	return string(body)
+	return string(body), statusCode
 }

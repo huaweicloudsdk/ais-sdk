@@ -28,8 +28,9 @@ func ImageDefogAksk(ak string, sk string, image string, gamma float32, natural_l
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.IMAGE_ENDPOINT + core.IMAGE_DEFOG
+	
+	endpoint := GetEndpoint(core.IMAGE)
+	uri := "https://" + endpoint + core.IMAGE_DEFOG
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")
