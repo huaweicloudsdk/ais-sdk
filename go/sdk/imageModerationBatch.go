@@ -27,8 +27,9 @@ func ImageModerationBatchAksk(ak string, sk string, urls []string, categories []
 		return err.Error()
 	}
 	reader := bytes.NewBuffer(bytesData)
-
-	uri := "https://" + core.MODERATION_ENDPOINT + core.IMAGE_MODERATION_BATCH
+	
+	endpoint := GetEndpoint(core.MODERATION)
+	uri := "https://" + endpoint + core.IMAGE_MODERATION_BATCH
 	r, _ := http.NewRequest("POST", uri, reader)
 
 	r.Header.Add("content-type", "application/json")
