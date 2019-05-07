@@ -69,7 +69,7 @@ public class AccessServiceImpl extends AccessService {
 			HttpMethodName httpMethod) throws Exception {
 
 		// Make a request for signing.
-		Request request = new DefaultRequest(this.serviceName);
+		Request request = new DefaultRequest();
 		try {
 			// Set the request address.
 			request.setEndpoint(url.toURI());
@@ -204,7 +204,7 @@ public class AccessServiceImpl extends AccessService {
 	public HttpResponse accessEntity(URL url, Map<String, String> headers, HttpEntity entity, Long contentLength,
 			HttpMethodName httpMethod) throws Exception {
 		// Make a request for signing.
-		Request request = new DefaultRequest(this.serviceName);
+		Request request = new DefaultRequest();
 		try {
 			// Set the request address.
 			request.setEndpoint(url.toURI());
