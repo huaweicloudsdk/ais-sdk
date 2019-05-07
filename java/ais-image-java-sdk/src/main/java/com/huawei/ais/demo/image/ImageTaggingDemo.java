@@ -64,7 +64,7 @@ public class ImageTaggingDemo {
 			
 			// 5.处理服务返回的字符流，输出识别结果。
 			JSONObject jsonObject = JSON.parseObject(HttpClientUtils.convertStreamToString(response.getEntity().getContent()));
-			System.out.println(JSON.toJSONString(jsonObject, SerializerFeature.PrettyFormat));
+			System.out.println(JSON.toJSONString(JSON.parse(jsonObject.toString()), SerializerFeature.PrettyFormat));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -4,14 +4,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-
 import org.apache.http.HttpResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.sdk.util.Base64;
+import sun.misc.BASE64Decoder;
 import com.huawei.ais.sdk.util.HttpClientUtils;
-
 /**
  * 访问服务返回结果信息验证的工具类
  */
@@ -48,7 +46,7 @@ public class ResponseProcessUtils {
 		String result = HttpClientUtils.convertStreamToString(response.getEntity().getContent());
 		JSONObject resp = JSON.parseObject(result);
 		String imageString = (String)resp.get("result");
-		byte[] fileBytes = Base64.decode(imageString);
+		byte[] fileBytes =  new BASE64Decoder().decodeBuffer(imageString);
 		writeBytesToFile(fileName, fileBytes);
 	}
 	
