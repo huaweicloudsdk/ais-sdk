@@ -1,7 +1,27 @@
-import urllib2
+import sys
 import json
-import ais
-import utils
+import ais_sdk.ais as ais
+import ais_sdk.utils as utils
+
+if sys.version_info.major < 3:
+    import urllib2
+
+    def get_response(_url, auth_data):
+        req = urllib2.Request(url=_url)
+        req.add_header('Content-Type', 'application/json')
+        req.add_data(json.dumps(auth_data))
+        return urllib2.urlopen(req)
+else:
+    import urllib
+
+    def get_response(_url, auth_data):
+        _headers = {
+            'Content-Type': 'application/json'
+        }
+
+        data = json.dumps(auth_data).encode('utf8')
+        req = urllib.request.Request(_url, data, _headers)
+        return urllib.request.urlopen(req)
 
 
 def get_token(username, password, domain):
@@ -34,9 +54,9 @@ def get_token(username, password, domain):
 
     _url = 'https://%s/v3/auth/tokens' % ais.AisEndpoint.IAM_ENPOINT
 
-    req = urllib2.Request(url=_url)
-    req.add_header('Content-Type', 'application/json')
-    req.add_data(json.dumps(auth_data))
-    r = urllib2.urlopen(req)
-    X_TOKEN = r.headers['X-Subject-Token']
+    resp =get_response(_url, auth_data)
+    X_TOKEN = resp.headers['X-Subject-Token']
     return X_TOKEN
+
+
+
