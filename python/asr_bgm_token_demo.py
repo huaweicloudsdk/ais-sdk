@@ -20,4 +20,4 @@ if __name__ == '__main__':
 
     # call interface use the url
     result = asr_bgm(token, demo_data_url)
-    print result
+    print(result)
