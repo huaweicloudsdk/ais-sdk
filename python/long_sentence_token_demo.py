@@ -20,8 +20,8 @@ if __name__ == '__main__':
 
     # call interface use the url
     result = long_sentence(token, '', demo_data_url)
-    print result
+    print(result)
 
     # call interface use the file
     result = long_sentence(token, encode_to_base64('data/asr-sentence.wav'))
-    print result
+    print(result)

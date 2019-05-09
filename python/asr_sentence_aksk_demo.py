@@ -17,8 +17,8 @@ if __name__ == '__main__':
 
     # call interface use the url
     result = asr_sentence_aksk(app_key, app_secret,'', demo_data_url,'wav', '16k')
-    print result
+    print(result)
 
     # call interface use the file
     result = asr_sentence_aksk(app_key, app_secret, encode_to_base64('data/asr-sentence.wav'), '', 'wav', '16k')
-    print result
+    print(result)

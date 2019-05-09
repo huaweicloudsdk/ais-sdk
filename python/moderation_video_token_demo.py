@@ -19,4 +19,4 @@ if __name__ == '__main__':
 
     # call interface use the url
     result = moderation_video(token, demo_data_url, 8)
-    print result
+    print(result)

@@ -21,8 +21,8 @@ if __name__ == '__main__':
 
     # call interface use the url
     result = celebrity_recognition(token, "", demo_data_url, 0.48)
-    print result
+    print(result)
 
     # call interface use the file
     result = celebrity_recognition(token, encode_to_base64('data/celebrity-recognition.jpg'), '', 0.48)
-    print result
+    print(result)

@@ -17,8 +17,8 @@ if __name__ == '__main__':
 
     # call interface use the url
     result = clarity_detect_aksk(app_key, app_secret, "", demo_data_url, 0.8)
-    print result
+    print(result)
 
     # call interface use the file
     result = clarity_detect_aksk(app_key, app_secret, encode_to_base64('data/moderation-clarity-detect.jpg'), '', 0.8)
-    print result
+    print(result)

@@ -19,7 +19,7 @@ if __name__ == '__main__':
     token = get_token(user_name, password, account_name)
 
     # call interface use the url download
-    image_antiporn(token, download_url_base64('http://moderation-demo.ei.huaweicloud.com/theme/images/imagga/image_tagging_04.jpg'))
+    image_antiporn(token, download_url_base64('https://ais-sample-data.obs.cn-north-1.myhuaweicloud.com/antiporn.jpg'))
 
     # call interface use the url
     image_antiporn(token, '', demo_data_url )

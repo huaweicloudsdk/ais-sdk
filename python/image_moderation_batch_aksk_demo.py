@@ -17,4 +17,4 @@ if __name__ == '__main__':
 
     # call interface use the url
     result = image_content_batch_aksk(app_key, app_secret, [demo_data_url1, demo_data_url2], ['politics', 'terrorism'],0)
-    print result
+    print(result)

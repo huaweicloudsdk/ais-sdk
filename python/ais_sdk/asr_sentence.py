@@ -1,18 +1,20 @@
 # -*- coding:utf-8 -*-
 
-import urllib2
+import sys
 import json
-import ssl
-from urllib2 import HTTPError, URLError
-import signer
-import ais
-
+import ais_sdk.ais as ais
+import ais_sdk.utils as utils
+import ais_sdk.signer as signer
 
 #
 # access asr, asr_sentence,post data by token
 #
 def asr_sentence(token, data, url, encode_type='wav', sample_rate='8k'):
     _url = 'https://%s/v1.0/voice/asr/sentence' % ais.AisEndpoint.ASR_ENDPOINT
+
+    if sys.version_info.major >= 3:
+        if data != '':
+            data = data.decode("utf-8")
 
     _data = {
         "url": url,
@@ -21,38 +23,11 @@ def asr_sentence(token, data, url, encode_type='wav', sample_rate='8k'):
         "sample_rate": sample_rate
     }
 
-    kreq = urllib2.Request(url=_url)
-    kreq.add_header('Content-Type', 'application/json')
-    kreq.add_header('X-Auth-Token', token)
-    kreq.add_data(json.dumps(_data))
-
-    resp = None
-    status_code = None
-    try:
-        # 
-        # Here we use the unvertified-ssl-context, Because in FunctionStage
-        # the client CA-validation have some problem, so we must do this.
-        #
-        _context = ssl._create_unverified_context()
-        r = urllib2.urlopen(kreq, context=_context)
-
-    #
-    # We use HTTPError and URLError，because urllib2 can't process the 4XX & 
-    # 500 error in the single urlopen function.
-    #
-    # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests, 
-    # there is no this problem. 
-    #
-    except HTTPError, e:
-        resp = e.read()
-        status_code = e.code
-    except URLError, e:
-        resp = e.read()
-        status_code = e.code
+    status_code, resp = utils.request_token(_url, _data, token)
+    if sys.version_info.major < 3:
+        return resp.decode('unicode-escape').encode('utf-8')
     else:
-        status_code = r.code
-        resp = r.read()
-    return resp.decode('unicode-escape').encode('utf-8')
+        return resp.decode('unicode_escape')
 
 
 #
@@ -64,6 +39,10 @@ def asr_sentence_aksk(_ak, _sk, data, url, encode_type='wav', sample_rate='8k'):
     sig = signer.Signer()
     sig.AppKey = _ak
     sig.AppSecret = _sk
+
+    if sys.version_info.major >= 3:
+        if data != '':
+            data = data.decode("utf-8")
 
     _data = {
         "url": url,
@@ -80,31 +59,8 @@ def asr_sentence_aksk(_ak, _sk, data, url, encode_type='wav', sample_rate='8k'):
     kreq.headers = {"Content-Type": "application/json"}
     kreq.body = json.dumps(_data)
 
-    resp = None
-    status_code = None
-    try:
-        sig.Sign(kreq)
-        #
-        # Here we use the unvertified-ssl-context, Because in FunctionStage
-        # the client CA-validation have some problem, so we must do this.
-        #
-        _context = ssl._create_unverified_context()
-        req = urllib2.Request(url=_url, data=kreq.body, headers=kreq.headers)
-        r = urllib2.urlopen(req, context=_context)
-    #
-    # We use HTTPError and URLError，because urllib2 can't process the 4XX &
-    # 500 error in the single urlopen function.
-    #
-    # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests,
-    # there is no this problem.
-    #
-    except HTTPError, e:
-        resp = e.read()
-        status_code = e.code
-    except URLError, e:
-        resp = e.read()
-        status_code = e.code
+    status_code, resp = utils.request_aksk(sig, kreq, _url)
+    if sys.version_info.major < 3:
+        return resp.decode('unicode-escape').encode('utf-8')
     else:
-        status_code = r.code
-        resp = r.read()
-    return resp.decode('unicode-escape').encode('utf-8')
+        return resp.decode('unicode_escape')

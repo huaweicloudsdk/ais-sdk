@@ -21,4 +21,4 @@ if __name__ == '__main__':
 
     # call interface use the url (token, urls, categories )
     result = image_batch_jobs(token, [demo_data_url1,demo_data_url2], ['politics','terrorism'])
-    print result
+    print(result)
