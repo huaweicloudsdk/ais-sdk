@@ -10,7 +10,7 @@ import org.apache.http.HttpStatus;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.sdk.util.Base64;
+import sun.misc.BASE64Decoder;
 import com.huawei.ais.sdk.util.HttpClientUtils;
 
 /**
@@ -65,7 +65,7 @@ public class ResponseProcessUtils {
 		JSONObject responseRlt = (JSONObject) resp.get("result");
 		String imageString = (String)responseRlt.get("data");
 		
-		byte[] fileBytes = Base64.decode(imageString);
+		byte[] fileBytes = new BASE64Decoder().decodeBuffer(imageString);
 		writeBytesToFile(fileName, fileBytes);
 	}
 	
