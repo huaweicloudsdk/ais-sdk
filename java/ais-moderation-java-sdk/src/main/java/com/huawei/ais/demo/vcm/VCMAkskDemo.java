@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.huawei.ais.demo.ServiceAccessBuilder;
 import org.apache.http.HttpResponse;
 
-import com.huawei.ais.demo.ClientContextUtils;
 import com.huawei.ais.demo.HttpJsonDataUtils;
 import com.huawei.ais.demo.obs.ObsFileHandle;
 import com.huawei.ais.demo.obs.SimpleObsClient;
@@ -35,18 +35,18 @@ public class VCMAkskDemo {
 	private static int socketTimeout = 5000;//获取服务器响应数据超时限制参数
 
 	public static void main(String[] args) {
-		//
-		// 1. 在ClientContextUtils类中, 配置好访问视频审核服务的基本信息,
-		// 然后，在此处生成对应的一个客户端连接对象
-		//
-		AisAccess aisAkskClient = new AisAccess(ClientContextUtils.getAuthInfo(), connectionTimeout, connectionRequestTimeout, socketTimeout);
-		SimpleObsClient simpleObsClient = new SimpleObsClient();
-		//
-		// 1.a 此处支持使用代理方式访问视频审核服务，用于不能直接访问华为云官网服务的情况, 例如，内网网络。
-		// 如果使用此处方式，需要同时在ClientContextUtils中，配置相应的代理服务器的参数类(ProxyHostInfo)
-		//
-		//AisAccess aisAkskClient = new AisAccessWithProxy(ClientContextUtils.getAuthInfo(), ClientContextUtils.getProxyHost(), connectionTimeout, connectionRequestTimeout, socketTimeout);
-		//SimpleObsClient simpleObsClient = new SimpleObsClient(ClientContextUtils.getProxyHost());
+
+		// 1. 配置好访问短视频审核服务的基本信息,生成对应的一个客户端连接对象
+		AisAccess aisAkskClient = ServiceAccessBuilder.builder()
+				.ak("######")						// your ak
+				.sk("######")						// your sk
+				.region("cn-north-1")				// 内容审核服务目前支持华北-北京一(cn-north-1)以及亚太-香港(ap-southeast-1)
+				.connectionTimeout(5000)			// 连接目标url超时限制
+				.connectionRequestTimeout(1000)		// 连接池获取可用连接超时限制
+				.socketTimeout(20000)				// 获取服务器响应数据超时限制
+				.build();
+		SimpleObsClient simpleObsClient = new SimpleObsClient(aisAkskClient);
+
 		try {
 
 			//

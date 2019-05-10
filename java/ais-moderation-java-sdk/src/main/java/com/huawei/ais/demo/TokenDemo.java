@@ -22,7 +22,7 @@ import java.net.URISyntaxException;
  */
 public class TokenDemo {
 	private static final String projectName = "cn-north-1"; // 此处，请输入服务的区域信息，目前支持华北-北京一(cn-north-1)以及亚太-香港(ap-southeast-1)
-	private static final String URL_TEMPLATE = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/batch?job_id=%s";
+	private static final String URL_TEMPLATE = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/batch?job_id=%s";
 	private static final long POLLING_INTERVAL = 2000L;
 	private static final Integer RETRY_MAX_TIMES = 3; // 查询任务失败的最大重试次数
 	public static int connectionTimeout = 5000; //连接目标url超时限制参数
@@ -130,7 +130,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationAntiPornBase64(String token, String formFile) throws IOException {
-		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.1/moderation/image/anti-porn";
+		String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.1/moderation/image/anti-porn";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
@@ -153,7 +153,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationClarityBase64(String token, String formFile) throws IOException {
-		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/clarity-detect";
+		String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/clarity-detect";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
@@ -181,7 +181,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationDistortionCorrectBase64(String token, String formFile) throws IOException {
-		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/distortion-correct";
+		String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/distortion-correct";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
@@ -217,7 +217,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationTextContentBase64(String token, String textModeration) throws IOException {
-		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/moderation/text";
+		String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/moderation/text";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			JSONObject json = new JSONObject();
@@ -251,14 +251,14 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestModerationImageContentBase64(String token, String formFile) throws IOException {
-		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/moderation/image";
+		String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/moderation/image";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			byte[] fileData = FileUtils.readFileToByteArray(new File(formFile));
 			String fileBase64Str = Base64.encodeBase64String(fileData);
 			JSONObject json = new JSONObject();
 			json.put("image", fileBase64Str);
-			json.put("categories", new String[] {"politics"}); //检测内容
+			json.put("categories", new String[] {"politics", "ad"}); //检测内容
 			json.put("threshold", 0);
 			StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 			
@@ -283,12 +283,12 @@ public class TokenDemo {
      * @throws IOException
      */
     public static void requestModerationImageContentBatch(String token, String[] urls) throws IOException {
-        String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/batch";
+        String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/batch";
         Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
         try {
             JSONObject json = new JSONObject();
             json.put("urls", urls);
-            json.put("categories", new String[] {"politics"}); //检测内容
+            json.put("categories", new String[] {"politics", "terrorism","porn","ad"}); //检测内容
             json.put("threshold", 0);
             StringEntity stringEntity = new StringEntity(json.toJSONString(), "utf-8");
 
@@ -313,7 +313,7 @@ public class TokenDemo {
      * @throws IOException
      */
 	public static void requestModerationImageContentBatchJobs(String token, String[] urls){
-		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/batch/jobs";
+		String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/moderation/image/batch/jobs";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", ContentType.APPLICATION_JSON.toString())};
 		try {
 			JSONObject json = new JSONObject();

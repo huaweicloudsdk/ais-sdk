@@ -1,8 +1,8 @@
 package com.huawei.ais.demo.moderation;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huawei.ais.demo.ClientContextUtils;
 import com.huawei.ais.demo.ResponseProcessUtils;
+import com.huawei.ais.demo.ServiceAccessBuilder;
 import com.huawei.ais.sdk.AisAccess;
 import com.huawei.ais.sdk.AisAccessWithProxy;
 import org.apache.commons.codec.binary.Base64;
@@ -21,21 +21,16 @@ public class ModerationDistortionCorrectDemo {
 	// 扭曲矫正服务的使用示例函数
 	//
 	private static void moderationDistortionCorrectDemo() throws IOException {
-		//
-		// 1. 在ClientContextUtils类中, 配置好访问扭曲矫正服务的基本信息,
-		// 然后，在此处生成对应的一个客户端连接对象
-		// 设置三个超时参数限制连接超时，分别如下
-		int connectionTimeout = 5000; //连接目标url超时限制
-		int connectionRequestTimeout = 1000;//连接池获取可用连接超时限制
-		int socketTimeout = 5000;//获取服务器响应数据超时限制
-			
-		AisAccess service = new AisAccess(ClientContextUtils.getAuthInfo(), connectionTimeout,connectionRequestTimeout,socketTimeout);
 
-		//
-		// 1.a 此处支持使用代理方式访问扭曲矫正服务，用于不能直接访问华为云官网服务的情况, 例如，内网网络。
-		// 如果使用此处方式，需要同时在ClientContextUtils中，配置相应的代理服务器的参数类(ProxyHostInfo)
-		//
-		//AisAccess service = new AisAccessWithProxy(ClientContextUtils.getAuthInfo(), ClientContextUtils.getProxyHost(), connectionTimeout,connectionRequestTimeout, socketTimeout);
+		// 1. 配置好访问图像扭曲矫正服务的基本信息,生成对应的一个客户端连接对象
+		AisAccess service = ServiceAccessBuilder.builder()
+				.ak("######")						// your ak
+				.sk("######")						// your sk
+				.region("cn-north-1")				// 内容审核服务目前支持华北-北京一(cn-north-1)以及亚太-香港(ap-southeast-1)
+				.connectionTimeout(5000)			// 连接目标url超时限制
+				.connectionRequestTimeout(1000)		// 连接池获取可用连接超时限制
+				.socketTimeout(20000)				// 获取服务器响应数据超时限制
+				.build();
 
 		try {
 			//
