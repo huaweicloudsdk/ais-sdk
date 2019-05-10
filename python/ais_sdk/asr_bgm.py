@@ -17,7 +17,7 @@ def asr_bgm(token, url):
         "url": url,
     }
 
-    resp = utils.request_token(_url, _data, token)
+    status_code, resp = utils.request_token(_url, _data, token)
     if sys.version_info.major < 3:
         return resp.decode('unicode-escape').encode('utf-8')
     else:
@@ -46,7 +46,7 @@ def asr_bgm_aksk(_ak, _sk, url):
     kreq.headers = {"Content-Type": "application/json"}
     kreq.body = json.dumps(_data)
 
-    resp = utils.request_aksk(sig, kreq, _url)
+    status_code, resp = utils.request_aksk(sig, kreq, _url)
     if sys.version_info.major < 3:
         return resp.decode('unicode-escape').encode('utf-8')
     else:

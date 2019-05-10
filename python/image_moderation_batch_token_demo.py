@@ -20,4 +20,4 @@ if __name__ == '__main__':
 
     # call interface use the url (token, urls, categories )
     result = image_content_batch(token, [demo_data_url1, demo_data_url2], ['politics', 'terrorism'], 0)
-    print result
+    print(result)

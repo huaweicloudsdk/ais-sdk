@@ -18,8 +18,8 @@ if __name__ == '__main__':
 
     # call interface use the url
     result = celebrity_recognition_aksk(app_key, app_secret, "", demo_data_url, 0.48)
-    print result
+    print(result)
 
     # call interface use the file
     result = celebrity_recognition_aksk(app_key, app_secret, encode_to_base64('data/celebrity-recognition.jpg'), '', 0.48)
-    print result
+    print(result)

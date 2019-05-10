@@ -26,7 +26,7 @@ if __name__ == '__main__':
     if result_obj['result']['data'] !='':
         decode_to_wave_file(result_obj['result']['data'], 'data/modeation-distortion-token-1.png')
     else:
-        print result
+        print(result)
 
     # call interface use the file
     result = distortion_correct(token, encode_to_base64('data/modeation-distortion.jpg'), '', True)
@@ -34,4 +34,4 @@ if __name__ == '__main__':
     if result_obj['result']['data'] != '':
         decode_to_wave_file(result_obj['result']['data'], 'data/modeation-distortion-token-2.png')
     else:
-        print result
+        print(result)

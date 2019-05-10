@@ -20,8 +20,8 @@ if __name__ == '__main__':
 
     # call interface use the local file
     result = moderation_image(token, encode_to_base64('data/moderation-terrorism.jpg'), "", ['politics','terrorism'], "")
-    print result
+    print(result)
 
     # call interface use the url (token, image, url, threshold=0.95, scene=None)
     result = moderation_image(token, "", demo_data_url, ['politics','terrorism'], "")
-    print result
+    print(result)

@@ -43,7 +43,40 @@ if sys.version_info.major < 3:
         else:
             status_code = r.code
             resp = r.read()
-        return resp
+        return status_code, resp
+
+    def request_job_result_token(_url, token):
+        kreq = urllib2.Request(url=_url)
+        kreq.add_header('X-Auth-Token', token)
+        kreq.add_header('Content-Type', 'application/json')
+
+        resp = None
+        status_code = None
+        try:
+            #
+            # Here we use the unvertified-ssl-context, Because in FunctionStage
+            # the client CA-validation have some problem, so we must do this.
+            #
+            _context = ssl._create_unverified_context()
+            r = urllib2.urlopen(kreq, context=_context)
+
+            #
+            # We use HTTPError and URLError，because urllib2 can't process the 4XX &
+            # 500 error in the single urlopen function.
+            #
+            # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests,
+            # there is no this problem.
+            #
+        except urllib2.HTTPError as e:
+            resp = e.read()
+            status_code = e.code
+        except urllib2.URLError as e:
+            resp = e.read()
+            status_code = e.code
+        else:
+            status_code = r.code
+            resp = r.read()
+        return status_code, resp
 
     def request_aksk(sig, kreq, _url):
         resp = None
@@ -72,7 +105,38 @@ if sys.version_info.major < 3:
         else:
             status_code = r.code
             resp = r.read()
-        return resp
+        return status_code, resp
+
+
+    def request_job_result_aksk(sig, kreq, _url):
+        resp = None
+        status_code = None
+        try:
+            sig.Sign(kreq)
+            #
+            # Here we use the unvertified-ssl-context, Because in FunctionStage
+            # the client CA-validation have some problem, so we must do this.
+            #
+            _context = ssl._create_unverified_context()
+            req = urllib2.Request(url=_url, headers=kreq.headers)
+            r = urllib2.urlopen(req, context=_context)
+
+        #
+        # We use HTTPError and URLError，because urllib2 can't process the 4XX &
+        # 500 error in the single urlopen function.
+        #
+        # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests,
+        # there is no this problem.
+        #
+        except urllib2.HTTPError as e:
+            resp = e.read()
+            status_code = e.code
+        except urllib2.URLError as e:
+            resp = e.read()
+        else:
+            status_code = r.code
+            resp = r.read()
+        return status_code, resp
 
     def download_url_base64(url):
         return base64.b64encode(urllib.urlopen(url).read())
@@ -115,7 +179,41 @@ else:
         else:
             status_code = r.code
             resp = r.read()
-        return resp
+        return status_code, resp
+
+    def request_job_result_token(_url, token):
+        _headers = {
+            "Content-Type": "application/json",
+            "X-Auth-Token": token
+        }
+        kreq = urllib.request.Request(_url, headers=_headers)
+
+        resp = None
+        status_code = None
+        try:
+            #
+            # Here we use the unvertified-ssl-context, Because in FunctionStage
+            # the client CA-validation have some problem, so we must do this.
+            #
+            _context = ssl._create_unverified_context()
+            r = urllib.request.urlopen(kreq, context=_context)
+        #
+        # We use HTTPError and URLError，because urllib can't process the 4XX &
+        # 500 error in the single urlopen function.
+        #
+        # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests,
+        # there is no this problem.
+        #
+        except HTTPError as e:
+            resp = e.read()
+            status_code = e.code
+        except URLError as e:
+            resp = e.read()
+            status_code = e.code
+        else:
+            status_code = r.code
+            resp = r.read()
+        return status_code, resp.decode('utf-8')
 
     def request_aksk(sig, kreq, _url):
         resp = None
@@ -145,7 +243,38 @@ else:
         else:
             status_code = r.code
             resp = r.read()
-        return resp
+        return status_code, resp
+
+
+    def request_job_result_aksk(sig, kreq, _url):
+        resp = None
+        status_code = None
+        try:
+            sig.Sign(kreq)
+            #
+            # Here we use the unvertified-ssl-context, Because in FunctionStage
+            # the client CA-validation have some problem, so we must do this.
+            #
+            _context = ssl._create_unverified_context()
+            req = urllib.request.Request(url=_url, headers=kreq.headers)
+            r = urllib.request.urlopen(req, context=_context)
+        #
+        # We use HTTPError and URLError，because urllib can't process the 4XX &
+        # 500 error in the single urlopen function.
+        #
+        # If you use a modern, high-level designed HTTP client lib, Yeah, I mean requests,
+        # there is no this problem.
+        #
+        except HTTPError as e:
+            resp = e.read()
+            status_code = e.code
+        except URLError as e:
+            resp = e.read()
+            status_code = e.code
+        else:
+            status_code = r.code
+            resp = r.read()
+        return status_code, resp.decode('utf-8')
 
     def download_url_base64(url):
         return base64.b64encode(urllib.request.urlopen(url).read())

@@ -16,8 +16,8 @@ if __name__ == '__main__':
     demo_data_url = 'https://obs-ch-sdk-sample.obs.cn-north-1.myhwclouds.com/lsr-1.mp3'
     # call interface use the file
     result = long_sentence_aksk(app_key, app_secret, '', demo_data_url)
-    print result
+    print(result)
 
     # call interface use the file
     result = long_sentence_aksk(app_key, app_secret, encode_to_base64('data/asr-sentence.wav'))
-    print result
+    print(result)
