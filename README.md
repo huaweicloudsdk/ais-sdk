@@ -26,11 +26,11 @@
 
 ## 目录结构说明
 + java 提供使用java访问服务的SDK以及示例代码
-+ python 提供使用python2访问服务的SDK以及示例代码
-+ python3 提供使用python3访问服务的SDK以及示例代码
++ python 提供使用python访问服务的SDK以及示例代码
 + javascript 提供使用javascript访问服务的SDK以及示例代码
 + curl 提供使用curl工具访问服务示例的代码说明
 + php 提供使用php访问服务的SDK以及示例代码
++ archive 提供归档的历史版本sdk以及相关代码
 
 
 
