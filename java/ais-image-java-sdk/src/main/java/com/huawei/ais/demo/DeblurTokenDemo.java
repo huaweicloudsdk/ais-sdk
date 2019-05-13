@@ -105,7 +105,7 @@ public class DeblurTokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestDarkEnhanceBase64(String token, String formFile) throws IOException {
-		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/vision/dark-enhance";
+		String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/vision/dark-enhance";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");

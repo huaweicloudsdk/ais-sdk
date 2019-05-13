@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -107,7 +109,7 @@ public class TokenDemo {
 	 * @throws IOException
 	 */
 	public static void requestImageTaggingBase64(String token, String formFile) throws IOException {
-		String url = ClientContextUtils.getCurrentEndpoint(projectName)+"/v1.0/image/tagging";
+		String url = ServiceAccessBuilder.getCurrentEndpoint(projectName)+"/v1.0/image/tagging";
 		Header[] headers = new Header[] {new BasicHeader("X-Auth-Token", token) ,new BasicHeader("Content-Type", "application/json")};
 		String requestBody=toBase64Str(formFile);
 		StringEntity stringEntity = new StringEntity(requestBody, "utf-8");
@@ -115,7 +117,7 @@ public class TokenDemo {
 			HttpResponse response = HttpClientUtils.post(url, headers, stringEntity, connectionTimeout, connectionRequestTimeout, socketTimeout);
 			System.out.println(response);
 			String content = IOUtils.toString(response.getEntity().getContent());
-			System.out.println(content);
+			System.out.println(JSON.toJSONString(JSON.parse(content.toString()), SerializerFeature.PrettyFormat));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
