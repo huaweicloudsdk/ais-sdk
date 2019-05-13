@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import com.huawei.ais.common.ProxyHostInfo;
-import com.huawei.ais.demo.ClientContextUtils;
+
+import com.huawei.ais.sdk.AisAccess;
 import com.obs.services.ObsClient;
 import com.obs.services.ObsConfiguration;
 import com.obs.services.model.HttpMethodEnum;
@@ -18,8 +19,7 @@ import com.obs.services.model.TemporarySignatureResponse;
  */
 public class SimpleObsClient {
 
-    private static final String AK_DEFAULT = ClientContextUtils.getAuthInfo().getAk();
-    private static final String SK_DEFAULT = ClientContextUtils.getAuthInfo().getSk();
+    private String region;
 
     private static final long BIG_FILE_THRESHOLD = 100 * 1024 * 1024; //Byte
 
@@ -28,21 +28,26 @@ public class SimpleObsClient {
 
     private ObsClient obsClient;
 
-    /**
-     * 使用ClientContextUtils中配置的AK/SK创建简易OBS客户端，请确保对应的用户已开通OBS服务
-     */
-    public SimpleObsClient() {
-        this(AK_DEFAULT, SK_DEFAULT);
+    public String getRegion() {
+        return region;
     }
 
     /**
-     * 使用ClientContextUtils中配置的AK/SK创建简易OBS客户端，请确保对应的用户已开通OBS服务<br/>
+     * 使用AisAccess中配置的AK/SK创建简易OBS客户端，请确保对应的用户已开通OBS服务
+     */
+    public SimpleObsClient(AisAccess aisAccess) {
+        this(aisAccess.getAk(), aisAccess.getSk(), aisAccess.getRegion());
+        this.region = aisAccess.getRegion();
+    }
+
+    /**
+     * 使用isAccess中配置的AK/SK创建简易OBS客户端，请确保对应的用户已开通OBS服务<br/>
      * 并给客户端配置代理
      *
      * @param proxyHostInfo
      */
-    public SimpleObsClient(ProxyHostInfo proxyHostInfo) {
-        this(AK_DEFAULT, SK_DEFAULT, proxyHostInfo);
+    public SimpleObsClient(AisAccess aisAccess, ProxyHostInfo proxyHostInfo) {
+        this(aisAccess.getAk(), aisAccess.getSk(), aisAccess.getRegion());
     }
 
     /**
@@ -51,8 +56,8 @@ public class SimpleObsClient {
      * @param ak
      * @param sk
      */
-    public SimpleObsClient(String ak, String sk) {
-        this(ak, sk, null);
+    public SimpleObsClient(String ak, String sk, String regionName) {
+        this(ak, sk, regionName, null);
     }
 
     /**
@@ -63,8 +68,8 @@ public class SimpleObsClient {
      * @param sk
      * @param proxyHostInfo
      */
-    public SimpleObsClient(String ak, String sk, ProxyHostInfo proxyHostInfo) {
-        this(ak, sk, CONN_TIMEOUT_DEFAULT, SOCKET_TIMEOUT_DEFAULT, proxyHostInfo);
+    public SimpleObsClient(String ak, String sk, String regionName, ProxyHostInfo proxyHostInfo) {
+        this(ak, sk, regionName, CONN_TIMEOUT_DEFAULT, SOCKET_TIMEOUT_DEFAULT, proxyHostInfo);
     }
 
     /**
@@ -76,8 +81,8 @@ public class SimpleObsClient {
      * @param connTimeout   连接超时时间，ms
      * @param socketTimeout 等待响应超时时间，ms
      */
-    public SimpleObsClient(String ak, String sk, int connTimeout, int socketTimeout) {
-        this(ak, sk, connTimeout, socketTimeout, null);
+    public SimpleObsClient(String ak, String sk, String regionName, int connTimeout, int socketTimeout) {
+        this(ak, sk, regionName, connTimeout, socketTimeout, null);
     }
 
     /**
@@ -91,8 +96,8 @@ public class SimpleObsClient {
      * @param socketTimeout 等待响应超时时间，ms
      * @param proxyHostInfo
      */
-    public SimpleObsClient(String ak, String sk, int connTimeout, int socketTimeout, ProxyHostInfo proxyHostInfo) {
-        String endPoint = "obs." + ClientContextUtils.getAuthInfo().getRegion() + ".myhwclouds.com";
+    public SimpleObsClient(String ak, String sk, String regionName, int connTimeout, int socketTimeout, ProxyHostInfo proxyHostInfo) {
+        String endPoint = "obs." + regionName + ".myhwclouds.com";
 
         ObsConfiguration config = new ObsConfiguration();
         config.setSocketTimeout(connTimeout);
@@ -112,7 +117,7 @@ public class SimpleObsClient {
      * @param bucketName 桶名称
      */
     public void createBucket(String bucketName) {
-        ObsBucket obsBucket = obsClient.createBucket(bucketName, ClientContextUtils.getAuthInfo().getRegion());
+        ObsBucket obsBucket = obsClient.createBucket(bucketName, region);
         System.out.println(
                 "Create bucket success. BucketName: " + obsBucket.getBucketName()
                         + "; CreationDate: " + obsBucket.getCreationDate()
